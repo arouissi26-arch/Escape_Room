@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📚 Planificador de Exámenes con IA</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="header">
+        <h1>📚 Planificador de Exámenes con IA</h1>
+        <p>Generador inteligente de tarjetas de estudio con Python</p>
+        <div class="ai-badge-container">
+            <span class="ai-badge">🤖 IA Propia</span>
+            <span class="ai-badge">🐍 Python</span>
+            <span class="ai-badge">✨ 100% Gratis</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Columna Izquierda -->
+        <div class="left-column">
+            <!-- Subir Contenido -->
+            <div class="card">
+                <h2>📝 Tu Contenido</h2>
+
+                <div class="file-upload" id="fileUpload">
+                    <input type="file" id="fileInput" accept=".txt">
+                    <div class="upload-icon">📎</div>
+                    <p>Arrastra un archivo TXT aquí</p>
+                    <p class="small">o haz clic para seleccionar</p>
+                </div>
+
+                <textarea id="contentInput" placeholder="Pega aquí tus apuntes, notas de clase, resúmenes...
+
+Ejemplo:
+La fotosíntesis es el proceso por el cual las plantas convierten la luz solar en energía química. Este proceso ocurre en los cloroplastos y es fundamental para la vida.
+
+Las mitocondrias son las centrales energéticas de la célula porque producen ATP mediante la respiración celular.
+
+El ADN contiene la información genética de todos los seres vivos. Está formado por nucleótidos que se organizan en una doble hélice.
+
+La teoría de la evolución fue propuesta por Charles Darwin. Explica cómo las especies cambian con el tiempo mediante selección natural."></textarea>
+
+                <button class="btn btn-primary" id="generateBtn">
+                    ✨ Generar Tarjetas con IA
+                </button>
+
+                <div class="loading" id="loading">
+                    <div class="spinner"></div>
+                    <p>La IA está procesando tu contenido...</p>
+                </div>
+
+                <div class="alert alert-info">
+                    <strong>🧠 Motor de IA:</strong> Utiliza algoritmos de procesamiento de lenguaje natural (NLP) en Python para analizar tu texto y generar preguntas inteligentes.
+                </div>
+            </div>
+
+            <!-- Gestión de Exámenes -->
+            <div class="card">
+                <h2>📅 Mis Exámenes</h2>
+                <div id="examsList">
+                    <p class="empty-state">No hay exámenes programados</p>
+                </div>
+                <button class="btn btn-secondary" id="addExamBtn">+ Añadir Examen</button>
+            </div>
+        </div>
+
+        <!-- Columna Derecha -->
+        <div class="right-column">
+            <!-- Estadísticas -->
+            <div class="card stats-card">
+                <h2>📊 Estadísticas</h2>
+                <div class="stats-grid">
+                    <div class="stat">
+                        <div class="stat-number" id="totalCards">0</div>
+                        <div class="stat-label">Tarjetas</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number" id="totalExams">0</div>
+                        <div class="stat-label">Exámenes</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number" id="daysToExam">-</div>
+                        <div class="stat-label">Días al próximo</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjetas de Estudio -->
+            <div class="card flashcards-card">
+                <div class="card-header">
+                    <h2>🎴 Tarjetas de Estudio</h2>
+                    <button class="btn btn-small btn-danger" id="clearBtn" style="display: none;">
+                        🗑️ Limpiar
+                    </button>
+                </div>
+                <p class="hint">Haz clic en una tarjeta para ver la respuesta</p>
+
+                <div class="flashcards-container" id="flashcardsContainer">
+                    <div class="empty-state">
+                        <div class="empty-icon">🎴</div>
+                        <p>No hay tarjetas generadas aún</p>
+                        <p class="small">Sube contenido y genera tarjetas con IA</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notificación -->
+    <div class="notification" id="notification"></div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
