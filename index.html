@@ -13,7 +13,7 @@
             --primary-bg: #0a0a0f;
             --secondary-bg: #1a1a2e;
             --accent-primary: #6366f1;
-            --accent-secondary: #8b5cf6;
+            --accent-secondary: #14b8a6;
             --accent-tertiary: #06b6d4;
             --success: #10b981;
             --warning: #f59e0b;
@@ -23,9 +23,9 @@
             --text-muted: #94a3b8;
             --border-color: rgba(148, 163, 184, 0.2);
             --glow-primary: 0 0 20px rgba(99, 102, 241, 0.3);
-            --glow-secondary: 0 0 20px rgba(139, 92, 246, 0.3);
-            --gradient-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-            --gradient-secondary: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 100%);
+            --glow-secondary: 0 0 20px rgba(20, 184, 166, 0.3);
+            --gradient-primary: linear-gradient(135deg, #6366f1 0%, #14b8a6 100%);
+            --gradient-secondary: linear-gradient(135deg, #06b6d4 0%, #14b8a6 100%);
         }
 
         * {
@@ -433,7 +433,7 @@
             bottom: 0;
             background:
                 radial-gradient(circle at 20% 30%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+                radial-gradient(circle at 80% 70%, rgba(20, 184, 166, 0.1) 0%, transparent 50%);
             pointer-events: none;
         }
 
@@ -1265,17 +1265,17 @@
             <h1>🧠 Escape Room Intel·ligència Artificial</h1>
 
             <h2>📖 Història</h2>
-            <p>Tres amics —Youssef, Carlos i José— visiten un laboratori d'IA per un treball escolar. Sense voler, activen un protocol de seguretat que tanca totes les portes. Per escapar, hauran de resoldre 6 desafiaments sobre Intel·ligència Artificial.</p>
+            <p>Tres amics —Youssef, Carlos i José— visiten un laboratori d'IA per un treball escolar. Sense voler, activen un protocol de seguretat que tanca totes les portes. Per escapar, hauran de resoldre 8 desafiaments sobre Intel·ligència Artificial.</p>
 
             <h2>🎯 Objectiu</h2>
-            <p>Completar les 6 sales resolent diferents tipus de reptes. Cada sala desbloqueja un codi. Al final, combina tots els codis per escapar!</p>
+            <p>Completar les 8 sales resolent diferents tipus de reptes. Cada sala desbloqueja un codi. Al final, combina tots els codis per escapar!</p>
 
             <h2>🎮 Com jugar</h2>
             <ul>
                 <li>Llegeix el llibre d'història per trobar el primer codi</li>
                 <li>Completa cada sala en ordre per desbloquejar la següent</li>
                 <li>Cada sala té un tipus de repte diferent (memory, test, enllaçar, etc.)</li>
-                <li>Recull els 6 codis i combina'ls amb el codi del llibre</li>
+                <li>Recull els 8 codis i combina'ls amb el codi del llibre</li>
                 <li>Introdueix el codi final per alliberar els amics!</li>
             </ul>
 
@@ -1318,6 +1318,8 @@
                     <span class="code-badge" id="code3">?</span>
                     <span class="code-badge" id="code4">?</span>
                     <span class="code-badge" id="code5">?</span>
+                    <span class="code-badge" id="code6">?</span>
+                    <span class="code-badge" id="code7">?</span>
                 </div>
             </div>
 
@@ -1344,11 +1346,11 @@
                 <h3>📊 Estadístiques Finals</h3>
                 <div class="stat-row">
                     <span>Sales completades:</span>
-                    <span style="color: var(--success);">6/6 ✅</span>
+                    <span style="color: var(--success);">8/8 ✅</span>
                 </div>
                 <div class="stat-row">
                     <span>Codis recollits:</span>
-                    <span style="color: var(--success);">6/6 🔑</span>
+                    <span style="color: var(--success);">8/8 🔑</span>
                 </div>
                 <div class="stat-row">
                     <span>Coneixement adquirit:</span>
@@ -1460,9 +1462,9 @@
         }
 
         // Game variables
-        let unlockedRooms = [true, false, false, false, false, false];
-        let completedRooms = [false, false, false, false, false, false];
-        let collectedCodes = ['?', '?', '?', '?', '?', '?'];
+        let unlockedRooms = [true, false, false, false, false, false, false, false];
+        let completedRooms = [false, false, false, false, false, false, false, false];
+        let collectedCodes = ['?', '?', '?', '?', '?', '?', '?', '?'];
         let currentRiddle = null;
         let currentRoomIndex = -1;
 
@@ -1503,7 +1505,7 @@
                     {emoji: "🤖", top: "60%", left: "70%", riddle: "Quin científic britànic va proposar el famós test per determinar si una màquina pot pensar? Escriu només el cognom.", answer: "TURING"},
                     {emoji: "💻", top: "40%", left: "45%", riddle: "Qui va encunyar el terme Intel·ligència Artificial a la conferència de Dartmouth? Escriu només el cognom. (Pista: John...)", answer: "MCCARTHY"}
                 ],
-                code: "1956"
+                code: "DART"
             },
             {
                 title: "Sala 2: L'Hivern i la Primavera de la IA",
@@ -1514,7 +1516,7 @@
                     j: "De l'hivern a la primavera... quina història de perseverància!"
                 },
                 type: "memory",
-                code: "2024"
+                code: "SPRING"
             },
             {
                 title: "Sala 3: La IA que Transforma el Món",
@@ -1532,7 +1534,7 @@
                     {left: "🚗 Transport", right: "Vehicles autònoms", id: 4},
                     {left: "🎮 Entreteniment", right: "Recomanacions personalitzades", id: 5}
                 ],
-                code: "12345"
+                code: "APPS"
             },
             {
                 title: "Sala 4: Com Aprenen les Màquines",
@@ -1565,7 +1567,7 @@
                         correct: 1
                     }
                 ],
-                code: "0111"
+                code: "LEARN"
             },
             {
                 title: "Sala 5: 70 Anys d'Evolució",
@@ -1584,7 +1586,7 @@
                     {text: "Grans models de llenguatge", position: 5},
                     {text: "IA generativa moderna", position: 6}
                 ],
-                code: "123456"
+                code: "TIME"
             },
             {
                 title: "Sala 6: L'Essència de la IA",
@@ -1598,7 +1600,69 @@
                 sentence: "La IA pot _____ dades, _____ a noves situacions i _____ esdeveniments futurs.",
                 words: ["aprendre", "adaptar-se", "prendre", "predir", "crear", "destruir"],
                 correct: ["aprendre", "adaptar-se", "predir"],
-                code: "APD"
+                code: "CORE"
+            },
+            {
+                title: "Sala 7: Preguntes i Respostes de la IA",
+                story: "Després d'explorar la història, aplicacions i funcionament de la IA, és hora de consolidar els coneixements. En aquesta sala, hauràs d'enllaçar preguntes clau amb les seves respostes correctes. Cada resposta correcta t'acostarà més a la llibertat. Els tres amics compten amb tu per demostrar tot el que has après sobre Intel·ligència Artificial!",
+                dialogue: {
+                    y: "Aquesta sala posa a prova tot el que hem après! Connectem preguntes amb respostes.",
+                    c: "Si recordem bé els conceptes, ho farem ràpid!",
+                    j: "Pensem bé abans de seleccionar. Cada detall compta!"
+                },
+                type: "matching",
+                matches: [
+                    {left: "Què va proposar Alan Turing el 1950?", right: "Test per determinar si una màquina pot pensar", id: 1},
+                    {left: "Què és el deep learning?", right: "Aprenentatge profund amb xarxes neuronals", id: 2},
+                    {left: "Què són els 'hiverns de la IA'?", right: "Períodes de reducció de fons i interès", id: 3},
+                    {left: "Quin any es va celebrar Dartmouth?", right: "1956", id: 4},
+                    {left: "Què fa l'aprenentatge supervisat?", right: "Aprèn amb dades etiquetades", id: 5},
+                    {left: "Què és ChatGPT?", right: "IA generativa de llenguatge", id: 6}
+                ],
+                code: "QA"
+            },
+            {
+                title: "Sala 8: Examen Final de la IA",
+                story: "Has arribat a la sala final! Aquest és l'últim desafiament abans d'alliberar els teus amics. Un test que combina tot el que has après: història, aplicacions, conceptes tècnics i evolució de la Intel·ligència Artificial. Youssef, Carlos i José confien en tu. És hora de demostrar que ets un veritable expert en IA!",
+                dialogue: {
+                    y: "L'última prova! Si passem això, som lliures!",
+                    c: "Recordem tot: Turing, Dartmouth, deep learning, aplicacions...",
+                    j: "Concentració màxima. Podem fer-ho junts!"
+                },
+                type: "quiz",
+                questions: [
+                    {
+                        question: "Quin científic va proposar el test que determina si una màquina pot pensar?",
+                        options: ["John McCarthy", "Alan Turing", "Marvin Minsky", "Claude Shannon"],
+                        correct: 1
+                    },
+                    {
+                        question: "En quin any es va celebrar la conferència de Dartmouth que va donar nom a la IA?",
+                        options: ["1950", "1956", "1960", "1970"],
+                        correct: 1
+                    },
+                    {
+                        question: "Quina capacitat NO és fonamental en la IA segons la definició del llibre?",
+                        options: ["Aprendre", "Adaptar-se", "Crear consciència", "Predir"],
+                        correct: 2
+                    },
+                    {
+                        question: "Què són els 'hiverns de la IA'?",
+                        options: ["Períodes d'avanços tecnològics", "Períodes de reducció de fons i interès", "Nous algoritmes", "Conferències científiques"],
+                        correct: 1
+                    },
+                    {
+                        question: "En quin sector la IA ajuda a detectar fraus en mil·lisegons?",
+                        options: ["Sanitat", "Finances", "Educació", "Transport"],
+                        correct: 1
+                    },
+                    {
+                        question: "Què va revolucionar la visió per computador als anys 2010?",
+                        options: ["Sistemes experts", "Deep learning", "Programació lògica", "Bases de dades"],
+                        correct: 1
+                    }
+                ],
+                code: "FINAL"
             }
         ];
 
@@ -1656,7 +1720,7 @@
         }
 
         function getRoomIcon(index) {
-            const icons = ['🧠', '🎯', '🔗', '❓', '📅', '🧩'];
+            const icons = ['🧠', '🎯', '🔗', '❓', '📅', '🧩', '🔍', '🏆'];
             return icons[index] || '❓';
         }
 
@@ -2304,6 +2368,22 @@
             const blanks = document.querySelectorAll('.puzzle-blank');
             blanks.forEach(b => b.style.borderColor = 'var(--border-color)');
             blanks[blankIndex].style.borderColor = 'var(--accent-tertiary)';
+
+            // Si el blank ya tiene una palabra, permitir cambiarla
+            const blank = blanks[blankIndex];
+            if (blank.textContent && puzzleAnswers[blankIndex]) {
+                const oldWord = puzzleAnswers[blankIndex];
+                // Devolver la palabra a la lista
+                const wordElements = document.querySelectorAll('.puzzle-word');
+                const wordElement = Array.from(wordElements).find(w => w.getAttribute('data-word') === oldWord);
+                if (wordElement) {
+                    wordElement.classList.remove('used');
+                }
+                // Limpiar el blank
+                blank.textContent = '';
+                blank.classList.remove('filled');
+                delete puzzleAnswers[blankIndex];
+            }
         }
 
         function selectPuzzleWord(word) {
@@ -2407,7 +2487,7 @@
             const feedback = document.getElementById('finalFeedback');
 
             // Código del libro: APRENDREADAPTARPREDIR
-            // Códigos de las salas concatenados
+            // Códigos de las salas: DART + SPRING + APPS + LEARN + TIME + CORE + QA + FINAL
             const bookCode = 'APRENDREADAPTARPREDIR';
             const roomCodes = collectedCodes.join('');
             const correctCode = bookCode + roomCodes;
