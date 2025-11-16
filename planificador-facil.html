@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📚 Mi Planificador de Exámenes con IA</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #0f0f0f 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 30px 20px;
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            border: 2px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            background: linear-gradient(135deg, #d4af37, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #d4af37;
+            color: #000;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin: 5px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: rgba(26, 26, 46, 0.8);
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+
+        .card h2 {
+            color: #d4af37;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 200px;
+            padding: 15px;
+            background: rgba(0,0,0,0.3);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1em;
+            resize: vertical;
+            margin-bottom: 15px;
+            font-family: inherit;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #d4af37;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #d4af37, #ffd700);
+            color: #000;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.5);
+        }
+
+        .btn-secondary {
+            background: rgba(212, 175, 55, 0.2);
+            color: #d4af37;
+            border: 2px solid #d4af37;
+        }
+
+        .btn-danger {
+            background: #f44336;
+            color: white;
+        }
+
+        .tarjeta {
+            background: rgba(0,0,0,0.4);
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #d4af37;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .tarjeta:hover {
+            background: rgba(212, 175, 55, 0.1);
+            transform: translateX(5px);
+        }
+
+        .pregunta {
+            color: #ffd700;
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        .respuesta {
+            color: #ddd;
+            display: none;
+            padding-top: 10px;
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .tarjeta.mostrar .respuesta {
+            display: block;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat {
+            background: rgba(0,0,0,0.4);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .stat-num {
+            font-size: 2.5em;
+            color: #d4af37;
+            font-weight: bold;
+        }
+
+        .stat-label {
+            color: #aaa;
+            font-size: 0.9em;
+        }
+
+        .examen {
+            background: rgba(0,0,0,0.4);
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border-left: 4px solid #d4af37;
+        }
+
+        .examen input {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 5px;
+            color: #fff;
+            font-family: inherit;
+        }
+
+        .examen button {
+            background: #f44336;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .spinner {
+            border: 4px solid rgba(212, 175, 55, 0.3);
+            border-top: 4px solid #d4af37;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .tipo {
+            display: inline-block;
+            background: #d4af37;
+            color: #000;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-size: 0.8em;
+            margin-right: 10px;
+        }
+
+        .tarjetas-container {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.3);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #d4af37;
+            border-radius: 4px;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 40px;
+            color: #888;
+        }
+
+        .alerta {
+            background: rgba(33, 150, 243, 0.2);
+            border: 1px solid rgba(33, 150, 243, 0.5);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            color: #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📚 Mi Planificador de Exámenes</h1>
+        <p style="color: #ddd;">Genera tarjetas de estudio automáticamente con IA</p>
+        <div>
+            <span class="badge">🤖 IA Integrada</span>
+            <span class="badge">✨ Gratis</span>
+            <span class="badge">🚀 Fácil</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Columna Izquierda -->
+        <div>
+            <div class="card">
+                <h2>📝 Pega tus Apuntes Aquí</h2>
+                <textarea id="contenido" placeholder="Pega aquí tus apuntes o notas...
+
+Ejemplo:
+La fotosíntesis es el proceso por el cual las plantas convierten la luz solar en energía.
+
+Las mitocondrias son las centrales energéticas de la célula.
+
+El ADN contiene la información genética de todos los seres vivos.
+
+La teoría de la evolución fue propuesta por Charles Darwin."></textarea>
+
+                <button class="btn" onclick="generarTarjetas()">✨ Generar Tarjetas con IA</button>
+
+                <div class="loading" id="loading">
+                    <div class="spinner"></div>
+                    <p style="color: #d4af37;">Generando tarjetas...</p>
+                </div>
+
+                <div class="alerta">
+                    <strong style="color: #2196F3;">🤖 IA Simple:</strong> Este sistema analiza tu texto y genera preguntas automáticamente. ¡Sin instalaciones, sin APIs, sin complicaciones!
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>📅 Mis Exámenes</h2>
+                <div id="examenes">
+                    <div class="empty">No hay exámenes</div>
+                </div>
+                <button class="btn btn-secondary" onclick="agregarExamen()">+ Añadir Examen</button>
+            </div>
+        </div>
+
+        <!-- Columna Derecha -->
+        <div>
+            <div class="card">
+                <div class="stats">
+                    <div class="stat">
+                        <div class="stat-num" id="totalTarjetas">0</div>
+                        <div class="stat-label">Tarjetas</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-num" id="totalExamenes">0</div>
+                        <div class="stat-label">Exámenes</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-num" id="diasExamen">-</div>
+                        <div class="stat-label">Días restantes</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>🎴 Tarjetas de Estudio</h2>
+                <p style="color: #888; margin-bottom: 15px;">Click en una tarjeta para ver la respuesta</p>
+                <button class="btn btn-danger" onclick="limpiarTarjetas()" style="margin-bottom: 15px; display: none;" id="btnLimpiar">🗑️ Limpiar Todo</button>
+                <div class="tarjetas-container" id="tarjetas">
+                    <div class="empty">Aún no hay tarjetas. ¡Genera algunas!</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ========================================
+        // MOTOR DE IA SIMPLE
+        // ========================================
+
+        let tarjetas = [];
+        let examenes = [];
+
+        // Cargar datos al inicio
+        window.onload = () => {
+            cargarDatos();
+            actualizarStats();
+        };
+
+        function generarTarjetas() {
+            const texto = document.getElementById('contenido').value.trim();
+
+            if (!texto) {
+                alert('¡Pega tus apuntes primero!');
+                return;
+            }
+
+            // Mostrar loading
+            document.getElementById('loading').classList.add('show');
+
+            // Simular procesamiento de IA
+            setTimeout(() => {
+                const nuevasTarjetas = procesarTextoConIA(texto);
+
+                if (nuevasTarjetas.length === 0) {
+                    alert('No pude generar tarjetas. Intenta con más texto o usa frases más claras.');
+                } else {
+                    tarjetas = [...tarjetas, ...nuevasTarjetas];
+                    guardarDatos();
+                    mostrarTarjetas();
+                    actualizarStats();
+                    alert(`✅ ¡${nuevasTarjetas.length} tarjetas generadas!`);
+                    document.getElementById('btnLimpiar').style.display = 'block';
+                }
+
+                document.getElementById('loading').classList.remove('show');
+            }, 1000);
+        }
+
+        function procesarTextoConIA(texto) {
+            const oraciones = texto.split(/[.!?]+/).filter(s => s.trim().length > 15);
+            const tarjetasGeneradas = [];
+
+            oraciones.forEach(oracion => {
+                oracion = oracion.trim();
+
+                // Tipo 1: "X es Y" -> "¿Qué es X?"
+                let match = oracion.match(/^(.+?)\s+(es|son|fue|fueron)\s+(.+)$/i);
+                if (match && match[1].split(' ').length <= 6) {
+                    tarjetasGeneradas.push({
+                        tipo: 'definición',
+                        pregunta: `¿Qué ${match[2]} ${match[1].toLowerCase()}?`,
+                        respuesta: match[3].trim()
+                    });
+                }
+
+                // Tipo 2: Completar espacios
+                const palabras = oracion.toLowerCase().split(/\s+/);
+                const importante = palabras.find(p => p.length > 6 && !['porque', 'mediante', 'entonces'].includes(p));
+                if (importante) {
+                    const regex = new RegExp(`\\b${importante}\\b`, 'i');
+                    const pregunta = oracion.replace(regex, '______');
+                    if (pregunta !== oracion) {
+                        tarjetasGeneradas.push({
+                            tipo: 'completar',
+                            pregunta: `Completa: ${pregunta}`,
+                            respuesta: importante
+                        });
+                    }
+                }
+
+                // Tipo 3: "X porque Y" -> "¿Por qué X?"
+                match = oracion.match(/^(.+?)\s+porque\s+(.+)$/i);
+                if (match) {
+                    tarjetasGeneradas.push({
+                        tipo: 'causal',
+                        pregunta: `¿Por qué ${match[1].toLowerCase()}?`,
+                        respuesta: `Porque ${match[2]}`
+                    });
+                }
+
+                // Tipo 4: "X contiene/tiene Y"
+                match = oracion.match(/^(.+?)\s+(contiene|tiene|posee|incluye)\s+(.+)$/i);
+                if (match && match[1].split(' ').length <= 6) {
+                    tarjetasGeneradas.push({
+                        tipo: 'característica',
+                        pregunta: `¿Qué ${match[2]} ${match[1].toLowerCase()}?`,
+                        respuesta: match[3].trim()
+                    });
+                }
+            });
+
+            return tarjetasGeneradas;
+        }
+
+        function mostrarTarjetas() {
+            const container = document.getElementById('tarjetas');
+
+            if (tarjetas.length === 0) {
+                container.innerHTML = '<div class="empty">Aún no hay tarjetas. ¡Genera algunas!</div>';
+                document.getElementById('btnLimpiar').style.display = 'none';
+                return;
+            }
+
+            container.innerHTML = tarjetas.map((t, i) => `
+                <div class="tarjeta" onclick="voltearTarjeta(this)">
+                    <span class="tipo">${t.tipo}</span>
+                    <span style="color: #888;">#${i + 1}</span>
+                    <div class="pregunta">❓ ${t.pregunta}</div>
+                    <div class="respuesta">💡 ${t.respuesta}</div>
+                </div>
+            `).join('');
+
+            document.getElementById('btnLimpiar').style.display = 'block';
+        }
+
+        function voltearTarjeta(elem) {
+            elem.classList.toggle('mostrar');
+        }
+
+        function limpiarTarjetas() {
+            if (confirm('¿Borrar todas las tarjetas?')) {
+                tarjetas = [];
+                guardarDatos();
+                mostrarTarjetas();
+                actualizarStats();
+            }
+        }
+
+        function agregarExamen() {
+            examenes.push({
+                id: Date.now(),
+                materia: '',
+                fecha: '',
+                hora: ''
+            });
+            guardarDatos();
+            mostrarExamenes();
+            actualizarStats();
+        }
+
+        function eliminarExamen(id) {
+            examenes = examenes.filter(e => e.id !== id);
+            guardarDatos();
+            mostrarExamenes();
+            actualizarStats();
+        }
+
+        function actualizarExamen(id, campo, valor) {
+            const examen = examenes.find(e => e.id === id);
+            if (examen) {
+                examen[campo] = valor;
+                guardarDatos();
+                actualizarStats();
+            }
+        }
+
+        function mostrarExamenes() {
+            const container = document.getElementById('examenes');
+
+            if (examenes.length === 0) {
+                container.innerHTML = '<div class="empty">No hay exámenes</div>';
+                return;
+            }
+
+            container.innerHTML = examenes.map(e => `
+                <div class="examen">
+                    <input type="text" placeholder="Materia" value="${e.materia || ''}"
+                           onchange="actualizarExamen(${e.id}, 'materia', this.value)">
+                    <input type="date" value="${e.fecha || ''}"
+                           onchange="actualizarExamen(${e.id}, 'fecha', this.value)">
+                    <input type="time" value="${e.hora || ''}"
+                           onchange="actualizarExamen(${e.id}, 'hora', this.value)">
+                    <button onclick="eliminarExamen(${e.id})">Eliminar</button>
+                </div>
+            `).join('');
+        }
+
+        function actualizarStats() {
+            document.getElementById('totalTarjetas').textContent = tarjetas.length;
+            document.getElementById('totalExamenes').textContent = examenes.length;
+
+            // Días hasta próximo examen
+            const proximos = examenes
+                .filter(e => e.fecha)
+                .map(e => new Date(e.fecha))
+                .filter(d => d >= new Date())
+                .sort((a, b) => a - b);
+
+            if (proximos.length > 0) {
+                const dias = Math.ceil((proximos[0] - new Date()) / (1000 * 60 * 60 * 24));
+                document.getElementById('diasExamen').textContent = dias;
+            } else {
+                document.getElementById('diasExamen').textContent = '-';
+            }
+        }
+
+        function guardarDatos() {
+            localStorage.setItem('tarjetas', JSON.stringify(tarjetas));
+            localStorage.setItem('examenes', JSON.stringify(examenes));
+        }
+
+        function cargarDatos() {
+            const t = localStorage.getItem('tarjetas');
+            const e = localStorage.getItem('examenes');
+
+            if (t) {
+                tarjetas = JSON.parse(t);
+                mostrarTarjetas();
+            }
+
+            if (e) {
+                examenes = JSON.parse(e);
+                mostrarExamenes();
+            }
+        }
+    </script>
+</body>
+</html>
