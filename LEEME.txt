@@ -1,0 +1,69 @@
+═══════════════════════════════════════════════════════════
+📚 PLANIFICADOR DE EXÁMENES CON IA - VERSIÓN FÁCIL
+═══════════════════════════════════════════════════════════
+
+🎯 CÓMO USAR (SÚPER FÁCIL):
+
+1. Busca el archivo: planificador-facil.html
+
+2. Haz DOBLE CLICK en él
+
+3. Se abre en tu navegador (Chrome, Firefox, etc.)
+
+4. ¡YA ESTÁ! No necesitas instalar NADA más
+
+═══════════════════════════════════════════════════════════
+
+✨ CÓMO FUNCIONA:
+
+1. Pega tus apuntes en el cuadro de texto
+
+2. Haz click en "Generar Tarjetas con IA"
+
+3. La IA crea preguntas automáticamente
+
+4. Haz click en las tarjetas para ver las respuestas
+
+═══════════════════════════════════════════════════════════
+
+📝 EJEMPLO DE TEXTO:
+
+La fotosíntesis es el proceso por el cual las plantas
+convierten la luz solar en energía.
+
+Las mitocondrias son las centrales energéticas de la célula.
+
+El ADN contiene la información genética.
+
+═══════════════════════════════════════════════════════════
+
+🎴 LA IA GENERA:
+
+✅ ¿Qué es la fotosíntesis?
+✅ ¿Qué son las mitocondrias?
+✅ Completa: El ADN contiene la ______ genética
+✅ Y muchas más...
+
+═══════════════════════════════════════════════════════════
+
+💡 CARACTERÍSTICAS:
+
+✓ IA integrada - genera preguntas automáticas
+✓ Planificador de exámenes
+✓ Cuenta regresiva de días
+✓ Guarda todo automáticamente
+✓ 100% gratis
+✓ Sin instalación
+✓ Sin internet (después de abrir)
+
+═══════════════════════════════════════════════════════════
+
+❓ SI NO FUNCIONA:
+
+- Asegúrate de usar un navegador moderno
+- Chrome, Firefox, Edge, Safari funcionan bien
+- No uses Internet Explorer (muy viejo)
+
+═══════════════════════════════════════════════════════════
+
+¡DISFRUTA ESTUDIANDO! 🚀📖
