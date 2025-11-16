@@ -36,7 +36,6 @@
             line-height: 1.6;
         }
 
-        /* Header */
         .header {
             background: linear-gradient(135deg, var(--secondary-bg) 0%, var(--primary-bg) 100%);
             padding: 30px 20px;
@@ -59,7 +58,12 @@
             font-size: 1.1em;
         }
 
-        /* Container */
+        .header .subtitle {
+            color: var(--accent-gold);
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
         .container {
             max-width: 1400px;
             margin: 0 auto;
@@ -75,7 +79,6 @@
             }
         }
 
-        /* Cards */
         .card {
             background: var(--secondary-bg);
             border-radius: 15px;
@@ -98,62 +101,9 @@
             gap: 10px;
         }
 
-        /* API Key Section */
-        .api-section {
-            background: var(--card-bg);
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
-
-        .api-section label {
-            display: block;
-            color: var(--text-secondary);
-            margin-bottom: 10px;
-            font-size: 0.95em;
-        }
-
-        .api-section input {
-            width: 100%;
-            padding: 12px;
-            background: var(--secondary-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            color: var(--text-primary);
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9em;
-        }
-
-        .api-section input:focus {
-            outline: none;
-            border-color: var(--accent-gold);
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
-        }
-
-        .api-status {
-            margin-top: 10px;
-            padding: 8px 12px;
-            border-radius: 5px;
-            font-size: 0.9em;
-            display: none;
-        }
-
-        .api-status.success {
-            background: rgba(76, 175, 80, 0.2);
-            color: var(--success);
-            display: block;
-        }
-
-        .api-status.error {
-            background: rgba(244, 67, 54, 0.2);
-            color: var(--error);
-            display: block;
-        }
-
-        /* Input Areas */
         textarea {
             width: 100%;
-            min-height: 200px;
+            min-height: 250px;
             padding: 15px;
             background: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -171,7 +121,6 @@
             box-shadow: var(--glow);
         }
 
-        /* File Upload */
         .file-upload {
             background: var(--card-bg);
             border: 2px dashed var(--border-color);
@@ -192,7 +141,6 @@
             display: none;
         }
 
-        /* Buttons */
         .btn {
             padding: 12px 25px;
             background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-light) 100%);
@@ -204,6 +152,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
             width: 100%;
+            margin-bottom: 10px;
         }
 
         .btn:hover {
@@ -223,7 +172,11 @@
             border: 1px solid var(--border-color);
         }
 
-        /* Exam Schedule */
+        .btn-danger {
+            background: var(--error);
+            color: white;
+        }
+
         .exam-item {
             background: var(--card-bg);
             padding: 15px;
@@ -252,7 +205,6 @@
             margin-top: 5px;
         }
 
-        /* Flashcards */
         .flashcards-container {
             display: grid;
             gap: 15px;
@@ -305,7 +257,18 @@
             font-weight: 600;
         }
 
-        /* Loading */
+        .flashcard-type {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: var(--accent-dark);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-size: 0.7em;
+            font-weight: 500;
+        }
+
         .loading {
             display: none;
             text-align: center;
@@ -332,7 +295,6 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -346,7 +308,6 @@
             border-radius: 4px;
         }
 
-        /* Stats */
         .stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -389,59 +350,62 @@
         .full-width {
             grid-column: 1 / -1;
         }
+
+        .ai-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+            margin-left: 10px;
+        }
     </style>
 </head>
 <body>
     <div class="header">
         <h1>📚 Planificador de Exámenes con IA</h1>
-        <p>Sube tus apuntes y genera tarjetas de estudio automáticamente</p>
+        <p>Genera tarjetas de estudio automáticamente con IA integrada</p>
+        <p class="subtitle">✨ IA Propia - Sin necesidad de API externa - 100% Gratis ✨</p>
     </div>
 
     <div class="container">
-        <!-- Left Column: Input & Settings -->
         <div>
-            <!-- API Configuration -->
-            <div class="card">
-                <h2>🔑 Configuración de IA</h2>
-                <div class="api-section">
-                    <label>API Key de OpenAI:</label>
-                    <input type="password" id="apiKey" placeholder="sk-...">
-                    <div class="api-status" id="apiStatus"></div>
-                    <div class="alert" style="margin-top: 15px;">
-                        <strong>Nota:</strong> Necesitas una API key de OpenAI. Consíguela en
-                        <a href="https://platform.openai.com/api-keys" target="_blank" style="color: var(--accent-gold);">platform.openai.com</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Content Input -->
             <div class="card">
                 <h2>📝 Sube tu Contenido</h2>
 
                 <div class="file-upload" id="fileUpload">
-                    <input type="file" id="fileInput" accept=".txt,.pdf,.doc,.docx">
-                    <p style="color: var(--text-secondary);">📎 Arrastra archivos aquí o haz clic para seleccionar</p>
-                    <p style="color: var(--text-muted); font-size: 0.9em;">Formatos: TXT, PDF, DOC, DOCX</p>
+                    <input type="file" id="fileInput" accept=".txt">
+                    <p style="color: var(--text-secondary);">📎 Arrastra archivos aquí o haz clic</p>
+                    <p style="color: var(--text-muted); font-size: 0.9em;">Formato: TXT</p>
                 </div>
 
-                <textarea id="contentInput" placeholder="O pega aquí tus apuntes, notas de clase, resúmenes...
+                <textarea id="contentInput" placeholder="Pega aquí tus apuntes, notas de clase, resúmenes...
 
 Ejemplo:
-- La fotosíntesis es el proceso por el cual las plantas convierten la luz solar en energía
-- Las mitocondrias son las centrales energéticas de la célula
-- El ADN contiene la información genética..."></textarea>
+La fotosíntesis es el proceso por el cual las plantas convierten la luz solar en energía química. Este proceso ocurre en los cloroplastos.
 
-                <button class="btn" id="generateBtn" onclick="generateFlashcards()">
-                    ✨ Generar Tarjetas de Estudio
+Las mitocondrias son las centrales energéticas de la célula. Producen ATP mediante la respiración celular.
+
+El ADN contiene la información genética de todos los seres vivos. Está formado por nucleótidos que se organizan en una doble hélice.
+
+La teoría de la evolución fue propuesta por Charles Darwin. Explica cómo las especies cambian con el tiempo."></textarea>
+
+                <button class="btn" onclick="generateFlashcards()">
+                    ✨ Generar Tarjetas con IA
                 </button>
 
                 <div class="loading" id="loading">
                     <div class="spinner"></div>
-                    <p>La IA está generando tus tarjetas...</p>
+                    <p>La IA está analizando y generando tarjetas...</p>
+                </div>
+
+                <div class="alert">
+                    <strong>🤖 IA Integrada:</strong> Nuestra IA analiza tu texto, identifica conceptos clave y genera preguntas automáticamente. No necesitas API keys ni pagar nada.
                 </div>
             </div>
 
-            <!-- Exam Schedule -->
             <div class="card">
                 <h2>📅 Mis Exámenes</h2>
                 <div id="examsList"></div>
@@ -449,9 +413,7 @@ Ejemplo:
             </div>
         </div>
 
-        <!-- Right Column: Flashcards & Stats -->
         <div>
-            <!-- Stats -->
             <div class="card full-width">
                 <h2>📊 Estadísticas</h2>
                 <div class="stats">
@@ -470,16 +432,18 @@ Ejemplo:
                 </div>
             </div>
 
-            <!-- Flashcards Display -->
             <div class="card">
-                <h2>🎴 Tarjetas de Estudio</h2>
+                <h2>🎴 Tarjetas de Estudio <span class="ai-badge">IA</span></h2>
                 <p style="color: var(--text-muted); margin-bottom: 15px; font-size: 0.95em;">
                     Haz clic en una tarjeta para ver la respuesta
                 </p>
+                <button class="btn btn-danger" onclick="clearFlashcards()" style="margin-bottom: 15px;">
+                    🗑️ Limpiar todas las tarjetas
+                </button>
                 <div class="flashcards-container" id="flashcardsContainer">
                     <div style="text-align: center; padding: 40px; color: var(--text-muted);">
                         <p>Aún no hay tarjetas generadas.</p>
-                        <p style="margin-top: 10px;">Sube contenido y haz clic en "Generar Tarjetas de Estudio"</p>
+                        <p style="margin-top: 10px;">Sube contenido y haz clic en "Generar Tarjetas con IA"</p>
                     </div>
                 </div>
             </div>
@@ -487,23 +451,227 @@ Ejemplo:
     </div>
 
     <script>
-        // State
+        // ============================================
+        // MOTOR DE IA INTEGRADO
+        // ============================================
+
+        class StudyAI {
+            constructor() {
+                // Palabras comunes a ignorar en español
+                this.stopWords = new Set([
+                    'el', 'la', 'los', 'las', 'un', 'una', 'unos', 'unas',
+                    'de', 'del', 'al', 'a', 'ante', 'bajo', 'con', 'contra',
+                    'desde', 'en', 'entre', 'hacia', 'hasta', 'para', 'por',
+                    'según', 'sin', 'sobre', 'tras', 'y', 'o', 'u', 'e',
+                    'que', 'como', 'cuando', 'donde', 'cual', 'cuales',
+                    'este', 'esta', 'estos', 'estas', 'ese', 'esa', 'esos', 'esas',
+                    'aquel', 'aquella', 'aquellos', 'aquellas', 'su', 'sus',
+                    'mi', 'mis', 'tu', 'tus', 'nuestro', 'nuestra', 'vuestro',
+                    'se', 'si', 'no', 'ni', 'también', 'más', 'muy', 'son',
+                    'está', 'están', 'fue', 'han', 'ser', 'estar'
+                ]);
+
+                // Verbos clave para identificar definiciones
+                this.definitionVerbs = [
+                    'es', 'son', 'fue', 'fueron', 'será', 'serán',
+                    'significa', 'significan', 'define', 'definen',
+                    'consiste', 'consisten', 'representa', 'representan',
+                    'constituye', 'constituyen', 'forma', 'forman',
+                    'contiene', 'contienen', 'incluye', 'incluyen'
+                ];
+
+                // Palabras interrogativas
+                this.questionWords = [
+                    '¿Qué', '¿Cuál', '¿Cuáles', '¿Cómo', '¿Dónde',
+                    '¿Cuándo', '¿Por qué', '¿Quién', '¿Quiénes'
+                ];
+            }
+
+            // Analizar texto y generar tarjetas
+            generateFlashcards(text) {
+                const sentences = this.splitIntoSentences(text);
+                const flashcards = [];
+
+                sentences.forEach(sentence => {
+                    if (sentence.trim().length < 20) return; // Ignorar oraciones muy cortas
+
+                    // Generar diferentes tipos de preguntas
+                    const cards = this.generateQuestionsFromSentence(sentence);
+                    flashcards.push(...cards);
+                });
+
+                return flashcards;
+            }
+
+            // Dividir texto en oraciones
+            splitIntoSentences(text) {
+                // Limpiar y normalizar
+                text = text.replace(/\n+/g, '. ');
+                text = text.replace(/\s+/g, ' ');
+
+                // Dividir por puntos, pero no por abreviaturas comunes
+                const sentences = text.split(/(?<![A-Z])\.(?=\s|$)/)
+                    .map(s => s.trim())
+                    .filter(s => s.length > 0);
+
+                return sentences;
+            }
+
+            // Generar preguntas a partir de una oración
+            generateQuestionsFromSentence(sentence) {
+                const cards = [];
+
+                // Tipo 1: Preguntas de definición
+                const defCard = this.createDefinitionQuestion(sentence);
+                if (defCard) cards.push(defCard);
+
+                // Tipo 2: Preguntas de completar
+                const fillCard = this.createFillInBlankQuestion(sentence);
+                if (fillCard) cards.push(fillCard);
+
+                // Tipo 3: Pregunta directa
+                const directCard = this.createDirectQuestion(sentence);
+                if (directCard) cards.push(directCard);
+
+                return cards;
+            }
+
+            // Crear pregunta de definición (¿Qué es...?)
+            createDefinitionQuestion(sentence) {
+                // Buscar patrones como "X es Y"
+                const patterns = [
+                    /^(.+?)\s+(es|son|fue|fueron|significa|representa|consiste en)\s+(.+?)\.?$/i,
+                    /^(.+?)\s+se\s+(define|conoce|denomina)\s+como\s+(.+?)\.?$/i
+                ];
+
+                for (const pattern of patterns) {
+                    const match = sentence.match(pattern);
+                    if (match) {
+                        const subject = match[1].trim();
+                        const verb = match[2].trim();
+                        const definition = match[3].trim();
+
+                        // Verificar que el sujeto no sea demasiado largo
+                        if (subject.split(' ').length <= 5 && definition.length > 10) {
+                            return {
+                                type: 'definición',
+                                question: `¿Qué ${verb} ${subject.toLowerCase()}?`,
+                                answer: definition.charAt(0).toUpperCase() + definition.slice(1)
+                            };
+                        }
+                    }
+                }
+
+                return null;
+            }
+
+            // Crear pregunta de completar espacios
+            createFillInBlankQuestion(sentence) {
+                // Extraer palabras clave importantes
+                const words = sentence.split(/\s+/);
+                const keywords = this.extractKeywords(sentence);
+
+                if (keywords.length === 0) return null;
+
+                // Seleccionar una palabra clave aleatoria
+                const keyword = keywords[Math.floor(Math.random() * keywords.length)];
+
+                // Crear la pregunta con un espacio en blanco
+                const question = sentence.replace(new RegExp(`\\b${keyword}\\b`, 'i'), '______');
+
+                if (question !== sentence) {
+                    return {
+                        type: 'completar',
+                        question: `Completa: ${question}`,
+                        answer: keyword
+                    };
+                }
+
+                return null;
+            }
+
+            // Crear pregunta directa
+            createDirectQuestion(sentence) {
+                // Identificar el sujeto principal
+                const words = sentence.split(/\s+/);
+
+                // Buscar verbos y crear pregunta
+                const verbMatch = sentence.match(/\b(es|son|tiene|tienen|produce|producen|realiza|realizan|contiene|contienen)\b/i);
+
+                if (verbMatch) {
+                    const parts = sentence.split(verbMatch[0]);
+                    if (parts.length >= 2) {
+                        const subject = parts[0].trim();
+                        const predicate = parts[1].trim();
+
+                        if (subject.split(' ').length <= 6) {
+                            return {
+                                type: 'directa',
+                                question: `¿Qué se sabe sobre ${subject.toLowerCase()}?`,
+                                answer: `${verbMatch[0]} ${predicate}`
+                            };
+                        }
+                    }
+                }
+
+                return null;
+            }
+
+            // Extraer palabras clave del texto
+            extractKeywords(text) {
+                const words = text.toLowerCase()
+                    .replace(/[^\wáéíóúñü\s]/gi, '')
+                    .split(/\s+/)
+                    .filter(word =>
+                        word.length > 4 &&
+                        !this.stopWords.has(word) &&
+                        !this.definitionVerbs.includes(word)
+                    );
+
+                // Contar frecuencias
+                const frequency = {};
+                words.forEach(word => {
+                    frequency[word] = (frequency[word] || 0) + 1;
+                });
+
+                // Ordenar por frecuencia y tomar las más importantes
+                const sorted = Object.entries(frequency)
+                    .sort((a, b) => b[1] - a[1])
+                    .slice(0, 5)
+                    .map(entry => entry[0]);
+
+                return sorted;
+            }
+
+            // Análisis de texto para extraer conceptos principales
+            analyzeText(text) {
+                const sentences = this.splitIntoSentences(text);
+                const concepts = [];
+
+                sentences.forEach(sentence => {
+                    const keywords = this.extractKeywords(sentence);
+                    concepts.push(...keywords);
+                });
+
+                // Eliminar duplicados
+                return [...new Set(concepts)];
+            }
+        }
+
+        // ============================================
+        // APLICACIÓN PRINCIPAL
+        // ============================================
+
         let flashcards = [];
         let exams = [];
+        const ai = new StudyAI();
 
-        // Load saved data
         window.onload = function() {
             loadData();
             updateStats();
         };
 
         function loadData() {
-            const savedApiKey = localStorage.getItem('apiKey');
-            if (savedApiKey) {
-                document.getElementById('apiKey').value = savedApiKey;
-                showApiStatus('API Key cargada', 'success');
-            }
-
             const savedFlashcards = localStorage.getItem('flashcards');
             if (savedFlashcards) {
                 flashcards = JSON.parse(savedFlashcards);
@@ -518,19 +686,8 @@ Ejemplo:
         }
 
         function saveData() {
-            const apiKey = document.getElementById('apiKey').value;
-            if (apiKey) {
-                localStorage.setItem('apiKey', apiKey);
-            }
             localStorage.setItem('flashcards', JSON.stringify(flashcards));
             localStorage.setItem('exams', JSON.stringify(exams));
-        }
-
-        // API Status
-        function showApiStatus(message, type) {
-            const status = document.getElementById('apiStatus');
-            status.textContent = message;
-            status.className = 'api-status ' + type;
         }
 
         // File Upload
@@ -567,74 +724,40 @@ Ejemplo:
             const reader = new FileReader();
             reader.onload = (e) => {
                 document.getElementById('contentInput').value = e.target.result;
-                showApiStatus('Archivo cargado: ' + file.name, 'success');
             };
             reader.readAsText(file);
         }
 
-        // Generate Flashcards with AI
-        async function generateFlashcards() {
-            const apiKey = document.getElementById('apiKey').value;
+        // Generar tarjetas con IA
+        function generateFlashcards() {
             const content = document.getElementById('contentInput').value;
 
-            if (!apiKey) {
-                showApiStatus('Por favor, ingresa tu API Key de OpenAI', 'error');
-                return;
-            }
-
             if (!content.trim()) {
-                showApiStatus('Por favor, ingresa o sube contenido primero', 'error');
+                alert('Por favor, ingresa contenido primero');
                 return;
             }
 
-            // Show loading
+            // Mostrar loading
             document.getElementById('loading').classList.add('active');
-            document.getElementById('generateBtn').disabled = true;
 
-            try {
-                const response = await fetch('https://api.openai.com/v1/chat/completions', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${apiKey}`
-                    },
-                    body: JSON.stringify({
-                        model: 'gpt-3.5-turbo',
-                        messages: [{
-                            role: 'system',
-                            content: 'Eres un asistente educativo. Genera tarjetas de estudio (flashcards) a partir del contenido proporcionado. Responde SOLO con un JSON válido en este formato: [{"question": "pregunta aquí", "answer": "respuesta aquí"}]. Genera entre 8-15 tarjetas.'
-                        }, {
-                            role: 'user',
-                            content: `Genera tarjetas de estudio a partir de este contenido:\n\n${content}`
-                        }],
-                        temperature: 0.7,
-                        max_tokens: 2000
-                    })
-                });
+            // Simular procesamiento de IA
+            setTimeout(() => {
+                const newCards = ai.generateFlashcards(content);
 
-                if (!response.ok) {
-                    throw new Error('Error en la API: ' + response.status);
+                if (newCards.length === 0) {
+                    alert('No se pudieron generar tarjetas. Intenta con un texto más detallado.');
+                } else {
+                    flashcards = [...flashcards, ...newCards];
+                    saveData();
+                    displayFlashcards();
+                    updateStats();
+                    alert(`✓ ${newCards.length} tarjetas generadas exitosamente`);
                 }
 
-                const data = await response.json();
-                const generatedCards = JSON.parse(data.choices[0].message.content);
-
-                flashcards = [...flashcards, ...generatedCards];
-                saveData();
-                displayFlashcards();
-                updateStats();
-
-                showApiStatus(`✓ ${generatedCards.length} tarjetas generadas exitosamente`, 'success');
-            } catch (error) {
-                console.error('Error:', error);
-                showApiStatus('Error: ' + error.message, 'error');
-            } finally {
                 document.getElementById('loading').classList.remove('active');
-                document.getElementById('generateBtn').disabled = false;
-            }
+            }, 1500); // Simular procesamiento
         }
 
-        // Display Flashcards
         function displayFlashcards() {
             const container = document.getElementById('flashcardsContainer');
 
@@ -642,7 +765,7 @@ Ejemplo:
                 container.innerHTML = `
                     <div style="text-align: center; padding: 40px; color: var(--text-muted);">
                         <p>Aún no hay tarjetas generadas.</p>
-                        <p style="margin-top: 10px;">Sube contenido y haz clic en "Generar Tarjetas de Estudio"</p>
+                        <p style="margin-top: 10px;">Sube contenido y haz clic en "Generar Tarjetas con IA"</p>
                     </div>
                 `;
                 return;
@@ -650,6 +773,7 @@ Ejemplo:
 
             container.innerHTML = flashcards.map((card, index) => `
                 <div class="flashcard" onclick="toggleFlashcard(this)">
+                    <div class="flashcard-type">${card.type}</div>
                     <div class="flashcard-number">${index + 1}</div>
                     <div class="question">❓ ${card.question}</div>
                     <div class="answer">💡 ${card.answer}</div>
@@ -721,12 +845,10 @@ Ejemplo:
             `).join('');
         }
 
-        // Stats
         function updateStats() {
             document.getElementById('totalCards').textContent = flashcards.length;
             document.getElementById('totalExams').textContent = exams.length;
 
-            // Calculate days to next exam
             const upcomingExams = exams
                 .filter(e => e.date)
                 .map(e => new Date(e.date))
@@ -740,9 +862,6 @@ Ejemplo:
                 document.getElementById('daysToExam').textContent = '-';
             }
         }
-
-        // Auto-save API key
-        document.getElementById('apiKey').addEventListener('change', saveData);
     </script>
 </body>
 </html>
