@@ -13,9 +13,38 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #333;
+            background: #0a0a0a;
+            background-image:
+                radial-gradient(circle at 20% 50%, rgba(139, 0, 0, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(220, 20, 60, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(178, 34, 34, 0.25) 0%, transparent 50%);
+            color: #e0e0e0;
             line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(139, 0, 0, 0.03) 2px,
+                rgba(139, 0, 0, 0.03) 4px
+            );
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
         }
 
         .container {
@@ -25,47 +54,56 @@
         }
 
         header {
-            background: rgba(255, 255, 255, 0.95);
+            background: linear-gradient(135deg, #1a0000 0%, #330000 100%);
             backdrop-filter: blur(10px);
             padding: 30px;
             border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 40px rgba(220, 20, 60, 0.5), 0 0 60px rgba(139, 0, 0, 0.3);
             margin-bottom: 30px;
             text-align: center;
+            border: 2px solid #8B0000;
         }
 
         h1 {
-            color: #2c3e50;
+            color: #DC143C;
             font-size: 2.5em;
             margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(220, 20, 60, 0.8), 0 0 40px rgba(139, 0, 0, 0.5);
         }
 
         .subtitle {
-            color: #7f8c8d;
+            color: #ff6b6b;
             font-size: 1.2em;
         }
 
         .search-container {
-            background: white;
+            background: #1a1a1a;
             padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 5px 20px rgba(220, 20, 60, 0.3);
             margin-bottom: 30px;
+            border: 2px solid #8B0000;
         }
 
         .search-box {
             width: 100%;
             padding: 15px 20px;
             font-size: 1.1em;
-            border: 2px solid #667eea;
+            border: 2px solid #DC143C;
             border-radius: 10px;
             outline: none;
             transition: all 0.3s;
+            background: #0a0a0a;
+            color: #e0e0e0;
         }
 
         .search-box:focus {
-            border-color: #764ba2;
-            box-shadow: 0 0 15px rgba(118, 75, 162, 0.3);
+            border-color: #ff0000;
+            box-shadow: 0 0 15px rgba(220, 20, 60, 0.8), 0 0 30px rgba(139, 0, 0, 0.4);
+        }
+
+        .search-box::placeholder {
+            color: #888;
         }
 
         .tabs {
@@ -77,31 +115,37 @@
 
         .tab-button {
             padding: 12px 25px;
-            background: white;
-            border: none;
+            background: #1a1a1a;
+            border: 2px solid #8B0000;
             border-radius: 10px;
             cursor: pointer;
             font-size: 1em;
             transition: all 0.3s;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 3px 10px rgba(220, 20, 60, 0.3);
+            color: #e0e0e0;
         }
 
         .tab-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 15px rgba(220, 20, 60, 0.5);
+            border-color: #DC143C;
+            background: #2a0000;
         }
 
         .tab-button.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);
             color: white;
+            border-color: #ff0000;
+            box-shadow: 0 0 20px rgba(220, 20, 60, 0.6);
         }
 
         .content-area {
-            background: white;
+            background: #1a1a1a;
             padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 5px 20px rgba(220, 20, 60, 0.3);
             margin-bottom: 20px;
+            border: 2px solid #8B0000;
         }
 
         .section {
@@ -119,56 +163,63 @@
         }
 
         h2 {
-            color: #667eea;
+            color: #DC143C;
             margin: 25px 0 15px 0;
             padding-bottom: 10px;
-            border-bottom: 3px solid #667eea;
+            border-bottom: 3px solid #DC143C;
+            text-shadow: 0 0 10px rgba(220, 20, 60, 0.5);
         }
 
         h3 {
-            color: #764ba2;
+            color: #ff6b6b;
             margin: 20px 0 10px 0;
         }
 
         .fact-box {
-            background: #f8f9fa;
-            border-left: 5px solid #667eea;
+            background: #2a0000;
+            border-left: 5px solid #DC143C;
             padding: 15px;
             margin: 15px 0;
             border-radius: 5px;
+            border: 1px solid #8B0000;
         }
 
         .highlight {
-            background: #fff3cd;
+            background: #4a0000;
             padding: 2px 5px;
             border-radius: 3px;
+            color: #ffcccc;
+            border: 1px solid #DC143C;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
             margin: 20px 0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 10px rgba(220, 20, 60, 0.3);
+            border: 1px solid #8B0000;
         }
 
         th, td {
             padding: 12px;
             text-align: left;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #8B0000;
+            color: #e0e0e0;
         }
 
         th {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);
             color: white;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
 
         tr:hover {
-            background: #f8f9fa;
+            background: #2a0000;
         }
 
         .question-item {
-            background: white;
-            border: 2px solid #e9ecef;
+            background: #2a0000;
+            border: 2px solid #8B0000;
             border-radius: 10px;
             padding: 15px;
             margin: 15px 0;
@@ -177,13 +228,14 @@
         }
 
         .question-item:hover {
-            border-color: #667eea;
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+            border-color: #DC143C;
+            box-shadow: 0 5px 15px rgba(220, 20, 60, 0.4);
+            background: #3a0000;
         }
 
         .question-title {
             font-weight: bold;
-            color: #2c3e50;
+            color: #ff6b6b;
             font-size: 1.1em;
             display: flex;
             justify-content: space-between;
@@ -194,8 +246,8 @@
             display: none;
             margin-top: 15px;
             padding-top: 15px;
-            border-top: 1px solid #e9ecef;
-            color: #555;
+            border-top: 1px solid #8B0000;
+            color: #d0d0d0;
         }
 
         .question-answer.show {
@@ -220,17 +272,20 @@
         }
 
         .stat {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);
             color: white;
             padding: 20px;
             border-radius: 10px;
             margin: 15px 0;
             text-align: center;
+            border: 2px solid #ff0000;
+            box-shadow: 0 0 20px rgba(220, 20, 60, 0.5), inset 0 0 20px rgba(0, 0, 0, 0.3);
         }
 
         .stat-number {
             font-size: 2.5em;
             font-weight: bold;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
 
         .stat-label {
@@ -246,14 +301,15 @@
         }
 
         .suggested-questions {
-            background: #e8f4f8;
+            background: #2a0000;
             padding: 20px;
             border-radius: 10px;
             margin-top: 20px;
+            border: 2px solid #8B0000;
         }
 
         .suggested-questions h3 {
-            color: #2c3e50;
+            color: #DC143C;
             margin-bottom: 15px;
         }
 
@@ -263,19 +319,20 @@
             text-align: left;
             padding: 12px 15px;
             margin: 8px 0;
-            background: white;
-            border: 2px solid #667eea;
+            background: #1a1a1a;
+            border: 2px solid #8B0000;
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s;
             font-size: 1em;
-            color: #2c3e50;
+            color: #e0e0e0;
         }
 
         .suggested-question-btn:hover {
-            background: #667eea;
+            background: #DC143C;
             color: white;
             transform: translateX(5px);
+            box-shadow: 0 0 15px rgba(220, 20, 60, 0.5);
         }
 
         @media (max-width: 768px) {
@@ -1216,13 +1273,13 @@
                 </div>
 
                 <h3>La Pregunta Final Demoledora</h3>
-                <div class="fact-box" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 25px; border-left: none;">
+                <div class="fact-box" style="background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%); color: white; padding: 25px; border-left: none; box-shadow: 0 0 30px rgba(220, 20, 60, 0.8); border: 2px solid #ff0000;">
                     <p style="font-size: 1.2em; margin-bottom: 15px;"><strong>25. PREGUNTA DEFINITIVA:</strong></p>
                     <p style="font-size: 1.1em;"><strong>Si en 1900 había 570,000 palestinos (95%) y 30,000 judíos (5%)...</strong></p>
                     <p style="font-size: 1.1em;"><strong>Si en 1947 había 1,300,000 palestinos (67%) y 600,000 judíos (33%)...</strong></p>
                     <p style="font-size: 1.1em;"><strong>Si en 1948, 750,000 palestinos fueron expulsados de sus hogares...</strong></p>
                     <p style="font-size: 1.1em;"><strong>Si han pasado solo 76 años desde la expulsión...</strong></p>
-                    <p style="font-size: 1.3em; margin-top: 15px; font-weight: bold;">¿CÓMO PUEDES ARGUMENTAR QUE LOS PALESTINOS NO TIENEN DERECHO A VIVIR LIBRES EN SU TIERRA?</strong></p>
+                    <p style="font-size: 1.3em; margin-top: 15px; font-weight: bold; text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);">¿CÓMO PUEDES ARGUMENTAR QUE LOS PALESTINOS NO TIENEN DERECHO A VIVIR LIBRES EN SU TIERRA?</strong></p>
                 </div>
 
                 <div class="suggested-questions" style="margin-top: 30px;">
@@ -1262,10 +1319,18 @@
             });
 
             // Mostrar la sección seleccionada
-            document.getElementById(tabName).classList.add('active');
+            const targetSection = document.getElementById(tabName);
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
 
-            // Activar el botón clickeado
-            event.target.classList.add('active');
+            // Activar el botón correspondiente
+            buttons.forEach(button => {
+                if (button.textContent.toLowerCase().includes(tabName) ||
+                    button.getAttribute('onclick').includes(tabName)) {
+                    button.classList.add('active');
+                }
+            });
 
             // Scroll suave al inicio del contenido
             document.querySelector('.content-area').scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1285,31 +1350,156 @@
             }
         }
 
-        // Función de búsqueda
+        // Función de búsqueda MEJORADA
         const searchBox = document.getElementById('searchBox');
+        let searchTimeout;
+
         searchBox.addEventListener('input', function(e) {
-            const searchTerm = e.target.value.toLowerCase();
+            const searchTerm = e.target.value.toLowerCase().trim();
+
+            // Limpiar timeout anterior
+            clearTimeout(searchTimeout);
 
             if (searchTerm.length < 2) {
-                // Si el término de búsqueda es muy corto, no buscar
+                // Limpiar resaltados si la búsqueda es muy corta
+                removeHighlights();
                 return;
             }
 
-            // Buscar en todo el contenido
-            const contentArea = document.querySelector('.content-area');
-            const allText = contentArea.innerText.toLowerCase();
-
-            if (allText.includes(searchTerm)) {
-                // Resaltar el término encontrado
-                highlightSearchTerm(searchTerm);
-            }
+            // Esperar 300ms después de que el usuario deje de escribir
+            searchTimeout = setTimeout(() => {
+                performSearch(searchTerm);
+            }, 300);
         });
 
-        function highlightSearchTerm(term) {
-            // Función simple de resaltado (puede mejorarse)
-            // Por ahora solo mostramos en consola
-            console.log('Buscando:', term);
+        function performSearch(term) {
+            // Primero limpiar resaltados anteriores
+            removeHighlights();
+
+            // Buscar en todas las secciones
+            const sections = document.querySelectorAll('.section');
+            let foundInSection = null;
+            let foundCount = 0;
+
+            sections.forEach(section => {
+                const sectionText = section.innerText.toLowerCase();
+                if (sectionText.includes(term)) {
+                    foundInSection = section;
+
+                    // Contar ocurrencias
+                    const matches = sectionText.split(term).length - 1;
+                    foundCount += matches;
+
+                    // Resaltar el término en esta sección
+                    highlightTextInElement(section, term);
+                }
+            });
+
+            // Si se encontró algo, mostrar la primera sección con resultados
+            if (foundInSection) {
+                const sectionId = foundInSection.id;
+                showTab(sectionId);
+
+                // Scroll al primer resultado
+                setTimeout(() => {
+                    const firstHighlight = document.querySelector('.search-highlight');
+                    if (firstHighlight) {
+                        firstHighlight.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                }, 100);
+
+                console.log(`✓ Encontrado "${term}" ${foundCount} veces`);
+            } else {
+                console.log(`✗ No se encontró "${term}"`);
+            }
         }
+
+        function highlightTextInElement(element, term) {
+            // Buscar en todos los nodos de texto
+            const walker = document.createTreeWalker(
+                element,
+                NodeFilter.SHOW_TEXT,
+                null,
+                false
+            );
+
+            const nodesToReplace = [];
+            let node;
+
+            while (node = walker.nextNode()) {
+                const text = node.nodeValue;
+                const lowerText = text.toLowerCase();
+
+                if (lowerText.includes(term)) {
+                    nodesToReplace.push(node);
+                }
+            }
+
+            nodesToReplace.forEach(node => {
+                const text = node.nodeValue;
+                const lowerText = text.toLowerCase();
+                const parts = [];
+                let lastIndex = 0;
+
+                let index = lowerText.indexOf(term);
+                while (index !== -1) {
+                    // Texto antes del match
+                    if (index > lastIndex) {
+                        parts.push(document.createTextNode(text.substring(lastIndex, index)));
+                    }
+
+                    // Texto resaltado
+                    const span = document.createElement('span');
+                    span.className = 'search-highlight';
+                    span.textContent = text.substring(index, index + term.length);
+                    parts.push(span);
+
+                    lastIndex = index + term.length;
+                    index = lowerText.indexOf(term, lastIndex);
+                }
+
+                // Texto después del último match
+                if (lastIndex < text.length) {
+                    parts.push(document.createTextNode(text.substring(lastIndex)));
+                }
+
+                // Reemplazar el nodo original con los nuevos nodos
+                const parent = node.parentNode;
+                parts.forEach(part => {
+                    parent.insertBefore(part, node);
+                });
+                parent.removeChild(node);
+            });
+        }
+
+        function removeHighlights() {
+            const highlights = document.querySelectorAll('.search-highlight');
+            highlights.forEach(highlight => {
+                const parent = highlight.parentNode;
+                parent.replaceChild(document.createTextNode(highlight.textContent), highlight);
+                parent.normalize(); // Combinar nodos de texto adyacentes
+            });
+        }
+
+        // Estilo para resaltado de búsqueda
+        const style = document.createElement('style');
+        style.textContent = `
+            .search-highlight {
+                background: #DC143C;
+                color: #fff;
+                padding: 2px 4px;
+                border-radius: 3px;
+                font-weight: bold;
+                box-shadow: 0 0 10px rgba(220, 20, 60, 0.8);
+                animation: pulse 1.5s infinite;
+            }
+
+            @keyframes pulse {
+                0%, 100% { box-shadow: 0 0 10px rgba(220, 20, 60, 0.8); }
+                50% { box-shadow: 0 0 20px rgba(220, 20, 60, 1); }
+            }
+        `;
+        document.head.appendChild(style);
 
         // Sugerencias de búsqueda al hacer clic en el campo
         searchBox.addEventListener('focus', function() {
