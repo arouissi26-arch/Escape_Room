@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Israel y Palestina - Guía de Debate</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 1.2em;
+        }
+
+        .search-container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 15px 20px;
+            font-size: 1.1em;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .search-box:focus {
+            border-color: #764ba2;
+            box-shadow: 0 0 15px rgba(118, 75, 162, 0.3);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .tab-button {
+            padding: 12px 25px;
+            background: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .tab-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .tab-button.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .content-area {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            color: #667eea;
+            margin: 25px 0 15px 0;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        h3 {
+            color: #764ba2;
+            margin: 20px 0 10px 0;
+        }
+
+        .fact-box {
+            background: #f8f9fa;
+            border-left: 5px solid #667eea;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        .question-item {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .question-item:hover {
+            border-color: #667eea;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+        }
+
+        .question-title {
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 1.1em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .question-answer {
+            display: none;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #e9ecef;
+            color: #555;
+        }
+
+        .question-answer.show {
+            display: block;
+        }
+
+        .arrow {
+            transition: transform 0.3s;
+        }
+
+        .arrow.rotate {
+            transform: rotate(180deg);
+        }
+
+        ul, ol {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .stat {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+        }
+
+        .stat-label {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #7f8c8d;
+            font-size: 1.2em;
+        }
+
+        .suggested-questions {
+            background: #e8f4f8;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .suggested-questions h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .suggested-question-btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 12px 15px;
+            margin: 8px 0;
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1em;
+            color: #2c3e50;
+        }
+
+        .suggested-question-btn:hover {
+            background: #667eea;
+            color: white;
+            transform: translateX(5px);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tab-button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🇵🇸 ISRAEL Y PALESTINA 🇵🇸</h1>
+            <p class="subtitle">¿Quién llegó primero? ¿Quién tiene derecho?</p>
+            <p style="margin-top: 10px; color: #95a5a6;">Análisis histórico exhaustivo basado en hechos verificables</p>
+        </header>
+
+        <div class="search-container">
+            <input type="text" id="searchBox" class="search-box" placeholder="🔍 Busca cualquier tema: Nakba, refugiados, ONU, 1948...">
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="showTab('indice')">📑 Índice</button>
+            <button class="tab-button" onclick="showTab('cronologia')">📅 Cronología</button>
+            <button class="tab-button" onclick="showTab('datos')">📊 Datos Clave</button>
+            <button class="tab-button" onclick="showTab('argumentos')">💬 Argumentos</button>
+            <button class="tab-button" onclick="showTab('preguntas')">❓ Preguntas Frecuentes</button>
+            <button class="tab-button" onclick="showTab('sugerencias')">💡 Preguntas para Hacer</button>
+        </div>
+
+        <div class="content-area">
+            <!-- ÍNDICE -->
+            <div id="indice" class="section active">
+                <h2>📑 ÍNDICE COMPLETO</h2>
+
+                <div class="fact-box">
+                    <h3>1. INTRODUCCIÓN: LAS PREGUNTAS FUNDAMENTALES</h3>
+                    <ul>
+                        <li>¿Quién vivía en esa tierra en 1900? ¿Y en 1947?</li>
+                        <li>¿Quién llegó después y en qué circunstancias?</li>
+                        <li>¿Quién fue expulsado de sus hogares?</li>
+                        <li>¿Quién tiene derecho según el derecho internacional?</li>
+                    </ul>
+                </div>
+
+                <div class="stat">
+                    <div class="stat-number">750,000</div>
+                    <div class="stat-label">Palestinos expulsados en la Nakba (1948)</div>
+                </div>
+
+                <h3>2. CONTEXTO HISTÓRICO: LA TIERRA ANTES DE 1900</h3>
+                <p><strong>Población en 1900:</strong></p>
+                <ul>
+                    <li>Árabes palestinos: <span class="highlight">570,000 (95%)</span></li>
+                    <li>Judíos: 30,000 (5%)</li>
+                </ul>
+                <p><strong>Punto crucial:</strong> Los palestinos NO tuvieron nada que ver con el antisemitismo europeo. No causaron los pogromos. No causaron el Holocausto. Pero pagaron el precio más alto.</p>
+
+                <h3>3. CRONOLOGÍA COMPLETA (1900-2024)</h3>
+                <p>Ver pestaña "Cronología" para tabla completa.</p>
+
+                <h3>4. ANÁLISIS DEMOGRÁFICO</h3>
+                <div class="fact-box">
+                    <strong>La pregunta que destruye el argumento del "derecho histórico":</strong>
+                    <p>Si en 1900 había 570,000 palestinos que llevaban siglos allí, y solo 30,000 judíos...</p>
+                    <p>Si en 1947 había 1,300,000 palestinos y 600,000 judíos (mayoría llegados en 30 años)...</p>
+                    <p><strong>¿Cómo puede alguien argumentar que los judíos tienen "más derecho" basándose en eventos de hace 2,500 años?</strong></p>
+                </div>
+
+                <h3>5. EL ARGUMENTO DEL 'DERECHO HISTÓRICO'</h3>
+                <p><strong>Si el derecho histórico de hace 2,500 años es válido:</strong></p>
+                <ul>
+                    <li>Los musulmanes pueden reclamar Al-Ándalus (España) - 800 años de control</li>
+                    <li>Los mongoles pueden reclamar media Asia</li>
+                    <li>Los nativos americanos pueden reclamar toda América</li>
+                    <li>Los romanos pueden reclamar Europa y el Mediterráneo</li>
+                </ul>
+                <p class="highlight"><strong>DOS PESOS DOS MEDIDAS:</strong> Si 2,500 años no borran derechos, entonces 76 años DEFINITIVAMENTE no los borran.</p>
+
+                <h3>6. LAS TRES PROMESAS BRITÁNICAS: EL FRAUDE</h3>
+                <p>Los británicos prometieron la MISMA tierra a TRES grupos diferentes:</p>
+                <ol>
+                    <li><strong>1915:</strong> A los árabes (Correspondencia Hussein-McMahon)</li>
+                    <li><strong>1916:</strong> A Francia (Acuerdo Sykes-Picot)</li>
+                    <li><strong>1917:</strong> A los judíos (Declaración Balfour)</li>
+                </ol>
+                <p class="highlight">Los británicos NO eran dueños de esa tierra. No puedes prometer la casa de otro.</p>
+
+                <h3>7. EL PLAN DE PARTICIÓN DE LA ONU (1947)</h3>
+                <div class="fact-box">
+                    <strong>La injusticia del plan:</strong>
+                    <ul>
+                        <li>Judíos: 33% de la población → reciben 56% del territorio</li>
+                        <li>Palestinos: 67% de la población → reciben 44% del territorio</li>
+                    </ul>
+                    <strong>La violación del plan:</strong>
+                    <ul>
+                        <li>Israel "acepta" el plan... y toma el 78% en 1948</li>
+                        <li>750,000 palestinos expulsados</li>
+                        <li>531 pueblos destruidos</li>
+                    </ul>
+                </div>
+
+                <h3>8. LA NAKBA (1948): 750,000 REFUGIADOS</h3>
+                <ul>
+                    <li>750,000-900,000 palestinos expulsados (58-69% de la población total)</li>
+                    <li>531 pueblos destruidos o despoblados</li>
+                    <li>15,000+ palestinos asesinados</li>
+                    <li>Masacres documentadas: Deir Yassin, Tantura, Lydda, Al-Dawayima</li>
+                </ul>
+                <p><strong>Resolución 194 ONU:</strong> Los refugiados tienen derecho al retorno. Reafirmada 130+ veces. Israel siempre la ha rechazado.</p>
+
+                <h3>9. LA OCUPACIÓN DESDE 1967</h3>
+                <ul>
+                    <li><strong>57 años</strong> de ocupación militar (1967-2024)</li>
+                    <li><strong>750,000</strong> colonos en asentamientos ILEGALES</li>
+                    <li><strong>280+</strong> asentamientos en Cisjordania y Jerusalén Este</li>
+                    <li><strong>Resolución 242 ONU:</strong> Retirarse de territorios ocupados - VIOLADA durante 57 años</li>
+                </ul>
+
+                <h3>10-11. ARGUMENTOS PRO-ISRAEL Y CONTRAARGUMENTOS</h3>
+                <p>Ver pestaña "Argumentos" para análisis completo.</p>
+
+                <h3>12. ASIMETRÍA DEL CONFLICTO</h3>
+                <div class="stat">
+                    <div class="stat-number">1:33</div>
+                    <div class="stat-label">Ratio de muertos en Gaza 2023-24<br>Por cada israelí: 33 palestinos</div>
+                </div>
+
+                <h3>13. RESOLUCIONES ONU VIOLADAS</h3>
+                <p>Israel tiene el récord de resoluciones de la ONU violadas. EEUU ha vetado 50+ resoluciones críticas con Israel.</p>
+
+                <h3>14. HAMAS Y EL CONTEXTO DE LA RESISTENCIA</h3>
+                <ul>
+                    <li>Gaza: 2 millones de personas en 365 km² - una de las zonas más densas del mundo</li>
+                    <li>70% de la población son refugiados de 1948 y sus descendientes</li>
+                    <li>Bloqueo total desde 2007 - cárcel al aire libre</li>
+                </ul>
+
+                <h3>15. CONCLUSIÓN: ¿QUIÉN TIENE DERECHO?</h3>
+                <div class="fact-box">
+                    <strong>NINGÚN argumento sobre eventos de hace 2,500 años puede justificar:</strong>
+                    <ul>
+                        <li>La expulsión de 750,000 personas en 1948</li>
+                        <li>La ocupación militar de 57 años</li>
+                        <li>El bloqueo de Gaza durante 17 años</li>
+                        <li>Los 40,000+ palestinos muertos, incluyendo 16,000+ niños</li>
+                        <li>La construcción de asentamientos ilegales</li>
+                        <li>La negación sistemática de derechos humanos básicos</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- CRONOLOGÍA -->
+            <div id="cronologia" class="section">
+                <h2>📅 CRONOLOGÍA COMPLETA (1900-2024)</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>AÑO</th>
+                            <th>EVENTO CLAVE</th>
+                            <th>POB. JUDÍA</th>
+                            <th>POB. PALESTINA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1900</td>
+                            <td>Situación bajo Imperio Otomano</td>
+                            <td>30,000 (5%)</td>
+                            <td>570,000 (95%)</td>
+                        </tr>
+                        <tr>
+                            <td>1917</td>
+                            <td>Declaración Balfour: UK promete 'hogar nacional judío'</td>
+                            <td>56,000</td>
+                            <td>600,000</td>
+                        </tr>
+                        <tr>
+                            <td>1920</td>
+                            <td>Inicio del Mandato Británico sobre Palestina</td>
+                            <td>83,000 (11%)</td>
+                            <td>673,000 (89%)</td>
+                        </tr>
+                        <tr>
+                            <td>1931</td>
+                            <td>Inmigración sionista en aumento</td>
+                            <td>175,000 (17%)</td>
+                            <td>880,000 (83%)</td>
+                        </tr>
+                        <tr>
+                            <td>1936-39</td>
+                            <td>Gran Revuelta Árabe contra inmigración masiva</td>
+                            <td>370,000</td>
+                            <td>1,000,000</td>
+                        </tr>
+                        <tr>
+                            <td>1947</td>
+                            <td>Plan de Partición de la ONU</td>
+                            <td>600,000 (33%)</td>
+                            <td>1,300,000 (67%)</td>
+                        </tr>
+                        <tr>
+                            <td>Mayo 1948</td>
+                            <td>Declaración Estado de Israel / Inicio Nakba</td>
+                            <td>Control 78% territorio</td>
+                            <td>750,000 expulsados</td>
+                        </tr>
+                        <tr>
+                            <td>1949</td>
+                            <td>Fin guerra, armisticios</td>
+                            <td>Israel 78% territorio</td>
+                            <td>Refugiados en campos</td>
+                        </tr>
+                        <tr>
+                            <td>1967</td>
+                            <td>Guerra 6 Días: Ocupa Cisjordania, Gaza, Sinaí, Golán</td>
+                            <td>Ocupación militar</td>
+                            <td>Bajo ocupación</td>
+                        </tr>
+                        <tr>
+                            <td>1987-93</td>
+                            <td>Primera Intifada (levantamiento popular)</td>
+                            <td>-</td>
+                            <td>1,162 muertos</td>
+                        </tr>
+                        <tr>
+                            <td>1993</td>
+                            <td>Acuerdos Oslo: OLP reconoce a Israel</td>
+                            <td>Se compromete paz</td>
+                            <td>Espera estado</td>
+                        </tr>
+                        <tr>
+                            <td>2000-05</td>
+                            <td>Segunda Intifada</td>
+                            <td>1,000 muertos</td>
+                            <td>3,200 muertos</td>
+                        </tr>
+                        <tr>
+                            <td>2005</td>
+                            <td>'Retirada' de Gaza pero mantiene bloqueo total</td>
+                            <td>Controla fronteras</td>
+                            <td>2M bloqueados</td>
+                        </tr>
+                        <tr>
+                            <td>2008-09</td>
+                            <td>Operación Plomo Fundido en Gaza</td>
+                            <td>13 muertos</td>
+                            <td>1,400 muertos (70% civiles)</td>
+                        </tr>
+                        <tr>
+                            <td>2014</td>
+                            <td>Operación Margen Protector en Gaza</td>
+                            <td>73 muertos</td>
+                            <td>2,251 muertos (70% civiles)</td>
+                        </tr>
+                        <tr>
+                            <td>2018</td>
+                            <td>Gran Marcha del Retorno (protestas pacíficas)</td>
+                            <td>0 muertos</td>
+                            <td>223 muertos por francotiradores</td>
+                        </tr>
+                        <tr>
+                            <td>2023-24</td>
+                            <td>Guerra de Gaza</td>
+                            <td>~1,200 muertos</td>
+                            <td>40,000+ muertos (16,000+ niños)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="fact-box">
+                    <h3>Observaciones críticas:</h3>
+                    <ol>
+                        <li>La población judía pasa de 5% a 33% en solo 47 años (1900-1947) debido a inmigración masiva europea.</li>
+                        <li>Los palestinos eran el 67% en 1947 pero reciben solo el 44% del territorio en el plan de partición.</li>
+                        <li>Israel termina controlando el 78% en 1948, mucho más de lo que la ONU le había asignado (56%).</li>
+                        <li>750,000 palestinos son expulsados de sus hogares en lo que ellos llaman la Nakba (Catástrofe).</li>
+                        <li>Asimetría brutal: En cada conflicto mueren entre 20-30 veces más palestinos que israelíes.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- DATOS CLAVE -->
+            <div id="datos" class="section">
+                <h2>📊 DATOS CLAVE Y ESTADÍSTICAS</h2>
+
+                <h3>Evolución Demográfica</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>AÑO</th>
+                            <th>PALESTINOS</th>
+                            <th>JUDÍOS</th>
+                            <th>% PALESTINOS</th>
+                            <th>% JUDÍOS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1900</td>
+                            <td>570,000</td>
+                            <td>30,000</td>
+                            <td>95%</td>
+                            <td>5%</td>
+                        </tr>
+                        <tr>
+                            <td>1917</td>
+                            <td>600,000</td>
+                            <td>56,000</td>
+                            <td>91.5%</td>
+                            <td>8.5%</td>
+                        </tr>
+                        <tr>
+                            <td>1931</td>
+                            <td>880,000</td>
+                            <td>175,000</td>
+                            <td>83%</td>
+                            <td>17%</td>
+                        </tr>
+                        <tr>
+                            <td>1947</td>
+                            <td>1,300,000</td>
+                            <td>600,000</td>
+                            <td>67%</td>
+                            <td>33%</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="stat">
+                    <div class="stat-number">95%</div>
+                    <div class="stat-label">Palestinos en 1900</div>
+                </div>
+
+                <div class="stat">
+                    <div class="stat-number">5%</div>
+                    <div class="stat-label">Judíos en 1900</div>
+                </div>
+
+                <h3>La Nakba en Números</h3>
+                <div class="fact-box">
+                    <ul>
+                        <li><strong>750,000-900,000</strong> palestinos expulsados (58-69% de la población total)</li>
+                        <li><strong>531</strong> pueblos destruidos o despoblados</li>
+                        <li><strong>15,000+</strong> palestinos asesinados</li>
+                        <li><strong>5 millones+</strong> refugiados palestinos registrados hoy por UNRWA</li>
+                    </ul>
+                </div>
+
+                <h3>Asimetría de Víctimas</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>CONFLICTO</th>
+                            <th>ISRAELÍES</th>
+                            <th>PALESTINOS</th>
+                            <th>RATIO</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Segunda Intifada (2000-05)</td>
+                            <td>~1,000</td>
+                            <td>~3,200</td>
+                            <td>1:3.2</td>
+                        </tr>
+                        <tr>
+                            <td>Op. Plomo Fundido (2008-09)</td>
+                            <td>13</td>
+                            <td>1,400</td>
+                            <td>1:108</td>
+                        </tr>
+                        <tr>
+                            <td>Gaza 2014</td>
+                            <td>73</td>
+                            <td>2,251</td>
+                            <td>1:31</td>
+                        </tr>
+                        <tr>
+                            <td>Gaza 2021</td>
+                            <td>13</td>
+                            <td>260</td>
+                            <td>1:20</td>
+                        </tr>
+                        <tr>
+                            <td>Gaza 2023-24</td>
+                            <td>~1,200</td>
+                            <td>~40,000</td>
+                            <td>1:33</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="stat">
+                    <div class="stat-number">16,000+</div>
+                    <div class="stat-label">Niños palestinos muertos en Gaza 2023-24</div>
+                </div>
+
+                <h3>Asimetría Militar (2023)</h3>
+                <div class="fact-box">
+                    <strong>Presupuesto Militar:</strong>
+                    <ul>
+                        <li>Israel: $23,400 millones</li>
+                        <li>Autoridad Palestina: ~$50 millones</li>
+                        <li><strong>Ratio: 468:1</strong></li>
+                    </ul>
+                    <strong>Armamento Israel:</strong>
+                    <ul>
+                        <li>600+ aviones de combate (F-16, F-35)</li>
+                        <li>2,700+ tanques</li>
+                        <li>80-200 ojivas nucleares (único país con armas nucleares en Medio Oriente)</li>
+                        <li>Sistema antimisiles Iron Dome</li>
+                        <li>Apoyo militar EEUU: $3,800 millones/año</li>
+                    </ul>
+                    <strong>Armamento Hamas:</strong>
+                    <ul>
+                        <li>Cohetes caseros (mayoría interceptados)</li>
+                        <li>Armas pequeñas</li>
+                        <li>Sin fuerza aérea, sin tanques, sin armada</li>
+                    </ul>
+                </div>
+
+                <h3>Resoluciones ONU Violadas por Israel</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>RESOLUCIÓN</th>
+                            <th>AÑO</th>
+                            <th>CONTENIDO</th>
+                            <th>VECES REAFIRMADA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>194</td>
+                            <td>1948</td>
+                            <td>Derecho al retorno de refugiados</td>
+                            <td>130+</td>
+                        </tr>
+                        <tr>
+                            <td>242</td>
+                            <td>1967</td>
+                            <td>Retirarse de territorios ocupados</td>
+                            <td>57 años violada</td>
+                        </tr>
+                        <tr>
+                            <td>446</td>
+                            <td>1979</td>
+                            <td>Asentamientos ilegales sin validez</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>2334</td>
+                            <td>2016</td>
+                            <td>Asentamientos flagrante violación</td>
+                            <td>-</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="stat">
+                    <div class="stat-number">750,000</div>
+                    <div class="stat-label">Colonos israelíes en asentamientos ILEGALES</div>
+                </div>
+
+                <div class="stat">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Vetos de EEUU protegiendo a Israel en el Consejo de Seguridad ONU</div>
+                </div>
+
+                <h3>Organizaciones que Llaman a Israel "Apartheid"</h3>
+                <div class="fact-box">
+                    <ul>
+                        <li><strong>B'Tselem</strong> (israelí) - "Régimen de supremacía judía" (2021)</li>
+                        <li><strong>Human Rights Watch</strong> - "Apartheid y persecución" (2021)</li>
+                        <li><strong>Amnistía Internacional</strong> - "Sistema cruel de dominación y apartheid" (2022)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- ARGUMENTOS -->
+            <div id="argumentos" class="section">
+                <h2>💬 ARGUMENTOS PRO-ISRAEL Y CONTRAARGUMENTOS</h2>
+
+                <div class="question-item" onclick="toggleAnswer(this)">
+                    <div class="question-title">
+                        ARGUMENTO 1: 'Los judíos tienen derecho histórico de hace 2,500 años'
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="question-answer">
+                        <h4>CONTRAARGUMENTO:</h4>
+                        <p><strong>Si el derecho histórico antiguo es válido:</strong></p>
+                        <ul>
+                            <li>Los musulmanes pueden reclamar Al-Ándalus (España) - 800 años de control</li>
+                            <li>Los mongoles pueden reclamar media Asia - Imperio de Genghis Khan</li>
+                            <li>Los nativos americanos pueden reclamar TODO América</li>
+                            <li>Los descendientes de Roma pueden reclamar toda Europa y el Mediterráneo</li>
+                        </ul>
+                        <p class="highlight"><strong>¿Vemos el absurdo?</strong> Si aplicamos este principio, el mundo entero tendría que reorganizarse.</p>
+                        <p><strong>DOS PESOS DOS MEDIDAS:</strong> Si 2,500 años no borran derechos, entonces 76 años DEFINITIVAMENTE no los borran. Los refugiados palestinos de 1948 tienen un derecho MUCHO MÁS RECIENTE a volver. Muchos todavía están vivos. Tienen las llaves de sus casas. Tienen títulos de propiedad.</p>
+                        <p><strong>No puedes usar el derecho histórico solo cuando te conviene.</strong></p>
+                    </div>
+                </div>
+
+                <div class="question-item" onclick="toggleAnswer(this)">
+                    <div class="question-title">
+                        ARGUMENTO 2: 'Israel es la única democracia en Medio Oriente'
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="question-answer">
+                        <h4>CONTRAARGUMENTO:</h4>
+                        <p><strong>¿Democracia para quién?</strong></p>
+                        <ul>
+                            <li>Los 5 millones de palestinos en Cisjordania y Gaza viven bajo ocupación militar <strong>sin derecho al voto</strong></li>
+                            <li>Los 5 millones de refugiados palestinos dispersos por el mundo <strong>no pueden volver</strong> a su tierra</li>
+                            <li>Dentro de Israel, hay <strong>más de 65 leyes</strong> que discriminan a ciudadanos árabes</li>
+                        </ul>
+                        <p><strong>Apartheid documentado:</strong></p>
+                        <div class="fact-box">
+                            <p>Organizaciones de derechos humanos, incluyendo israelíes, han llamado al sistema israelí "apartheid":</p>
+                            <ul>
+                                <li><strong>B'Tselem</strong> (principal ONG israelí): "Régimen de supremacía judía" (2021)</li>
+                                <li><strong>Human Rights Watch:</strong> "Apartheid y persecución" (2021)</li>
+                                <li><strong>Amnistía Internacional:</strong> "Sistema cruel de dominación y apartheid" (2022)</li>
+                            </ul>
+                        </div>
+                        <p><strong>Un estado no puede llamarse democracia cuando:</strong></p>
+                        <ol>
+                            <li>Millones de personas bajo su control no tienen derecho al voto</li>
+                            <li>Los derechos dependen de la etnia</li>
+                            <li>Un grupo tiene privilegios constitucionales sobre otro</li>
+                        </ol>
+                        <p class="highlight">Sudáfrica también decía que era "democracia" durante el apartheid. Los blancos podían votar. ¿Eso la hacía democracia?</p>
+                    </div>
+                </div>
+
+                <div class="question-item" onclick="toggleAnswer(this)">
+                    <div class="question-title">
+                        ARGUMENTO 3: 'La ONU apoyó la creación de Israel en 1947'
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="question-answer">
+                        <h4>CONTRAARGUMENTO:</h4>
+                        <p>Sí, la ONU propuso UN PLAN de partición. Pero:</p>
+                        <ol>
+                            <li><strong>Ese plan era injusto:</strong> Daba el 56% del territorio a judíos (33% población) y solo 44% a palestinos (67% población)</li>
+                            <li><strong>Israel violó ese plan:</strong> En vez del 56%, tomó el 78% del territorio y expulsó a 750,000 palestinos</li>
+                            <li><strong>¿Por qué solo cuentan ALGUNAS resoluciones de la ONU?</strong></li>
+                        </ol>
+                        <p><strong>Esa MISMA ONU ha aprobado CIENTOS de resoluciones que Israel viola:</strong></p>
+                        <ul>
+                            <li><strong>Resolución 194:</strong> Derecho al retorno de refugiados (reafirmada 130+ veces) - VIOLADA</li>
+                            <li><strong>Resolución 242:</strong> Retirarse de territorios ocupados (1967) - VIOLADA durante 57 años</li>
+                            <li><strong>Resolución 2334:</strong> Los asentamientos son ilegales (2016) - VIOLADA con 750,000 colonos</li>
+                            <li><strong>Resolución 478:</strong> Anexión de Jerusalén Este es nula - VIOLADA</li>
+                        </ul>
+                        <p class="highlight"><strong>No puedes citar la ONU solo cuando te conviene.</strong> Si la resolución 181 de 1947 es válida, entonces TODAS las demás también lo son.</p>
+                    </div>
+                </div>
+
+                <div class="question-item" onclick="toggleAnswer(this)">
+                    <div class="question-title">
+                        ARGUMENTO 4: 'Hamas usa escudos humanos'
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="question-answer">
+                        <h4>CONTRAARGUMENTO:</h4>
+                        <p><strong>Primero, los hechos sobre Gaza:</strong></p>
+                        <ul>
+                            <li><strong>Densidad:</strong> 2 millones de personas en 365 km² (una de las zonas más densas del mundo)</li>
+                            <li><strong>Es una cárcel:</strong> Israel controla fronteras, mar, aire, electricidad, agua. Nadie entra ni sale sin permiso</li>
+                            <li><strong>70%</strong> de la población son refugiados de la Nakba de 1948 y sus descendientes</li>
+                        </ul>
+                        <p class="highlight">¿Dónde se supone que tienen que estar? Gaza es minúscula y superpoblada. CUALQUIER instalación está cerca de civiles porque todo está cerca de todo.</p>
+                        <p><strong>Pero incluso si fuera cierto:</strong></p>
+                        <p>Según el derecho internacional humanitario, INCLUSO SI hay combatientes entre civiles, la parte atacante DEBE minimizar víctimas civiles. Bombardear un edificio entero con decenas de familias para matar a un supuesto militante es desproporcionado y <strong>SIGUE SIENDO CRIMEN DE GUERRA.</strong></p>
+                        <p><strong>La proporción de civiles muertos lo demuestra:</strong></p>
+                        <ul>
+                            <li>Gaza 2023-24: <strong>70% civiles</strong>, 40% de los muertos son NIÑOS (16,000+)</li>
+                            <li>Operación Plomo Fundido 2008-09: <strong>70% civiles</strong></li>
+                            <li>Gaza 2014: <strong>70% civiles</strong></li>
+                        </ul>
+                        <p class="highlight">Si realmente Israel fuera tan cuidadoso como afirma, ¿cómo es que el 70% de los muertos son civiles? ¿Cómo murieron 16,000+ niños?</p>
+                        <div class="fact-box">
+                            <strong>Proyección:</strong>
+                            <p>Irónicamente, hay DOCUMENTACIÓN de soldados israelíes usando palestinos como escudos humanos:</p>
+                            <ul>
+                                <li>B'Tselem ha documentado múltiples casos</li>
+                                <li>Testimonios en "Breaking the Silence"</li>
+                                <li>Prohibido oficialmente por la Corte Suprema israelí en 2005... porque era una práctica común</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question-item" onclick="toggleAnswer(this)">
+                    <div class="question-title">
+                        ARGUMENTO 5: 'Israel se retiró de Gaza en 2005'
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="question-answer">
+                        <h4>CONTRAARGUMENTO:</h4>
+                        <p>Técnicamente, Israel retiró a sus soldados y colonos DE DENTRO de Gaza en 2005. PERO:</p>
+                        <p><strong>Israel mantiene control TOTAL sobre Gaza:</strong></p>
+                        <ul>
+                            <li>Controla TODAS las fronteras terrestres (excepto Rafah con Egipto, que también coordina con Israel)</li>
+                            <li>Controla TODO el espacio aéreo</li>
+                            <li>Controla TODO el mar territorial</li>
+                            <li>Controla el registro de población (quién nace, quién entra, quién sale)</li>
+                            <li>Controla el suministro de electricidad, agua, combustible</li>
+                            <li>Controla qué mercancías entran y salen</li>
+                        </ul>
+                        <p><strong>Los gazatíes no pueden:</strong></p>
+                        <ul>
+                            <li>Salir sin permiso israelí (que casi nunca se da)</li>
+                            <li>Importar materiales de construcción</li>
+                            <li>Pescar más allá de pocas millas (Israel dispara a pescadores)</li>
+                            <li>Tener aeropuerto o puerto marítimo</li>
+                            <li>Comerciar libremente con el mundo</li>
+                        </ul>
+                        <div class="fact-box">
+                            <p><strong>La ONU, la Cruz Roja y todas las organizaciones de derechos humanos coinciden:</strong> Gaza sigue siendo territorio ocupado. El control no requiere soldados en el suelo - requiere control efectivo, y eso es exactamente lo que Israel mantiene.</p>
+                        </div>
+                        <p class="highlight">Es una cárcel al aire libre. Imagina que no puedes salir de tu ciudad, no puedes importar lo que necesitas, te cortan la electricidad a su antojo, y si protestas te bombardean. ¿Eso es "libertad"?</p>
+                        <p><strong>Castigo colectivo:</strong> El bloqueo de Gaza (2007-presente) es castigo colectivo contra 2 millones de personas por haber votado a Hamas en 2006. El castigo colectivo está prohibido por la Cuarta Convención de Ginebra.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PREGUNTAS FRECUENTES -->
+            <div id="preguntas" class="section">
+                <h2>❓ PREGUNTAS FRECUENTES</h2>
+
+                <div class="question-item" onclick="toggleAnswer(this)">
+                    <div class="question-title">
+                        ¿Quién llegó primero a Palestina?
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="question-answer">
+                        <p>Los palestinos llevaban siglos viviendo allí. En <strong>1900</strong>, la población era:</p>
+                        <ul>
+                            <li><strong>Palestinos: 570,000 (95%)</strong></li>
+                            <li>Judíos: 30,000 (5%)</li>
+                        </ul>
+                        <p>Los judíos europeos llegaron principalmente entre <strong>1920-1948</strong>, huyendo del antisemitismo y del Holocausto. En 1947, antes de la creación de Israel:</p>
+                        <ul>
+                            <li><strong>Palestinos: 1,300,000 (67%)</strong></li>
+                            <li>Judíos: 600,000 (33%)</li>
+                        </ul>
+                        <p class="highlight">La respuesta es clara: los palestinos estaban allí primero y eran la gran mayoría hasta 1948.</p>
+                    </div>
+                </div>
+
+                <div class="question-item" onclick="toggleAnswer(this)">
+                    <div class="question-title">
+                        ¿Qué fue la Nakba?
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="question-answer">
+                        <p><strong>Nakba</strong> significa "catástrofe" en árabe. Se refiere a la expulsión masiva de palestinos durante la creación de Israel (1947-1949):</p>
+                        <ul>
+                            <li><strong>750,000-900,000</strong> palestinos expulsados de sus hogares</li>
+                            <li><strong>531</strong> pueblos destruidos o despoblados</li>
+                            <li><strong>15,000+</strong> palestinos asesinados</li>
+                            <li>Masacres documentadas: Deir Yassin, Tantura, Lydda, Al-Dawayima</li>
+                        </ul>
+                        <p>Historiadores israelíes como Benny Morris, Ilan Pappé y Avi Shlaim han documentado estas expulsiones usando archivos militares israelíes.</p>
+                        <p class="highlight">La Nakba no es "propaganda árabe" - está documentada por los propios archivos israelíes.</p>
+                    </div>
+                </div>
+
+                <div class="question-item" onclick="toggleAnswer(this)">
+                    <div class="question-title">
+                        ¿Por qué los palestinos rechazaron el plan de partición de 1947?
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="question-answer">
+                        <p>El plan de partición de la ONU era profundamente injusto:</p>
+                        <div class="fact-box">
+                            <p><strong>La injusticia:</strong></p>
+                            <ul>
+                                <li>Judíos: 33% de la población → recibirían 56% del territorio</li>
+                                <li>Palestinos: 67% de la población → recibirían 44% del territorio</li>
+                            </ul>
+                        </div>
+                        <p><strong>Ponte en su lugar:</strong> Eres palestino en 1947. Tu familia ha vivido en esta tierra durante siglos. Llegan inmigrantes europeos que en 30 años pasan del 5% al 33%. Ahora la ONU dice: "Vamos a tomar más de la mitad de TU tierra y dársela a estos recién llegados."</p>
+                        <p class="highlight">¿La aceptarías? ¿Aceptarías perder más de la mitad de tu tierra sin luchar?</p>
+                        <p><strong>Además:</strong> Israel "aceptó" el plan... y luego tomó el <strong>78%</strong> del territorio, mucho más de lo asignado. Expulsó a 750,000 palestinos. Destruyó 531 pueblos.</p>
+                        <p><strong>¿Quién violó realmente el plan de la ONU?</strong></p>
+                    </div>
+                </div>
+
+                <div class="question-item" onclick="toggleAnswer(this)">
+                    <div class="question-title">
+                        ¿Por qué no se ha resuelto el conflicto?
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="question-answer">
+                        <p><strong>La razón principal:</strong> Israel continúa violando el derecho internacional sin consecuencias.</p>
+                        <ul>
+                            <li><strong>Ocupación:</strong> 57 años ocupando Cisjordania y Gaza (desde 1967)</li>
+                            <li><strong>Asentamientos ilegales:</strong> 750,000 colonos en territorio ocupado</li>
+                            <li><strong>Bloqueo de Gaza:</strong> 17 años de asedio (desde 2007)</li>
+                            <li><strong>Negación del derecho al retorno:</strong> 5 millones de refugiados no pueden volver</li>
+                        </ul>
+                        <p><strong>Impunidad total:</strong> EEUU ha vetado más de 50 resoluciones críticas con Israel en el Consejo de Seguridad de la ONU.</p>
+                        <p class="highlight">Israel viola cientos de resoluciones de la ONU sin consecuencias. Ningún otro país podría hacerlo.</p>
+                        <p><strong>Analogía:</strong> Imagina negociar con alguien que te robó la casa, mientras sigue construyendo habitaciones nuevas en TU casa durante las "negociaciones". ¿Eso es negociar de buena fe?</p>
+                    </div>
+                </div>
+
+                <div class="question-item" onclick="toggleAnswer(this)">
+                    <div class="question-title">
+                        ¿Qué es el apartheid israelí?
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="question-answer">
+                        <p><strong>Apartheid</strong> significa "separación" en afrikáans. Se refiere a un sistema de dominación racial de un grupo sobre otro.</p>
+                        <p><strong>En Cisjordania existen DOS sistemas legales:</strong></p>
+                        <ul>
+                            <li><strong>Colonos israelíes:</strong> Ley civil israelí, votan en elecciones, libertad de movimiento, plenos derechos</li>
+                            <li><strong>Palestinos:</strong> Ley militar, sin derechos políticos, sin libertad de movimiento, checkpoints, arrestos arbitrarios</li>
+                        </ul>
+                        <p class="highlight">Dos personas pueden vivir en la misma área, pero tener derechos completamente diferentes según su etnia. Esto es la definición de apartheid.</p>
+                        <p><strong>Organizaciones que lo llaman apartheid:</strong></p>
+                        <div class="fact-box">
+                            <ul>
+                                <li><strong>B'Tselem</strong> (israelí) - "Régimen de supremacía judía" (2021)</li>
+                                <li><strong>Human Rights Watch</strong> - "Apartheid y persecución" (2021)</li>
+                                <li><strong>Amnistía Internacional</strong> - "Sistema cruel de dominación y apartheid" (2022)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question-item" onclick="toggleAnswer(this)">
+                    <div class="question-title">
+                        ¿Qué pasa con el Holocausto? ¿No justifica la creación de Israel?
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="question-answer">
+                        <p>El Holocausto fue uno de los peores crímenes de la humanidad. Esto es innegable.</p>
+                        <p><strong>PERO:</strong></p>
+                        <div class="fact-box">
+                            <p><strong>Los palestinos NO causaron el Holocausto.</strong></p>
+                            <p>Los palestinos NO tuvieron nada que ver con el antisemitismo europeo. No causaron los pogromos rusos. No causaron el Holocausto nazi.</p>
+                            <p>Europa persiguió a los judíos durante siglos, culminando en el Holocausto. ¿La solución de Europa? Darles la tierra de otra gente que no tuvo nada que ver con ello.</p>
+                        </div>
+                        <p><strong>Analogía:</strong> Imagina que tu vecino comete un crimen horrible contra otra persona, y como "solución", te quitan tu casa para dársela a la víctima. ¿Es justo?</p>
+                        <p class="highlight">El sufrimiento de un pueblo no justifica causar sufrimiento a otro pueblo inocente.</p>
+                        <p><strong>La pregunta fundamental:</strong> ¿Puede un pueblo ser desplazado de su tierra porque otro pueblo sufrió persecución en otra parte del mundo?</p>
+                        <p>La respuesta es NO. Los crímenes de Europa no deberían haberse resuelto a costa de los palestinos.</p>
+                    </div>
+                </div>
+
+                <div class="question-item" onclick="toggleAnswer(this)">
+                    <div class="question-title">
+                        ¿Por qué hay tanta asimetría en las víctimas?
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="question-answer">
+                        <p><strong>Porque NO es una guerra entre iguales.</strong> Es uno de los ejércitos más poderosos del mundo contra una población civil.</p>
+                        <div class="fact-box">
+                            <p><strong>Asimetría militar:</strong></p>
+                            <ul>
+                                <li>Presupuesto militar Israel: $23,400 millones</li>
+                                <li>Presupuesto militar AP: ~$50 millones</li>
+                                <li><strong>Ratio: 468:1</strong></li>
+                            </ul>
+                            <p><strong>Israel tiene:</strong></p>
+                            <ul>
+                                <li>600+ aviones de combate</li>
+                                <li>2,700+ tanques</li>
+                                <li>80-200 ojivas nucleares</li>
+                                <li>Sistema Iron Dome</li>
+                                <li>$3,800 millones/año de EEUU</li>
+                            </ul>
+                            <p><strong>Hamas tiene:</strong></p>
+                            <ul>
+                                <li>Cohetes caseros (mayoría interceptados)</li>
+                                <li>Armas pequeñas</li>
+                                <li>Sin fuerza aérea, sin tanques, sin armada</li>
+                            </ul>
+                        </div>
+                        <p><strong>Ratio de muertos:</strong></p>
+                        <ul>
+                            <li>Gaza 2023-24: 1 israelí : 33 palestinos</li>
+                            <li>Gaza 2014: 1 israelí : 31 palestinos</li>
+                            <li>Op. Plomo Fundido: 1 israelí : 108 palestinos</li>
+                        </ul>
+                        <p class="highlight">Por cada israelí muerto, mueren entre 20-30 palestinos. El 70% son civiles. En Gaza 2023-24: 16,000+ niños muertos.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PREGUNTAS SUGERIDAS -->
+            <div id="sugerencias" class="section">
+                <h2>💡 PREGUNTAS ESTRATÉGICAS PARA HACER EN EL DEBATE</h2>
+
+                <p>Estas son preguntas poderosas que puedes hacer a quienes defienden a Israel. Están diseñadas para exponer contradicciones en sus argumentos:</p>
+
+                <h3>Sobre el "Derecho Histórico"</h3>
+                <div class="fact-box">
+                    <p><strong>1. Si el derecho histórico de hace 2,500 años es válido, ¿por qué el derecho de los refugiados palestinos de hace 76 años no lo es?</strong></p>
+                    <p><em>Muchos refugiados de 1948 todavía están vivos. Tienen las llaves de sus casas. ¿Por qué Israel niega su derecho al retorno?</em></p>
+                </div>
+
+                <div class="fact-box">
+                    <p><strong>2. Si aceptamos el derecho histórico antiguo como válido, ¿deberían los musulmanes poder reclamar España (Al-Ándalus) que controlaron durante 800 años?</strong></p>
+                    <p><em>Si la respuesta es no, entonces el argumento del "derecho histórico" es inconsistente.</em></p>
+                </div>
+
+                <div class="fact-box">
+                    <p><strong>3. ¿Qué derechos tienen los palestinos que vivían allí en 1900 (95% de la población)?</strong></p>
+                    <p><em>Si la respuesta es "ninguno", entonces no es un argumento de derecho, es un argumento de poder.</em></p>
+                </div>
+
+                <h3>Sobre la ONU y el Derecho Internacional</h3>
+                <div class="fact-box">
+                    <p><strong>4. Si la Resolución 181 de la ONU (partición de 1947) legitima a Israel, ¿por qué Israel no cumple la Resolución 194 (derecho al retorno) ni la 242 (retirarse de territorios ocupados)?</strong></p>
+                    <p><em>No puedes citar la ONU solo cuando te conviene.</em></p>
+                </div>
+
+                <div class="fact-box">
+                    <p><strong>5. Israel "aceptó" el plan de partición que le daba el 56% del territorio, pero tomó el 78% en 1948. ¿Eso no es una violación del plan que supuestamente lo legitima?</strong></p>
+                    <p><em>Si alguien te da permiso para entrar a una habitación de tu casa, y entra y toma toda la casa, ¿está respetando tu permiso?</em></p>
+                </div>
+
+                <div class="fact-box">
+                    <p><strong>6. ¿Por qué EEUU ha vetado más de 50 resoluciones críticas con Israel en el Consejo de Seguridad de la ONU?</strong></p>
+                    <p><em>¿Es esto consistente con el "orden internacional basado en reglas" que Occidente supuestamente defiende?</em></p>
+                </div>
+
+                <h3>Sobre la Nakba y los Refugiados</h3>
+                <div class="fact-box">
+                    <p><strong>7. ¿Fueron expulsados 750,000 palestinos en 1948 o se fueron "voluntariamente"?</strong></p>
+                    <p><em>Si dicen "voluntariamente", pregunta por qué entonces Israel prohibió que regresaran. Si se fueron solos, ¿por qué no pueden volver?</em></p>
+                </div>
+
+                <div class="fact-box">
+                    <p><strong>8. Historiadores ISRAELÍES (Benny Morris, Ilan Pappé, Avi Shlaim) documentaron las expulsiones usando archivos militares israelíes. ¿Están todos equivocados?</strong></p>
+                    <p><em>No es "propaganda árabe" - es documentación israelí.</em></p>
+                </div>
+
+                <div class="fact-box">
+                    <p><strong>9. Si alguien expulsó a tu familia de su casa hace 76 años, ¿no tendrías derecho a volver?</strong></p>
+                    <p><em>¿Por qué es diferente para los palestinos?</em></p>
+                </div>
+
+                <h3>Sobre la Ocupación y los Asentamientos</h3>
+                <div class="fact-box">
+                    <p><strong>10. Han pasado 57 años desde que Israel ocupó Cisjordania en 1967. ¿Es esto "temporal"?</strong></p>
+                    <p><em>¿Cuánto tiempo tiene que pasar para que una ocupación "temporal" se convierta en anexión permanente ilegal?</em></p>
+                </div>
+
+                <div class="fact-box">
+                    <p><strong>11. Si Israel supuestamente está "negociando la paz", ¿por qué sigue construyendo asentamientos en territorio ocupado?</strong></p>
+                    <p><em>Es como decir "negociemos tu casa" mientras voy poniendo ladrillos en tu salón.</em></p>
+                </div>
+
+                <div class="fact-box">
+                    <p><strong>12. Los asentamientos son declarados ILEGALES por la Resolución 2334 del Consejo de Seguridad de la ONU. ¿Por qué hay 750,000 colonos israelíes viviendo en ellos?</strong></p>
+                    <p><em>¿Esto no demuestra que Israel no tiene intención de devolver el territorio?</em></p>
+                </div>
+
+                <h3>Sobre "Democracia" y Derechos</h3>
+                <div class="fact-box">
+                    <p><strong>13. ¿Cómo puede Israel llamarse democracia cuando 5 millones de palestinos bajo su control no tienen derecho al voto?</strong></p>
+                    <p><em>Sudáfrica del apartheid también permitía votar a los blancos. ¿Eso la hacía democracia?</em></p>
+                </div>
+
+                <div class="fact-box">
+                    <p><strong>14. En Cisjordania, un colono israelí y un palestino viven en el mismo territorio pero bajo sistemas legales diferentes según su etnia. ¿Cómo se llama eso?</strong></p>
+                    <p><em>La respuesta es: apartheid.</em></p>
+                </div>
+
+                <div class="fact-box">
+                    <p><strong>15. B'Tselem (principal ONG israelí de derechos humanos), Human Rights Watch y Amnistía Internacional llaman a Israel "apartheid". ¿Están todos equivocados?</strong></p>
+                    <p><em>¿O es incómodo admitir lo que las organizaciones de derechos humanos están diciendo?</em></p>
+                </div>
+
+                <h3>Sobre Gaza y el Bloqueo</h3>
+                <div class="fact-box">
+                    <p><strong>16. Israel dice que "se retiró" de Gaza en 2005. Pero controla todas las fronteras, el mar, el aire, la electricidad y el agua. ¿Eso es libertad?</strong></p>
+                    <p><em>Es como decir que soltaste a alguien de prisión, pero sigues controlando todas las puertas, su comida y su agua.</em></p>
+                </div>
+
+                <div class="fact-box">
+                    <p><strong>17. El 70% de la población de Gaza son refugiados de la Nakba de 1948 y sus descendientes. ¿Por qué no pueden volver a sus hogares originales que están a solo kilómetros de distancia?</strong></p>
+                    <p><em>Pueden ver sus pueblos desde las colinas donde viven en campos de refugiados.</em></p>
+                </div>
+
+                <div class="fact-box">
+                    <p><strong>18. El bloqueo de Gaza comenzó en 2007 como castigo porque votaron a Hamas. ¿El castigo colectivo de 2 millones de personas no está prohibido por la Cuarta Convención de Ginebra?</strong></p>
+                    <p><em>Castigar a toda una población por cómo votó es antidemocrático y crimen de guerra.</em></p>
+                </div>
+
+                <h3>Sobre la Violencia y las Víctimas</h3>
+                <div class="fact-box">
+                    <p><strong>19. En Gaza 2023-24 han muerto más de 16,000 niños palestinos. ¿Son todos "terroristas"?</strong></p>
+                    <p><em>¿Cómo se justifica matar 16,000 niños?</em></p>
+                </div>
+
+                <div class="fact-box">
+                    <p><strong>20. En cada conflicto, mueren entre 20-30 veces más palestinos que israelíes, con el 70% siendo civiles palestinos. ¿Esto no demuestra una asimetría brutal de poder?</strong></p>
+                    <p><em>NO es una guerra entre iguales. Es un ejército con arsenal nuclear contra cohetes caseros.</em></p>
+                </div>
+
+                <div class="fact-box">
+                    <p><strong>21. Israel tiene 600+ aviones de combate, arsenal nuclear, y presupuesto militar de $23,400 millones. Hamas tiene cohetes caseros. ¿Esto es una guerra "equilibrada"?</strong></p>
+                    <p><em>La asimetría es obvia cuando miras los números.</em></p>
+                </div>
+
+                <h3>Sobre el Holocausto y el Antisemitismo</h3>
+                <div class="fact-box">
+                    <p><strong>22. El Holocausto fue un crimen horrible. Pero, ¿lo cometieron los palestinos?</strong></p>
+                    <p><em>¿Por qué los palestinos tienen que pagar el precio por los crímenes de Europa?</em></p>
+                </div>
+
+                <div class="fact-box">
+                    <p><strong>23. ¿Criticar las políticas del gobierno israelí es antisemitismo?</strong></p>
+                    <p><em>Entonces, ¿criticar las políticas de CUALQUIER gobierno basado en etnia es racismo? ¿No puedes criticar a Arabia Saudí sin ser islamófobo? Ves el absurdo.</em></p>
+                </div>
+
+                <div class="fact-box">
+                    <p><strong>24. Muchos judíos (incluyendo israelíes como B'Tselem, Breaking the Silence, Jewish Voice for Peace) critican a Israel. ¿Son todos antisemitas?</strong></p>
+                    <p><em>Claramente no. Puedes ser judío y oponerte a la ocupación. Puedes apoyar derechos palestinos sin odiar a los judíos.</em></p>
+                </div>
+
+                <h3>La Pregunta Final Demoledora</h3>
+                <div class="fact-box" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 25px; border-left: none;">
+                    <p style="font-size: 1.2em; margin-bottom: 15px;"><strong>25. PREGUNTA DEFINITIVA:</strong></p>
+                    <p style="font-size: 1.1em;"><strong>Si en 1900 había 570,000 palestinos (95%) y 30,000 judíos (5%)...</strong></p>
+                    <p style="font-size: 1.1em;"><strong>Si en 1947 había 1,300,000 palestinos (67%) y 600,000 judíos (33%)...</strong></p>
+                    <p style="font-size: 1.1em;"><strong>Si en 1948, 750,000 palestinos fueron expulsados de sus hogares...</strong></p>
+                    <p style="font-size: 1.1em;"><strong>Si han pasado solo 76 años desde la expulsión...</strong></p>
+                    <p style="font-size: 1.3em; margin-top: 15px; font-weight: bold;">¿CÓMO PUEDES ARGUMENTAR QUE LOS PALESTINOS NO TIENEN DERECHO A VIVIR LIBRES EN SU TIERRA?</strong></p>
+                </div>
+
+                <div class="suggested-questions" style="margin-top: 30px;">
+                    <h3>📌 RESUMEN: Estrategia de Debate</h3>
+                    <ol>
+                        <li><strong>Usa datos concretos:</strong> Números de población, resoluciones ONU, ratio de muertos</li>
+                        <li><strong>Señala contradicciones:</strong> Si el derecho histórico vale, ¿por qué no el derecho al retorno?</li>
+                        <li><strong>Haz analogías:</strong> "¿Aceptarías perder tu casa por algo de hace 2,000 años?"</li>
+                        <li><strong>Cita fuentes israelíes:</strong> B'Tselem, Benny Morris, Breaking the Silence</li>
+                        <li><strong>Mantén el enfoque en derechos humanos:</strong> No es sobre odiar a nadie, es sobre justicia</li>
+                        <li><strong>No dejes pasar el doble estándar:</strong> Si la ONU legitimó a Israel, debe cumplir TODAS las resoluciones</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <footer style="text-align: center; padding: 30px; color: white; margin-top: 30px;">
+            <p style="font-size: 1.2em; margin-bottom: 10px;">🇵🇸 Palestina Libre 🇵🇸</p>
+            <p style="opacity: 0.9;">Los hechos hablan por sí mismos. La justicia es clara.</p>
+            <p style="margin-top: 15px; opacity: 0.8; font-size: 0.9em;">Basado en datos verificables, documentos históricos y derecho internacional</p>
+        </footer>
+    </div>
+
+    <script>
+        // Función para cambiar de pestaña
+        function showTab(tabName) {
+            // Ocultar todas las secciones
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Remover clase active de todos los botones
+            const buttons = document.querySelectorAll('.tab-button');
+            buttons.forEach(button => {
+                button.classList.remove('active');
+            });
+
+            // Mostrar la sección seleccionada
+            document.getElementById(tabName).classList.add('active');
+
+            // Activar el botón clickeado
+            event.target.classList.add('active');
+
+            // Scroll suave al inicio del contenido
+            document.querySelector('.content-area').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Función para expandir/contraer preguntas
+        function toggleAnswer(element) {
+            const answer = element.querySelector('.question-answer');
+            const arrow = element.querySelector('.arrow');
+
+            if (answer.classList.contains('show')) {
+                answer.classList.remove('show');
+                arrow.classList.remove('rotate');
+            } else {
+                answer.classList.add('show');
+                arrow.classList.add('rotate');
+            }
+        }
+
+        // Función de búsqueda
+        const searchBox = document.getElementById('searchBox');
+        searchBox.addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+
+            if (searchTerm.length < 2) {
+                // Si el término de búsqueda es muy corto, no buscar
+                return;
+            }
+
+            // Buscar en todo el contenido
+            const contentArea = document.querySelector('.content-area');
+            const allText = contentArea.innerText.toLowerCase();
+
+            if (allText.includes(searchTerm)) {
+                // Resaltar el término encontrado
+                highlightSearchTerm(searchTerm);
+            }
+        });
+
+        function highlightSearchTerm(term) {
+            // Función simple de resaltado (puede mejorarse)
+            // Por ahora solo mostramos en consola
+            console.log('Buscando:', term);
+        }
+
+        // Sugerencias de búsqueda al hacer clic en el campo
+        searchBox.addEventListener('focus', function() {
+            if (this.value === '') {
+                this.placeholder = '💡 Prueba: Nakba, 1948, refugiados, ONU, apartheid, Gaza...';
+            }
+        });
+
+        searchBox.addEventListener('blur', function() {
+            if (this.value === '') {
+                this.placeholder = '🔍 Busca cualquier tema: Nakba, refugiados, ONU, 1948...';
+            }
+        });
+
+        // Efecto de scroll suave para toda la página
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Animación al cargar
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '0';
+            setTimeout(function() {
+                document.body.style.transition = 'opacity 0.5s';
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
