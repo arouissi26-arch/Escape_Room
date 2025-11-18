@@ -3,7 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Israel y Palestina - Guía de Debate</title>
+    <title>🇵🇸 Palestina vs Israel - LA VERDAD</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- GSAP para animaciones -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <!-- Particles.js para efectos -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+
+    <!-- Fuentes Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+
     <style>
         * {
             margin: 0;
@@ -11,218 +24,206 @@
             box-sizing: border-box;
         }
 
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap');
-
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: #000000;
-            background-image:
-                radial-gradient(ellipse at 20% 30%, rgba(139, 0, 0, 0.5) 0%, transparent 60%),
-                radial-gradient(ellipse at 80% 70%, rgba(220, 20, 60, 0.4) 0%, transparent 60%),
-                radial-gradient(ellipse at 50% 50%, rgba(178, 34, 34, 0.3) 0%, transparent 70%);
-            color: #f0f0f0;
-            line-height: 1.7;
-            position: relative;
+            font-family: 'Rajdhani', sans-serif;
+            background: #000;
+            color: #fff;
             overflow-x: hidden;
-            background-attachment: fixed;
         }
 
-        body::before {
-            content: '';
+        #particles-js {
             position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* EFECTO GLITCH ÉPICO */
+        .glitch {
+            font-family: 'Orbitron', monospace;
+            position: relative;
+            font-weight: 900;
+            animation: glitch-skew 1s infinite linear alternate-reverse;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: repeating-linear-gradient(
-                0deg,
-                transparent,
-                transparent 2px,
-                rgba(139, 0, 0, 0.03) 2px,
-                rgba(139, 0, 0, 0.03) 4px
-            );
-            pointer-events: none;
-            z-index: 1;
         }
 
-        .container {
-            position: relative;
-            z-index: 2;
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 #ff0000;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 #00fff9, 2px 2px #ff00c1;
+            animation: glitch-anim2 1s infinite linear alternate-reverse;
         }
 
-        header {
-            background: linear-gradient(135deg, #1a0000 0%, #330000 50%, #1a0000 100%);
-            backdrop-filter: blur(15px);
-            padding: 50px 30px;
-            border-radius: 25px;
-            box-shadow:
-                0 15px 50px rgba(220, 20, 60, 0.6),
-                0 0 80px rgba(139, 0, 0, 0.4),
-                inset 0 0 60px rgba(220, 20, 60, 0.1);
-            margin-bottom: 40px;
-            text-align: center;
-            border: 3px solid #DC143C;
-            position: relative;
-            overflow: hidden;
-            animation: headerPulse 4s ease-in-out infinite;
+        @keyframes glitch-anim {
+            0% { clip: rect(31px, 9999px, 94px, 0); }
+            20% { clip: rect(85px, 9999px, 40px, 0); }
+            40% { clip: rect(12px, 9999px, 59px, 0); }
+            60% { clip: rect(67px, 9999px, 15px, 0); }
+            80% { clip: rect(50px, 9999px, 76px, 0); }
+            100% { clip: rect(23px, 9999px, 88px, 0); }
         }
 
-        @keyframes headerPulse {
-            0%, 100% { box-shadow: 0 15px 50px rgba(220, 20, 60, 0.6), 0 0 80px rgba(139, 0, 0, 0.4); }
-            50% { box-shadow: 0 15px 50px rgba(220, 20, 60, 0.8), 0 0 100px rgba(139, 0, 0, 0.6); }
+        @keyframes glitch-anim2 {
+            0% { clip: rect(65px, 9999px, 100px, 0); }
+            20% { clip: rect(45px, 9999px, 23px, 0); }
+            40% { clip: rect(78px, 9999px, 56px, 0); }
+            60% { clip: rect(12px, 9999px, 89px, 0); }
+            80% { clip: rect(34px, 9999px, 67px, 0); }
+            100% { clip: rect(56px, 9999px, 12px, 0); }
         }
 
-        header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                45deg,
-                transparent,
-                rgba(220, 20, 60, 0.1),
-                transparent
-            );
-            animation: headerShine 3s linear infinite;
+        @keyframes glitch-skew {
+            0% { transform: skew(0deg); }
+            10% { transform: skew(-2deg); }
+            20% { transform: skew(2deg); }
+            30% { transform: skew(-1deg); }
+            40% { transform: skew(1deg); }
+            50% { transform: skew(0deg); }
         }
 
-        @keyframes headerShine {
-            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
-        }
-
-        h1 {
-            color: #ff0000;
-            font-size: 3.5em;
-            font-weight: 900;
-            margin-bottom: 15px;
+        /* EFECTO NEON */
+        .neon {
             text-shadow:
-                0 0 30px rgba(255, 0, 0, 1),
-                0 0 60px rgba(220, 20, 60, 0.8),
-                0 0 90px rgba(139, 0, 0, 0.6),
-                0 5px 15px rgba(0, 0, 0, 0.8);
-            letter-spacing: 2px;
-            position: relative;
-            z-index: 1;
-            animation: titleGlow 2s ease-in-out infinite;
+                0 0 5px #fff,
+                0 0 10px #fff,
+                0 0 20px #fff,
+                0 0 40px #ff0000,
+                0 0 80px #ff0000,
+                0 0 90px #ff0000,
+                0 0 100px #ff0000,
+                0 0 150px #ff0000;
+            animation: neon-flicker 1.5s infinite alternate;
         }
 
-        @keyframes titleGlow {
-            0%, 100% {
+        @keyframes neon-flicker {
+            0%, 18%, 22%, 25%, 53%, 57%, 100% {
                 text-shadow:
-                    0 0 30px rgba(255, 0, 0, 1),
-                    0 0 60px rgba(220, 20, 60, 0.8),
-                    0 0 90px rgba(139, 0, 0, 0.6);
+                    0 0 5px #fff,
+                    0 0 10px #fff,
+                    0 0 20px #fff,
+                    0 0 40px #ff0000,
+                    0 0 80px #ff0000,
+                    0 0 90px #ff0000,
+                    0 0 100px #ff0000,
+                    0 0 150px #ff0000;
             }
-            50% {
-                text-shadow:
-                    0 0 40px rgba(255, 0, 0, 1),
-                    0 0 80px rgba(220, 20, 60, 1),
-                    0 0 120px rgba(139, 0, 0, 0.8);
+            20%, 24%, 55% {
+                text-shadow: none;
             }
         }
 
-        .subtitle {
-            color: #ff8080;
-            font-size: 1.4em;
-            font-weight: 600;
-            position: relative;
-            z-index: 1;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
-        }
-
-        .search-container {
-            background: linear-gradient(135deg, #1a0000 0%, #2a0000 100%);
-            padding: 35px;
-            border-radius: 20px;
-            box-shadow:
-                0 10px 30px rgba(220, 20, 60, 0.4),
-                inset 0 0 30px rgba(0, 0, 0, 0.5);
-            margin-bottom: 35px;
-            border: 2px solid #DC143C;
+        /* TARJETAS CON EFECTOS */
+        .card {
+            background: rgba(20, 0, 0, 0.8);
+            border: 2px solid #ff0000;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
         }
 
-        .search-container::before {
+        .card::before {
             content: '';
             position: absolute;
             top: 0;
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(220, 20, 60, 0.2), transparent);
-            animation: searchShine 2s infinite;
+            background: linear-gradient(90deg, transparent, rgba(255, 0, 0, 0.3), transparent);
+            transition: left 0.5s;
         }
 
-        @keyframes searchShine {
-            0% { left: -100%; }
-            100% { left: 100%; }
+        .card:hover::before {
+            left: 100%;
         }
 
+        .card:hover {
+            border-color: #ff6666;
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.8);
+            transform: translateY(-5px) scale(1.02);
+        }
+
+        /* NÚMEROS CON GRADIENTE ANIMADO */
+        .stat-number {
+            font-family: 'Orbitron', monospace;
+            font-weight: 900;
+            font-size: 4rem;
+            background: linear-gradient(45deg, #ff0000, #ff6666, #ff0000);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient-shift 3s ease infinite;
+        }
+
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* TEXTO QUE PULSA COMO SANGRE */
+        .blood-text {
+            color: #ff0000;
+            font-weight: bold;
+            animation: blood-pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes blood-pulse {
+            0%, 100% { color: #ff0000; text-shadow: 0 0 10px #ff0000; }
+            50% { color: #8b0000; text-shadow: 0 0 20px #8b0000; }
+        }
+
+        /* BÚSQUEDA */
         .search-box {
-            width: 100%;
-            padding: 18px 25px;
-            font-size: 1.15em;
-            font-weight: 500;
-            border: 3px solid #DC143C;
-            border-radius: 15px;
-            outline: none;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            background: #0a0a0a;
-            color: #ffffff;
-            position: relative;
-            z-index: 1;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #ff0000;
+            color: #fff;
+            padding: 1rem;
+            font-size: 1.2rem;
+            transition: all 0.3s;
         }
 
         .search-box:focus {
-            border-color: #ff0000;
-            box-shadow:
-                0 0 20px rgba(255, 0, 0, 1),
-                0 0 40px rgba(220, 20, 60, 0.8),
-                0 0 60px rgba(139, 0, 0, 0.5);
-            transform: translateY(-2px);
-            background: #1a0000;
+            outline: none;
+            border-color: #ff6666;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
+            transform: scale(1.05);
         }
 
-        .search-box::placeholder {
-            color: #999;
-            font-weight: 400;
-        }
-
-        .tabs {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-bottom: 30px;
-        }
-
-        .tab-button {
-            padding: 14px 28px;
-            background: linear-gradient(135deg, #1a0000 0%, #2a0000 100%);
-            border: 2px solid #8B0000;
-            border-radius: 12px;
+        /* BOTONES ÉPICOS */
+        .btn {
+            background: linear-gradient(45deg, #8b0000, #ff0000);
+            border: 2px solid #ff0000;
+            color: #fff;
+            font-weight: bold;
+            padding: 1rem 2rem;
             cursor: pointer;
-            font-size: 1.05em;
-            font-weight: 600;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow:
-                0 4px 15px rgba(220, 20, 60, 0.3),
-                inset 0 0 15px rgba(0, 0, 0, 0.3);
-            color: #f0f0f0;
+            transition: all 0.3s;
             position: relative;
             overflow: hidden;
         }
 
-        .tab-button::before {
+        .btn::after {
             content: '';
             position: absolute;
             top: 50%;
@@ -230,66 +231,29 @@
             width: 0;
             height: 0;
             border-radius: 50%;
-            background: rgba(220, 20, 60, 0.3);
+            background: rgba(255, 255, 255, 0.3);
             transform: translate(-50%, -50%);
             transition: width 0.6s, height 0.6s;
         }
 
-        .tab-button:hover::before {
+        .btn:hover::after {
             width: 300px;
             height: 300px;
         }
 
-        .tab-button:hover {
-            transform: translateY(-4px) scale(1.02);
-            box-shadow:
-                0 8px 25px rgba(220, 20, 60, 0.6),
-                0 0 30px rgba(255, 0, 0, 0.4);
-            border-color: #DC143C;
-            background: linear-gradient(135deg, #2a0000 0%, #3a0000 100%);
+        .btn:hover {
+            box-shadow: 0 0 30px rgba(255, 0, 0, 1);
+            transform: scale(1.1);
         }
 
-        .tab-button.active {
-            background: linear-gradient(135deg, #8B0000 0%, #DC143C 50%, #8B0000 100%);
-            color: white;
-            border-color: #ff0000;
-            box-shadow:
-                0 0 30px rgba(255, 0, 0, 0.8),
-                0 0 60px rgba(220, 20, 60, 0.6),
-                inset 0 0 20px rgba(255, 0, 0, 0.2);
-            transform: scale(1.05);
-            animation: tabPulse 2s infinite;
-        }
-
-        @keyframes tabPulse {
-            0%, 100% {
-                box-shadow:
-                    0 0 30px rgba(255, 0, 0, 0.8),
-                    0 0 60px rgba(220, 20, 60, 0.6);
-            }
-            50% {
-                box-shadow:
-                    0 0 40px rgba(255, 0, 0, 1),
-                    0 0 80px rgba(220, 20, 60, 0.8);
-            }
-        }
-
-        .content-area {
-            background: #1a1a1a;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(220, 20, 60, 0.3);
-            margin-bottom: 20px;
-            border: 2px solid #8B0000;
-        }
-
+        /* SECCIONES */
         .section {
             display: none;
+            animation: fadeIn 0.5s;
         }
 
         .section.active {
             display: block;
-            animation: fadeIn 0.5s;
         }
 
         @keyframes fadeIn {
@@ -297,1926 +261,1061 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        h2 {
-            color: #DC143C;
-            margin: 25px 0 15px 0;
-            padding-bottom: 10px;
-            border-bottom: 3px solid #DC143C;
-            text-shadow: 0 0 10px rgba(220, 20, 60, 0.5);
+        /* ANIMACIÓN FLOTANTE */
+        .floating {
+            animation: floating 3s ease-in-out infinite;
         }
 
-        h3 {
-            color: #ff6b6b;
-            margin: 20px 0 10px 0;
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
         }
 
-        .fact-box {
-            background: linear-gradient(135deg, #2a0000 0%, #1a0000 100%);
-            border-left: 6px solid #DC143C;
-            padding: 25px;
-            margin: 20px 0;
-            border-radius: 12px;
-            border: 2px solid #8B0000;
-            box-shadow:
-                0 5px 20px rgba(220, 20, 60, 0.3),
-                inset 0 0 20px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
-            position: relative;
+        /* TYPEWRITER */
+        .typewriter {
             overflow: hidden;
+            border-right: 3px solid #ff0000;
+            white-space: nowrap;
+            margin: 0 auto;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
         }
 
-        .fact-box::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 6px;
-            height: 0;
-            background: linear-gradient(to bottom, #ff0000, #DC143C);
-            transition: height 0.3s ease;
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
         }
 
-        .fact-box:hover {
-            border-color: #DC143C;
-            box-shadow:
-                0 8px 30px rgba(220, 20, 60, 0.5),
-                inset 0 0 30px rgba(220, 20, 60, 0.1);
-            transform: translateX(5px);
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #ff0000; }
         }
 
-        .fact-box:hover::before {
-            height: 100%;
+        /* HIGHLIGHT DE BÚSQUEDA */
+        .highlight-search {
+            background: #ff0000;
+            color: #fff;
+            padding: 2px 5px;
+            border-radius: 3px;
+            animation: highlight-pulse 1s infinite;
         }
 
-        .highlight {
-            background: linear-gradient(135deg, #4a0000 0%, #6a0000 100%);
-            padding: 4px 10px;
-            border-radius: 6px;
-            color: #ffdddd;
-            border: 1px solid #DC143C;
-            font-weight: 600;
-            box-shadow: 0 2px 8px rgba(220, 20, 60, 0.4);
-            display: inline-block;
+        @keyframes highlight-pulse {
+            0%, 100% { box-shadow: 0 0 5px #ff0000; }
+            50% { box-shadow: 0 0 20px #ff0000; }
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-            box-shadow: 0 2px 10px rgba(220, 20, 60, 0.3);
-            border: 1px solid #8B0000;
+        /* INDICADOR SCROLL */
+        .scroll-indicator {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
         }
 
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #8B0000;
-            color: #e0e0e0;
-        }
-
-        th {
-            background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);
-            color: white;
-            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        }
-
-        tr:hover {
-            background: #2a0000;
-        }
-
-        .question-item {
-            background: linear-gradient(135deg, #2a0000 0%, #1a0000 100%);
-            border: 2px solid #8B0000;
-            border-radius: 15px;
-            padding: 20px;
-            margin: 20px 0;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 15px rgba(220, 20, 60, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .question-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(220, 20, 60, 0.2), transparent);
-            transition: left 0.5s;
-        }
-
-        .question-item:hover::before {
-            left: 100%;
-        }
-
-        .question-item:hover {
-            border-color: #DC143C;
-            box-shadow:
-                0 8px 25px rgba(220, 20, 60, 0.6),
-                0 0 40px rgba(255, 0, 0, 0.3);
-            background: linear-gradient(135deg, #3a0000 0%, #2a0000 100%);
-            transform: translateY(-2px) scale(1.01);
-        }
-
-        .question-title {
-            font-weight: 700;
-            color: #ff8080;
-            font-size: 1.15em;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-            z-index: 1;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-        }
-
-        .question-answer {
-            display: none;
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 2px solid #8B0000;
-            color: #e0e0e0;
-            animation: fadeInDown 0.4s ease;
-        }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .question-answer.show {
-            display: block;
-        }
-
-        .arrow {
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            font-size: 1.2em;
-            color: #DC143C;
-        }
-
-        .arrow.rotate {
-            transform: rotate(180deg);
-            color: #ff0000;
-        }
-
-        ul, ol {
-            margin-left: 25px;
-            margin-bottom: 15px;
-        }
-
-        li {
-            margin-bottom: 8px;
-        }
-
-        .stat {
-            background: linear-gradient(135deg, #8B0000 0%, #DC143C 50%, #8B0000 100%);
-            color: white;
-            padding: 35px 25px;
-            border-radius: 20px;
-            margin: 25px 0;
-            text-align: center;
-            border: 3px solid #ff0000;
-            box-shadow:
-                0 0 40px rgba(255, 0, 0, 0.7),
-                0 0 80px rgba(220, 20, 60, 0.5),
-                inset 0 0 40px rgba(0, 0, 0, 0.4);
-            position: relative;
-            overflow: hidden;
-            animation: statFloat 3s ease-in-out infinite;
-        }
-
-        @keyframes statFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
-        }
-
-        .stat::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255, 0, 0, 0.3) 0%, transparent 70%);
-            animation: statRotate 4s linear infinite;
-        }
-
-        @keyframes statRotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .stat-number {
-            font-size: 4em;
-            font-weight: 900;
-            text-shadow:
-                0 0 20px rgba(255, 255, 255, 0.8),
-                0 0 40px rgba(255, 0, 0, 1),
-                0 5px 15px rgba(0, 0, 0, 0.8);
-            position: relative;
-            z-index: 1;
-            letter-spacing: 2px;
-        }
-
-        .stat-label {
-            font-size: 1.2em;
-            font-weight: 600;
-            opacity: 0.95;
-            margin-top: 10px;
-            position: relative;
-            z-index: 1;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
-        }
-
-        .no-results {
-            text-align: center;
-            padding: 40px;
-            color: #7f8c8d;
-            font-size: 1.2em;
-        }
-
-        .suggested-questions {
-            background: #2a0000;
-            padding: 20px;
-            border-radius: 10px;
-            margin-top: 20px;
-            border: 2px solid #8B0000;
-        }
-
-        .suggested-questions h3 {
-            color: #DC143C;
-            margin-bottom: 15px;
-        }
-
-        .suggested-question-btn {
-            display: block;
-            width: 100%;
-            text-align: left;
-            padding: 12px 15px;
-            margin: 8px 0;
-            background: #1a1a1a;
-            border: 2px solid #8B0000;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 1em;
-            color: #e0e0e0;
-        }
-
-        .suggested-question-btn:hover {
-            background: #DC143C;
-            color: white;
-            transform: translateX(5px);
-            box-shadow: 0 0 15px rgba(220, 20, 60, 0.5);
-        }
-
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 1.8em;
-            }
-
-            .tabs {
-                flex-direction: column;
-            }
-
-            .tab-button {
-                width: 100%;
-            }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-30px); }
+            60% { transform: translateX(-50%) translateY(-15px); }
         }
     </style>
 </head>
-<body>
-    <div class="container">
-        <header>
-            <h1>🇵🇸 ISRAEL Y PALESTINA 🇵🇸</h1>
-            <p class="subtitle">¿Quién llegó primero? ¿Quién tiene derecho?</p>
-            <p style="margin-top: 10px; color: #95a5a6;">Análisis histórico exhaustivo basado en hechos verificables</p>
+<body class="bg-black">
+    <!-- Partículas de fondo -->
+    <div id="particles-js"></div>
+
+    <!-- Contenido -->
+    <div class="content">
+        <!-- HEADER ÉPICO CON ANIMACIONES -->
+        <header class="min-h-screen flex items-center justify-center relative overflow-hidden">
+            <div class="text-center z-10 px-4">
+                <h1 class="glitch neon text-5xl md:text-7xl lg:text-9xl mb-6" data-text="🇵🇸 PALESTINA">
+                    🇵🇸 PALESTINA
+                </h1>
+                <p class="text-2xl md:text-4xl lg:text-5xl mb-8 typewriter">¿Quién tiene DERECHO?</p>
+
+                <div class="flex gap-4 justify-center flex-wrap mb-12">
+                    <button onclick="scrollToSection('datos')" class="btn rounded-lg">
+                        📊 VER DATOS
+                    </button>
+                    <button onclick="scrollToSection('masacres')" class="btn rounded-lg">
+                        ☠️ MASACRES
+                    </button>
+                    <button onclick="scrollToSection('argumentos')" class="btn rounded-lg">
+                        💥 ARGUMENTOS
+                    </button>
+                </div>
+
+                <!-- Estadísticas Impactantes Flotantes -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                    <div class="card p-6 rounded-xl floating">
+                        <div class="stat-number text-5xl">750K</div>
+                        <p class="text-xl mt-2 blood-text">Expulsados 1948</p>
+                    </div>
+                    <div class="card p-6 rounded-xl floating" style="animation-delay: 0.2s">
+                        <div class="stat-number text-5xl">16K+</div>
+                        <p class="text-xl mt-2 blood-text">Niños muertos 2023-24</p>
+                    </div>
+                    <div class="card p-6 rounded-xl floating" style="animation-delay: 0.4s">
+                        <div class="stat-number text-5xl">57</div>
+                        <p class="text-xl mt-2 blood-text">Años ocupación</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Indicador de scroll -->
+            <div class="scroll-indicator">
+                <svg class="w-8 h-8 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                </svg>
+            </div>
         </header>
 
-        <div class="search-container">
-            <input type="text" id="searchBox" class="search-box" placeholder="🔍 Busca cualquier tema: Nakba, refugiados, ONU, 1948...">
-        </div>
-
-        <div class="tabs">
-            <button class="tab-button active" onclick="showTab('indice')">📑 Índice</button>
-            <button class="tab-button" onclick="showTab('cronologia')">📅 Cronología</button>
-            <button class="tab-button" onclick="showTab('datos')">📊 Datos Clave</button>
-            <button class="tab-button" onclick="showTab('masacres')">☠️ Masacres Documentadas</button>
-            <button class="tab-button" onclick="showTab('testimonios')">🗣️ Testimonios</button>
-            <button class="tab-button" onclick="showTab('argumentos')">💬 Argumentos</button>
-            <button class="tab-button" onclick="showTab('preguntas')">❓ Preguntas Frecuentes</button>
-            <button class="tab-button" onclick="showTab('sugerencias')">💡 Preguntas para Hacer</button>
-            <button class="tab-button" onclick="showTab('fuentes')">📚 Fuentes</button>
-        </div>
-
-        <div class="content-area">
-            <!-- ÍNDICE -->
-            <div id="indice" class="section active">
-                <h2>📑 ÍNDICE COMPLETO</h2>
-
-                <div class="fact-box">
-                    <h3>1. INTRODUCCIÓN: LAS PREGUNTAS FUNDAMENTALES</h3>
-                    <ul>
-                        <li>¿Quién vivía en esa tierra en 1900? ¿Y en 1947?</li>
-                        <li>¿Quién llegó después y en qué circunstancias?</li>
-                        <li>¿Quién fue expulsado de sus hogares?</li>
-                        <li>¿Quién tiene derecho según el derecho internacional?</li>
-                    </ul>
-                </div>
-
-                <div class="stat">
-                    <div class="stat-number">750,000</div>
-                    <div class="stat-label">Palestinos expulsados en la Nakba (1948)</div>
-                </div>
-
-                <h3>2. CONTEXTO HISTÓRICO: LA TIERRA ANTES DE 1900</h3>
-                <p><strong>Población en 1900:</strong></p>
-                <ul>
-                    <li>Árabes palestinos: <span class="highlight">570,000 (95%)</span></li>
-                    <li>Judíos: 30,000 (5%)</li>
-                </ul>
-                <p><strong>Punto crucial:</strong> Los palestinos NO tuvieron nada que ver con el antisemitismo europeo. No causaron los pogromos. No causaron el Holocausto. Pero pagaron el precio más alto.</p>
-
-                <h3>3. CRONOLOGÍA COMPLETA (1900-2024)</h3>
-                <p>Ver pestaña "Cronología" para tabla completa.</p>
-
-                <h3>4. ANÁLISIS DEMOGRÁFICO</h3>
-                <div class="fact-box">
-                    <strong>La pregunta que destruye el argumento del "derecho histórico":</strong>
-                    <p>Si en 1900 había 570,000 palestinos que llevaban siglos allí, y solo 30,000 judíos...</p>
-                    <p>Si en 1947 había 1,300,000 palestinos y 600,000 judíos (mayoría llegados en 30 años)...</p>
-                    <p><strong>¿Cómo puede alguien argumentar que los judíos tienen "más derecho" basándose en eventos de hace 2,500 años?</strong></p>
-                </div>
-
-                <h3>5. EL ARGUMENTO DEL 'DERECHO HISTÓRICO'</h3>
-                <p><strong>Si el derecho histórico de hace 2,500 años es válido:</strong></p>
-                <ul>
-                    <li>Los musulmanes pueden reclamar Al-Ándalus (España) - 800 años de control</li>
-                    <li>Los mongoles pueden reclamar media Asia</li>
-                    <li>Los nativos americanos pueden reclamar toda América</li>
-                    <li>Los romanos pueden reclamar Europa y el Mediterráneo</li>
-                </ul>
-                <p class="highlight"><strong>DOS PESOS DOS MEDIDAS:</strong> Si 2,500 años no borran derechos, entonces 76 años DEFINITIVAMENTE no los borran.</p>
-
-                <h3>6. LAS TRES PROMESAS BRITÁNICAS: EL FRAUDE</h3>
-                <p>Los británicos prometieron la MISMA tierra a TRES grupos diferentes:</p>
-                <ol>
-                    <li><strong>1915:</strong> A los árabes (Correspondencia Hussein-McMahon)</li>
-                    <li><strong>1916:</strong> A Francia (Acuerdo Sykes-Picot)</li>
-                    <li><strong>1917:</strong> A los judíos (Declaración Balfour)</li>
-                </ol>
-                <p class="highlight">Los británicos NO eran dueños de esa tierra. No puedes prometer la casa de otro.</p>
-
-                <h3>7. EL PLAN DE PARTICIÓN DE LA ONU (1947)</h3>
-                <div class="fact-box">
-                    <strong>La injusticia del plan:</strong>
-                    <ul>
-                        <li>Judíos: 33% de la población → reciben 56% del territorio</li>
-                        <li>Palestinos: 67% de la población → reciben 44% del territorio</li>
-                    </ul>
-                    <strong>La violación del plan:</strong>
-                    <ul>
-                        <li>Israel "acepta" el plan... y toma el 78% en 1948</li>
-                        <li>750,000 palestinos expulsados</li>
-                        <li>531 pueblos destruidos</li>
-                    </ul>
-                </div>
-
-                <h3>8. LA NAKBA (1948): 750,000 REFUGIADOS</h3>
-                <ul>
-                    <li>750,000-900,000 palestinos expulsados (58-69% de la población total)</li>
-                    <li>531 pueblos destruidos o despoblados</li>
-                    <li>15,000+ palestinos asesinados</li>
-                    <li>Masacres documentadas: Deir Yassin, Tantura, Lydda, Al-Dawayima</li>
-                </ul>
-                <p><strong>Resolución 194 ONU:</strong> Los refugiados tienen derecho al retorno. Reafirmada 130+ veces. Israel siempre la ha rechazado.</p>
-
-                <h3>9. LA OCUPACIÓN DESDE 1967</h3>
-                <ul>
-                    <li><strong>57 años</strong> de ocupación militar (1967-2024)</li>
-                    <li><strong>750,000</strong> colonos en asentamientos ILEGALES</li>
-                    <li><strong>280+</strong> asentamientos en Cisjordania y Jerusalén Este</li>
-                    <li><strong>Resolución 242 ONU:</strong> Retirarse de territorios ocupados - VIOLADA durante 57 años</li>
-                </ul>
-
-                <h3>10-11. ARGUMENTOS PRO-ISRAEL Y CONTRAARGUMENTOS</h3>
-                <p>Ver pestaña "Argumentos" para análisis completo.</p>
-
-                <h3>12. ASIMETRÍA DEL CONFLICTO</h3>
-                <div class="stat">
-                    <div class="stat-number">1:33</div>
-                    <div class="stat-label">Ratio de muertos en Gaza 2023-24<br>Por cada israelí: 33 palestinos</div>
-                </div>
-
-                <h3>13. RESOLUCIONES ONU VIOLADAS</h3>
-                <p>Israel tiene el récord de resoluciones de la ONU violadas. EEUU ha vetado 50+ resoluciones críticas con Israel.</p>
-
-                <h3>14. HAMAS Y EL CONTEXTO DE LA RESISTENCIA</h3>
-                <ul>
-                    <li>Gaza: 2 millones de personas en 365 km² - una de las zonas más densas del mundo</li>
-                    <li>70% de la población son refugiados de 1948 y sus descendientes</li>
-                    <li>Bloqueo total desde 2007 - cárcel al aire libre</li>
-                </ul>
-
-                <h3>15. CONCLUSIÓN: ¿QUIÉN TIENE DERECHO?</h3>
-                <div class="fact-box">
-                    <strong>NINGÚN argumento sobre eventos de hace 2,500 años puede justificar:</strong>
-                    <ul>
-                        <li>La expulsión de 750,000 personas en 1948</li>
-                        <li>La ocupación militar de 57 años</li>
-                        <li>El bloqueo de Gaza durante 17 años</li>
-                        <li>Los 40,000+ palestinos muertos, incluyendo 16,000+ niños</li>
-                        <li>La construcción de asentamientos ilegales</li>
-                        <li>La negación sistemática de derechos humanos básicos</li>
-                    </ul>
-                </div>
+        <!-- BUSCADOR ÉPICO -->
+        <section class="py-20 px-4" style="background: linear-gradient(180deg, #000 0%, #1a0000 50%, #000 100%);">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-4xl md:text-5xl font-bold text-center mb-8 neon">🔍 BUSCA LA VERDAD</h2>
+                <input
+                    type="text"
+                    id="searchBox"
+                    class="search-box w-full rounded-lg"
+                    placeholder="Busca: Nakba, masacres, refugiados, ONU..."
+                    oninput="performSearch(this.value)"
+                >
+                <div id="searchResults" class="mt-4 text-xl"></div>
             </div>
+        </section>
+
+        <!-- NAVEGACIÓN STICKY -->
+        <nav class="sticky top-0 z-50 bg-black bg-opacity-90 backdrop-blur-lg border-b-2 border-red-600">
+            <div class="flex flex-wrap justify-center gap-2 p-4">
+                <button onclick="showSection('cronologia')" class="btn text-sm md:text-base rounded">📅 Cronología</button>
+                <button onclick="showSection('datos')" class="btn text-sm md:text-base rounded">📊 Datos</button>
+                <button onclick="showSection('masacres')" class="btn text-sm md:text-base rounded">☠️ Masacres</button>
+                <button onclick="showSection('testimonios')" class="btn text-sm md:text-base rounded">🗣️ Testimonios</button>
+                <button onclick="showSection('argumentos')" class="btn text-sm md:text-base rounded">💬 Argumentos</button>
+                <button onclick="showSection('preguntas')" class="btn text-sm md:text-base rounded">❓ FAQ</button>
+                <button onclick="showSection('fuentes')" class="btn text-sm md:text-base rounded">📚 Fuentes</button>
+            </div>
+        </nav>
+
+        <!-- CONTENIDO -->
+        <div class="max-w-7xl mx-auto px-4 py-12">
 
             <!-- CRONOLOGÍA -->
-            <div id="cronologia" class="section">
-                <h2>📅 CRONOLOGÍA COMPLETA (1900-2024)</h2>
+            <section id="cronologia" class="section active">
+                <h2 class="text-4xl md:text-6xl font-bold mb-12 text-center">
+                    <span class="glitch" data-text="📅 CRONOLOGÍA SANGRIENTA">📅 CRONOLOGÍA SANGRIENTA</span>
+                </h2>
 
-                <table>
-                    <thead>
-                        <tr>
-                            <th>AÑO</th>
-                            <th>EVENTO CLAVE</th>
-                            <th>POB. JUDÍA</th>
-                            <th>POB. PALESTINA</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1900</td>
-                            <td>Situación bajo Imperio Otomano</td>
-                            <td>30,000 (5%)</td>
-                            <td>570,000 (95%)</td>
-                        </tr>
-                        <tr>
-                            <td>1917</td>
-                            <td>Declaración Balfour: UK promete 'hogar nacional judío'</td>
-                            <td>56,000</td>
-                            <td>600,000</td>
-                        </tr>
-                        <tr>
-                            <td>1920</td>
-                            <td>Inicio del Mandato Británico sobre Palestina</td>
-                            <td>83,000 (11%)</td>
-                            <td>673,000 (89%)</td>
-                        </tr>
-                        <tr>
-                            <td>1931</td>
-                            <td>Inmigración sionista en aumento</td>
-                            <td>175,000 (17%)</td>
-                            <td>880,000 (83%)</td>
-                        </tr>
-                        <tr>
-                            <td>1936-39</td>
-                            <td>Gran Revuelta Árabe contra inmigración masiva</td>
-                            <td>370,000</td>
-                            <td>1,000,000</td>
-                        </tr>
-                        <tr>
-                            <td>1947</td>
-                            <td>Plan de Partición de la ONU</td>
-                            <td>600,000 (33%)</td>
-                            <td>1,300,000 (67%)</td>
-                        </tr>
-                        <tr>
-                            <td>Mayo 1948</td>
-                            <td>Declaración Estado de Israel / Inicio Nakba</td>
-                            <td>Control 78% territorio</td>
-                            <td>750,000 expulsados</td>
-                        </tr>
-                        <tr>
-                            <td>1949</td>
-                            <td>Fin guerra, armisticios</td>
-                            <td>Israel 78% territorio</td>
-                            <td>Refugiados en campos</td>
-                        </tr>
-                        <tr>
-                            <td>1967</td>
-                            <td>Guerra 6 Días: Ocupa Cisjordania, Gaza, Sinaí, Golán</td>
-                            <td>Ocupación militar</td>
-                            <td>Bajo ocupación</td>
-                        </tr>
-                        <tr>
-                            <td>1987-93</td>
-                            <td>Primera Intifada (levantamiento popular)</td>
-                            <td>-</td>
-                            <td>1,162 muertos</td>
-                        </tr>
-                        <tr>
-                            <td>1993</td>
-                            <td>Acuerdos Oslo: OLP reconoce a Israel</td>
-                            <td>Se compromete paz</td>
-                            <td>Espera estado</td>
-                        </tr>
-                        <tr>
-                            <td>2000-05</td>
-                            <td>Segunda Intifada</td>
-                            <td>1,000 muertos</td>
-                            <td>3,200 muertos</td>
-                        </tr>
-                        <tr>
-                            <td>2005</td>
-                            <td>'Retirada' de Gaza pero mantiene bloqueo total</td>
-                            <td>Controla fronteras</td>
-                            <td>2M bloqueados</td>
-                        </tr>
-                        <tr>
-                            <td>2008-09</td>
-                            <td>Operación Plomo Fundido en Gaza</td>
-                            <td>13 muertos</td>
-                            <td>1,400 muertos (70% civiles)</td>
-                        </tr>
-                        <tr>
-                            <td>2014</td>
-                            <td>Operación Margen Protector en Gaza</td>
-                            <td>73 muertos</td>
-                            <td>2,251 muertos (70% civiles)</td>
-                        </tr>
-                        <tr>
-                            <td>2018</td>
-                            <td>Gran Marcha del Retorno (protestas pacíficas)</td>
-                            <td>0 muertos</td>
-                            <td>223 muertos por francotiradores</td>
-                        </tr>
-                        <tr>
-                            <td>2023-24</td>
-                            <td>Guerra de Gaza</td>
-                            <td>~1,200 muertos</td>
-                            <td>40,000+ muertos (16,000+ niños)</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="space-y-8">
+                    <div class="card p-6 md:p-8 rounded-xl">
+                        <div class="flex flex-col md:flex-row items-start md:items-center gap-4 mb-4">
+                            <div class="text-5xl md:text-6xl font-bold text-red-500">1900</div>
+                            <div class="h-1 flex-1 bg-gradient-to-r from-red-500 to-transparent"></div>
+                        </div>
+                        <h3 class="text-2xl md:text-3xl font-bold mb-4">Situación Inicial</h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-black bg-opacity-50 p-4 rounded">
+                                <p class="text-xl md:text-2xl blood-text">Palestinos: 570,000 (95%)</p>
+                            </div>
+                            <div class="bg-black bg-opacity-50 p-4 rounded">
+                                <p class="text-xl md:text-2xl">Judíos: 30,000 (5%)</p>
+                            </div>
+                        </div>
+                    </div>
 
-                <div class="fact-box">
-                    <h3>Observaciones críticas:</h3>
-                    <ol>
-                        <li>La población judía pasa de 5% a 33% en solo 47 años (1900-1947) debido a inmigración masiva europea.</li>
-                        <li>Los palestinos eran el 67% en 1947 pero reciben solo el 44% del territorio en el plan de partición.</li>
-                        <li>Israel termina controlando el 78% en 1948, mucho más de lo que la ONU le había asignado (56%).</li>
-                        <li>750,000 palestinos son expulsados de sus hogares en lo que ellos llaman la Nakba (Catástrofe).</li>
-                        <li>Asimetría brutal: En cada conflicto mueren entre 20-30 veces más palestinos que israelíes.</li>
-                    </ol>
+                    <div class="card p-6 md:p-8 rounded-xl">
+                        <div class="flex flex-col md:flex-row items-start md:items-center gap-4 mb-4">
+                            <div class="text-5xl md:text-6xl font-bold text-red-500">1947</div>
+                            <div class="h-1 flex-1 bg-gradient-to-r from-red-500 to-transparent"></div>
+                        </div>
+                        <h3 class="text-2xl md:text-3xl font-bold mb-4">Plan de Partición ONU</h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-black bg-opacity-50 p-4 rounded">
+                                <p class="text-xl md:text-2xl blood-text">Palestinos: 1,300,000 (67%)</p>
+                                <p class="text-lg md:text-xl mt-2 text-gray-400">Reciben: 44% territorio</p>
+                            </div>
+                            <div class="bg-black bg-opacity-50 p-4 rounded">
+                                <p class="text-xl md:text-2xl">Judíos: 600,000 (33%)</p>
+                                <p class="text-lg md:text-xl mt-2 text-gray-400">Reciben: 56% territorio</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 p-4 bg-red-900 bg-opacity-30 border-l-4 border-red-500 rounded">
+                            <p class="text-lg md:text-xl">⚠️ <strong>INJUSTICIA:</strong> La minoría recibe más territorio que la mayoría</p>
+                        </div>
+                    </div>
+
+                    <div class="card p-6 md:p-8 rounded-xl border-red-600 border-4">
+                        <div class="flex flex-col md:flex-row items-start md:items-center gap-4 mb-4">
+                            <div class="text-5xl md:text-6xl font-bold text-red-600 neon">1948</div>
+                            <div class="h-1 flex-1 bg-gradient-to-r from-red-600 to-transparent"></div>
+                        </div>
+                        <h3 class="text-3xl md:text-4xl font-bold mb-4 blood-text">LA NAKBA - LA CATÁSTROFE</h3>
+                        <div class="grid md:grid-cols-3 gap-4">
+                            <div class="bg-red-900 bg-opacity-40 p-6 rounded text-center">
+                                <div class="stat-number text-4xl md:text-5xl">750K</div>
+                                <p class="text-lg md:text-xl mt-2">EXPULSADOS</p>
+                            </div>
+                            <div class="bg-red-900 bg-opacity-40 p-6 rounded text-center">
+                                <div class="stat-number text-4xl md:text-5xl">531</div>
+                                <p class="text-lg md:text-xl mt-2">Pueblos DESTRUIDOS</p>
+                            </div>
+                            <div class="bg-red-900 bg-opacity-40 p-6 rounded text-center">
+                                <div class="stat-number text-4xl md:text-5xl">15K+</div>
+                                <p class="text-lg md:text-xl mt-2">ASESINADOS</p>
+                            </div>
+                        </div>
+                        <div class="mt-6 p-4 bg-black bg-opacity-50 rounded">
+                            <p class="text-lg md:text-xl"><strong class="blood-text">REALIDAD:</strong> Israel tomó el 78% del territorio (no el 56% que le dio la ONU)</p>
+                        </div>
+                    </div>
+
+                    <div class="card p-6 md:p-8 rounded-xl">
+                        <div class="flex flex-col md:flex-row items-start md:items-center gap-4 mb-4">
+                            <div class="text-5xl md:text-6xl font-bold text-red-500">1967</div>
+                            <div class="h-1 flex-1 bg-gradient-to-r from-red-500 to-transparent"></div>
+                        </div>
+                        <h3 class="text-2xl md:text-3xl font-bold mb-4">Guerra 6 Días - Ocupación</h3>
+                        <ul class="space-y-2 text-lg md:text-xl">
+                            <li class="flex items-start gap-2">
+                                <span class="text-red-500 flex-shrink-0">▶</span>
+                                <span>Israel ocupa Cisjordania, Gaza, Sinaí y Golán</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-red-500 flex-shrink-0">▶</span>
+                                <span>Resolución 242 ONU: "Retirarse de territorios ocupados"</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-red-500 flex-shrink-0">▶</span>
+                                <span><strong class="blood-text">57 AÑOS VIOLANDO</strong> esta resolución</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="card p-6 md:p-8 rounded-xl border-red-600">
+                        <div class="flex flex-col md:flex-row items-start md:items-center gap-4 mb-4">
+                            <div class="text-5xl md:text-6xl font-bold text-red-500">2023-24</div>
+                            <div class="h-1 flex-1 bg-gradient-to-r from-red-500 to-transparent"></div>
+                        </div>
+                        <h3 class="text-2xl md:text-3xl font-bold mb-4 blood-text">Guerra de Gaza</h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-black bg-opacity-50 p-4 rounded">
+                                <p class="text-xl md:text-2xl">Israelíes: ~1,200 muertos</p>
+                            </div>
+                            <div class="bg-red-900 bg-opacity-40 p-4 rounded">
+                                <p class="text-xl md:text-2xl blood-text">Palestinos: ~40,000 muertos</p>
+                                <p class="text-lg md:text-xl mt-2">16,000+ NIÑOS</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 p-4 bg-black bg-opacity-50 rounded text-center">
+                            <p class="text-2xl md:text-3xl"><strong class="blood-text">RATIO: 1:33</strong></p>
+                            <p class="text-lg md:text-xl mt-2">Por cada israelí, 33 palestinos mueren</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </section>
 
             <!-- DATOS CLAVE -->
-            <div id="datos" class="section">
-                <h2>📊 DATOS CLAVE Y ESTADÍSTICAS</h2>
+            <section id="datos" class="section">
+                <h2 class="text-4xl md:text-6xl font-bold mb-12 text-center">
+                    <span class="glitch" data-text="📊 LOS NÚMEROS NO MIENTEN">📊 LOS NÚMEROS NO MIENTEN</span>
+                </h2>
 
-                <h3>Evolución Demográfica</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>AÑO</th>
-                            <th>PALESTINOS</th>
-                            <th>JUDÍOS</th>
-                            <th>% PALESTINOS</th>
-                            <th>% JUDÍOS</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1900</td>
-                            <td>570,000</td>
-                            <td>30,000</td>
-                            <td>95%</td>
-                            <td>5%</td>
-                        </tr>
-                        <tr>
-                            <td>1917</td>
-                            <td>600,000</td>
-                            <td>56,000</td>
-                            <td>91.5%</td>
-                            <td>8.5%</td>
-                        </tr>
-                        <tr>
-                            <td>1931</td>
-                            <td>880,000</td>
-                            <td>175,000</td>
-                            <td>83%</td>
-                            <td>17%</td>
-                        </tr>
-                        <tr>
-                            <td>1947</td>
-                            <td>1,300,000</td>
-                            <td>600,000</td>
-                            <td>67%</td>
-                            <td>33%</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Población 1900 -->
+                    <div class="card p-8 rounded-xl text-center">
+                        <h3 class="text-2xl font-bold mb-4">Población 1900</h3>
+                        <div class="stat-number text-5xl">95%</div>
+                        <p class="text-xl blood-text">Palestinos</p>
+                        <div class="mt-4">
+                            <div class="stat-number text-3xl">5%</div>
+                            <p class="text-lg">Judíos</p>
+                        </div>
+                    </div>
 
-                <div class="stat">
-                    <div class="stat-number">95%</div>
-                    <div class="stat-label">Palestinos en 1900</div>
+                    <!-- Población 1947 -->
+                    <div class="card p-8 rounded-xl text-center">
+                        <h3 class="text-2xl font-bold mb-4">Población 1947</h3>
+                        <div class="stat-number text-5xl">67%</div>
+                        <p class="text-xl blood-text">Palestinos</p>
+                        <div class="mt-4">
+                            <div class="stat-number text-3xl">33%</div>
+                            <p class="text-lg">Judíos</p>
+                        </div>
+                    </div>
+
+                    <!-- Nakba -->
+                    <div class="card p-8 rounded-xl text-center border-red-600">
+                        <h3 class="text-2xl font-bold mb-4 blood-text">LA NAKBA</h3>
+                        <div class="stat-number text-5xl">750K</div>
+                        <p class="text-xl">Expulsados</p>
+                        <div class="mt-4 space-y-2">
+                            <p class="text-lg">531 pueblos destruidos</p>
+                            <p class="text-lg">15,000+ asesinados</p>
+                            <p class="text-lg">70+ masacres</p>
+                        </div>
+                    </div>
+
+                    <!-- Militar -->
+                    <div class="card p-8 rounded-xl text-center">
+                        <h3 class="text-2xl font-bold mb-4">Presupuesto Militar</h3>
+                        <div class="stat-number text-4xl">468:1</div>
+                        <p class="text-xl mt-2">Ratio superioridad</p>
+                        <div class="mt-4 space-y-2 text-sm">
+                            <p>Israel: $23,400M</p>
+                            <p class="blood-text">AP: $50M</p>
+                        </div>
+                    </div>
+
+                    <!-- Ocupación -->
+                    <div class="card p-8 rounded-xl text-center">
+                        <h3 class="text-2xl font-bold mb-4">Ocupación</h3>
+                        <div class="stat-number text-5xl">57</div>
+                        <p class="text-xl">Años desde 1967</p>
+                        <div class="mt-4">
+                            <div class="stat-number text-4xl">750K</div>
+                            <p class="text-lg blood-text">Colonos ILEGALES</p>
+                        </div>
+                    </div>
+
+                    <!-- ONU -->
+                    <div class="card p-8 rounded-xl text-center">
+                        <h3 class="text-2xl font-bold mb-4">Resoluciones ONU</h3>
+                        <div class="stat-number text-4xl">130+</div>
+                        <p class="text-xl blood-text">VIOLADAS</p>
+                        <div class="mt-4">
+                            <p class="text-lg">50+ vetos EEUU</p>
+                        </div>
+                    </div>
                 </div>
+            </section>
 
-                <div class="stat">
-                    <div class="stat-number">5%</div>
-                    <div class="stat-label">Judíos en 1900</div>
+            <!-- MASACRES -->
+            <section id="masacres" class="section">
+                <h2 class="text-4xl md:text-6xl font-bold mb-12 text-center">
+                    <span class="glitch" data-text="☠️ MASACRES DOCUMENTADAS">☠️ MASACRES DOCUMENTADAS</span>
+                </h2>
+
+                <div class="space-y-6">
+                    <div class="card p-6 rounded-xl">
+                        <h3 class="text-2xl font-bold mb-3 blood-text">Deir Yassin - 9 Abril 1948</h3>
+                        <div class="grid md:grid-cols-3 gap-4 mb-3">
+                            <div class="bg-black bg-opacity-50 p-3 rounded text-center">
+                                <p class="stat-number text-3xl">107</p>
+                                <p class="text-lg">Muertos</p>
+                            </div>
+                            <div class="bg-black bg-opacity-50 p-3 rounded text-center">
+                                <p class="text-xl font-bold">Irgun & Stern</p>
+                                <p class="text-sm">Perpetradores</p>
+                            </div>
+                            <div class="bg-black bg-opacity-50 p-3 rounded text-center">
+                                <p class="text-lg">Mujeres, niños, ancianos</p>
+                            </div>
+                        </div>
+                        <p class="text-lg">Asesinato masivo de civiles. Cuerpos mutilados. Usada como propaganda para aterrorizar y expulsar palestinos.</p>
+                    </div>
+
+                    <div class="card p-6 rounded-xl">
+                        <h3 class="text-2xl font-bold mb-3 blood-text">Tantura - 22-23 Mayo 1948</h3>
+                        <div class="grid md:grid-cols-3 gap-4 mb-3">
+                            <div class="bg-black bg-opacity-50 p-3 rounded text-center">
+                                <p class="stat-number text-3xl">200+</p>
+                                <p class="text-lg">Muertos</p>
+                            </div>
+                            <div class="bg-black bg-opacity-50 p-3 rounded text-center">
+                                <p class="text-xl font-bold">Brigada Alexandroni</p>
+                                <p class="text-sm">Perpetradores</p>
+                            </div>
+                            <div class="bg-black bg-opacity-50 p-3 rounded text-center">
+                                <p class="text-lg">Fosas comunes</p>
+                            </div>
+                        </div>
+                        <p class="text-lg">Ejecuciones masivas de prisioneros. Enterrados en fosas comunes bajo parking. Negada durante décadas.</p>
+                    </div>
+
+                    <div class="card p-6 rounded-xl">
+                        <h3 class="text-2xl font-bold mb-3 blood-text">Lydda - Julio 1948</h3>
+                        <div class="grid md:grid-cols-3 gap-4 mb-3">
+                            <div class="bg-black bg-opacity-50 p-3 rounded text-center">
+                                <p class="stat-number text-3xl">426</p>
+                                <p class="text-lg">Muertos</p>
+                            </div>
+                            <div class="bg-black bg-opacity-50 p-3 rounded text-center">
+                                <p class="stat-number text-3xl">50K</p>
+                                <p class="text-lg">Expulsados</p>
+                            </div>
+                            <div class="bg-black bg-opacity-50 p-3 rounded text-center">
+                                <p class="text-lg">Marcha muerte 70km</p>
+                            </div>
+                        </div>
+                        <p class="text-lg">Orden de Ben-Gurion. Asesinatos en mezquitas. Expulsión forzosa en pleno calor. Cientos murieron en marcha.</p>
+                    </div>
+
+                    <div class="card p-6 rounded-xl">
+                        <h3 class="text-2xl font-bold mb-3 blood-text">Sabra y Shatila - 16-18 Sept 1982</h3>
+                        <div class="grid md:grid-cols-3 gap-4 mb-3">
+                            <div class="bg-black bg-opacity-50 p-3 rounded text-center">
+                                <p class="stat-number text-3xl">3,500</p>
+                                <p class="text-lg">Muertos</p>
+                            </div>
+                            <div class="bg-black bg-opacity-50 p-3 rounded text-center">
+                                <p class="text-xl font-bold">Falanges (Israel)</p>
+                                <p class="text-sm">Perpetradores</p>
+                            </div>
+                            <div class="bg-black bg-opacity-50 p-3 rounded text-center">
+                                <p class="text-lg">Campos refugiados</p>
+                            </div>
+                        </div>
+                        <p class="text-lg">Israel rodeó campos, iluminó zona con bengalas. Milicias cristianas asesinaron civiles 3 días. Ariel Sharon responsable.</p>
+                    </div>
+
+                    <div class="card p-6 rounded-xl">
+                        <h3 class="text-2xl font-bold mb-3 blood-text">Qana - 18 Abril 1996</h3>
+                        <div class="grid md:grid-cols-3 gap-4 mb-3">
+                            <div class="bg-black bg-opacity-50 p-3 rounded text-center">
+                                <p class="stat-number text-3xl">106</p>
+                                <p class="text-lg">Muertos</p>
+                            </div>
+                            <div class="bg-black bg-opacity-50 p-3 rounded text-center">
+                                <p class="text-xl font-bold">IDF</p>
+                                <p class="text-sm">Artillería israelí</p>
+                            </div>
+                            <div class="bg-black bg-opacity-50 p-3 rounded text-center">
+                                <p class="text-lg">Base ONU atacada</p>
+                            </div>
+                        </div>
+                        <p class="text-lg">Bombardeo de refugiados en base ONU. 106 civiles muertos, 116 heridos. "Error" según Israel.</p>
+                    </div>
+
+                    <div class="card p-6 rounded-xl border-red-600 border-4">
+                        <h3 class="text-2xl font-bold mb-3 blood-text">Jenín - Abril 2002</h3>
+                        <div class="grid md:grid-cols-3 gap-4 mb-3">
+                            <div class="bg-black bg-opacity-50 p-3 rounded text-center">
+                                <p class="stat-number text-3xl">52+</p>
+                                <p class="text-lg">Muertos civiles</p>
+                            </div>
+                            <div class="bg-black bg-opacity-50 p-3 rounded text-center">
+                                <p class="text-xl font-bold">IDF</p>
+                                <p class="text-sm">Operación "Muro Defensivo"</p>
+                            </div>
+                            <div class="bg-black bg-opacity-50 p-3 rounded text-center">
+                                <p class="text-lg">Campo arrasado</p>
+                            </div>
+                        </div>
+                        <p class="text-lg">Bulldozers D9 demolieron 140 edificios con gente dentro. Ambulancias bloqueadas. Negado acceso a ONU.</p>
+                    </div>
+
+                    <div class="card p-6 rounded-xl">
+                        <h3 class="text-2xl font-bold mb-3 blood-text">Operación Plomo Fundido - 2008-09</h3>
+                        <div class="grid md:grid-cols-3 gap-4 mb-3">
+                            <div class="bg-black bg-opacity-50 p-3 rounded text-center">
+                                <p class="stat-number text-3xl">1,417</p>
+                                <p class="text-lg">Muertos palestinos</p>
+                            </div>
+                            <div class="bg-black bg-opacity-50 p-3 rounded text-center">
+                                <p class="stat-number text-3xl">313</p>
+                                <p class="text-lg">NIÑOS</p>
+                            </div>
+                            <div class="bg-black bg-opacity-50 p-3 rounded text-center">
+                                <p class="stat-number text-3xl">13</p>
+                                <p class="text-lg">Israelíes muertos</p>
+                            </div>
+                        </div>
+                        <p class="text-lg">Fósforo blanco en zonas civiles. Escuelas ONU bombardeadas. Ambulancias atacadas. <strong class="blood-text">Ratio 1:109</strong></p>
+                    </div>
+
+                    <div class="card p-6 rounded-xl border-red-600">
+                        <h3 class="text-2xl font-bold mb-3 blood-text">Gaza 2014 - Operación Margen Protector</h3>
+                        <div class="grid md:grid-cols-3 gap-4 mb-3">
+                            <div class="bg-black bg-opacity-50 p-3 rounded text-center">
+                                <p class="stat-number text-3xl">2,251</p>
+                                <p class="text-lg">Muertos palestinos</p>
+                            </div>
+                            <div class="bg-black bg-opacity-50 p-3 rounded text-center">
+                                <p class="stat-number text-3xl">551</p>
+                                <p class="text-lg">NIÑOS</p>
+                            </div>
+                            <div class="bg-black bg-opacity-50 p-3 rounded text-center">
+                                <p class="stat-number text-3xl">71</p>
+                                <p class="text-lg">Israelíes muertos</p>
+                            </div>
+                        </div>
+                        <p class="text-lg">18,000 viviendas destruidas. 4 niños asesinados en playa jugando. Escuelas refugio bombardeadas.</p>
+                    </div>
+
+                    <div class="mt-8 p-6 bg-red-900 bg-opacity-40 rounded-xl text-center border-4 border-red-600">
+                        <p class="text-3xl font-bold mb-4">📊 TOTAL DOCUMENTADO 1948-2024</p>
+                        <div class="grid md:grid-cols-3 gap-6">
+                            <div>
+                                <p class="stat-number text-5xl">70+</p>
+                                <p class="text-xl blood-text">Masacres</p>
+                            </div>
+                            <div>
+                                <p class="stat-number text-5xl">100K+</p>
+                                <p class="text-xl blood-text">Muertos</p>
+                            </div>
+                            <div>
+                                <p class="stat-number text-5xl">30K+</p>
+                                <p class="text-xl blood-text">Niños</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
-                <h3>La Nakba en Números</h3>
-                <div class="fact-box">
-                    <ul>
-                        <li><strong>750,000-900,000</strong> palestinos expulsados (58-69% de la población total)</li>
-                        <li><strong>531</strong> pueblos destruidos o despoblados</li>
-                        <li><strong>15,000+</strong> palestinos asesinados</li>
-                        <li><strong>5 millones+</strong> refugiados palestinos registrados hoy por UNRWA</li>
-                    </ul>
-                </div>
-
-                <h3>Asimetría de Víctimas</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>CONFLICTO</th>
-                            <th>ISRAELÍES</th>
-                            <th>PALESTINOS</th>
-                            <th>RATIO</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Segunda Intifada (2000-05)</td>
-                            <td>~1,000</td>
-                            <td>~3,200</td>
-                            <td>1:3.2</td>
-                        </tr>
-                        <tr>
-                            <td>Op. Plomo Fundido (2008-09)</td>
-                            <td>13</td>
-                            <td>1,400</td>
-                            <td>1:108</td>
-                        </tr>
-                        <tr>
-                            <td>Gaza 2014</td>
-                            <td>73</td>
-                            <td>2,251</td>
-                            <td>1:31</td>
-                        </tr>
-                        <tr>
-                            <td>Gaza 2021</td>
-                            <td>13</td>
-                            <td>260</td>
-                            <td>1:20</td>
-                        </tr>
-                        <tr>
-                            <td>Gaza 2023-24</td>
-                            <td>~1,200</td>
-                            <td>~40,000</td>
-                            <td>1:33</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <div class="stat">
-                    <div class="stat-number">16,000+</div>
-                    <div class="stat-label">Niños palestinos muertos en Gaza 2023-24</div>
-                </div>
-
-                <h3>Asimetría Militar (2023)</h3>
-                <div class="fact-box">
-                    <strong>Presupuesto Militar:</strong>
-                    <ul>
-                        <li>Israel: $23,400 millones</li>
-                        <li>Autoridad Palestina: ~$50 millones</li>
-                        <li><strong>Ratio: 468:1</strong></li>
-                    </ul>
-                    <strong>Armamento Israel:</strong>
-                    <ul>
-                        <li>600+ aviones de combate (F-16, F-35)</li>
-                        <li>2,700+ tanques</li>
-                        <li>80-200 ojivas nucleares (único país con armas nucleares en Medio Oriente)</li>
-                        <li>Sistema antimisiles Iron Dome</li>
-                        <li>Apoyo militar EEUU: $3,800 millones/año</li>
-                    </ul>
-                    <strong>Armamento Hamas:</strong>
-                    <ul>
-                        <li>Cohetes caseros (mayoría interceptados)</li>
-                        <li>Armas pequeñas</li>
-                        <li>Sin fuerza aérea, sin tanques, sin armada</li>
-                    </ul>
-                </div>
-
-                <h3>Resoluciones ONU Violadas por Israel</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>RESOLUCIÓN</th>
-                            <th>AÑO</th>
-                            <th>CONTENIDO</th>
-                            <th>VECES REAFIRMADA</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>194</td>
-                            <td>1948</td>
-                            <td>Derecho al retorno de refugiados</td>
-                            <td>130+</td>
-                        </tr>
-                        <tr>
-                            <td>242</td>
-                            <td>1967</td>
-                            <td>Retirarse de territorios ocupados</td>
-                            <td>57 años violada</td>
-                        </tr>
-                        <tr>
-                            <td>446</td>
-                            <td>1979</td>
-                            <td>Asentamientos ilegales sin validez</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td>2334</td>
-                            <td>2016</td>
-                            <td>Asentamientos flagrante violación</td>
-                            <td>-</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <div class="stat">
-                    <div class="stat-number">750,000</div>
-                    <div class="stat-label">Colonos israelíes en asentamientos ILEGALES</div>
-                </div>
-
-                <div class="stat">
-                    <div class="stat-number">50+</div>
-                    <div class="stat-label">Vetos de EEUU protegiendo a Israel en el Consejo de Seguridad ONU</div>
-                </div>
-
-                <h3>Organizaciones que Llaman a Israel "Apartheid"</h3>
-                <div class="fact-box">
-                    <ul>
-                        <li><strong>B'Tselem</strong> (israelí) - "Régimen de supremacía judía" (2021)</li>
-                        <li><strong>Human Rights Watch</strong> - "Apartheid y persecución" (2021)</li>
-                        <li><strong>Amnistía Internacional</strong> - "Sistema cruel de dominación y apartheid" (2022)</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- MASACRES DOCUMENTADAS -->
-            <div id="masacres" class="section">
-                <h2>☠️ MASACRES DOCUMENTADAS (1947-1949)</h2>
-
-                <p>Durante la Nakba, las fuerzas sionistas cometieron numerosas masacres de civiles palestinos. Estas no son "propaganda árabe" - están documentadas por historiadores israelíes usando archivos militares desclasificados.</p>
-
-                <div class="stat">
-                    <div class="stat-number">70+</div>
-                    <div class="stat-label">Masacres documentadas durante la Nakba</div>
-                </div>
-
-                <h3>DEIR YASSIN (9 de abril de 1948)</h3>
-                <div class="fact-box">
-                    <p><strong>Ubicación:</strong> Pueblo palestino cerca de Jerusalén</p>
-                    <p><strong>Perpetradores:</strong> Irgun y Lehi (grupos paramilitares sionistas)</p>
-                    <p><strong>Víctimas:</strong> Más de 100 civiles (estimaciones varían entre 107-120)</p>
-                    <p><strong>Detalles:</strong></p>
-                    <ul>
-                        <li>El pueblo tenía un pacto de no agresión con las fuerzas judías vecinas</li>
-                        <li>Los atacantes mataron a hombres, mujeres, niños y ancianos</li>
-                        <li>Muchas mujeres fueron violadas antes de ser asesinadas</li>
-                        <li>Cuerpos mutilados y arrojados a pozos</li>
-                        <li>Sobrevivientes fueron paseados en camiones por Jerusalén como "trofeos"</li>
-                    </ul>
-                    <p><strong>Impacto psicológico:</strong> La masacre fue deliberadamente publicitada por grupos sionistas para aterrorizar a otros pueblos palestinos y forzar su huida. Funcionó: decenas de miles huyeron por miedo a sufrir el mismo destino.</p>
-                    <p><strong>Fuente:</strong> Documentado por historiador israelí Benny Morris en "The Birth of the Palestinian Refugee Problem"</p>
-                </div>
-
-                <h3>TANTURA (22-23 de mayo de 1948)</h3>
-                <div class="fact-box">
-                    <p><strong>Ubicación:</strong> Pueblo costero palestino cerca de Haifa</p>
-                    <p><strong>Perpetradores:</strong> Brigada Alexandroni (Haganah)</p>
-                    <p><strong>Víctimas:</strong> Entre 40 y 200 civiles (las cifras exactas siguen disputadas)</p>
-                    <p><strong>Detalles:</strong></p>
-                    <ul>
-                        <li>El pueblo se había rendido sin resistencia</li>
-                        <li>Hombres fueron separados de mujeres y niños</li>
-                        <li>Ejecuciones masivas de hombres en edad militar</li>
-                        <li>Cuerpos enterrados en fosas comunes</li>
-                        <li>El pueblo fue completamente destruido; hoy es un estacionamiento</li>
-                    </ul>
-                    <p><strong>Revelación:</strong> La masacre fue negada durante décadas hasta que el estudiante israelí Teddy Katz la documentó en su tesis de maestría (2000), entrevistando a soldados israelíes que participaron.</p>
-                    <p><strong>Documental:</strong> "Tantura" (2022) - director israelí Alon Schwarz entrevista a veteranos que admiten las ejecuciones</p>
-                </div>
-
-                <h3>LYDDA (11-12 de julio de 1948)</h3>
-                <div class="fact-box">
-                    <p><strong>Ubicación:</strong> Ciudad palestina importante (hoy Lod, Israel)</p>
-                    <p><strong>Perpetradores:</strong> IDF (Fuerzas de Defensa de Israel), bajo mando de Yitzhak Rabin</p>
-                    <p><strong>Víctimas:</strong> 250-426 civiles muertos</p>
-                    <p><strong>Detalles:</strong></p>
-                    <ul>
-                        <li>La ciudad fue capturada y sus habitantes ordenados a evacuar</li>
-                        <li>Masacre en la mezquita Dahmash: 80-176 palestinos asesinados dentro</li>
-                        <li>50,000-70,000 habitantes expulsados a pie hacia Cisjordania</li>
-                        <li>Expulsados en pleno verano, sin agua ni comida</li>
-                        <li>Cientos murieron de deshidratación en la "Marcha de la Muerte"</li>
-                    </ul>
-                    <p><strong>Testimonio de Yitzhak Rabin (futuro PM de Israel):</strong></p>
-                    <p style="font-style: italic; margin-left: 20px;">"Lydda fue conquistada... Las mujeres y los niños fueron cargados en camiones y expulsados... Los hombres capaces fueron detenidos... La expulsión general estaba ahora en marcha."</p>
-                    <p><strong>Fuente:</strong> Memorias censuradas de Rabin (1979), libro "The Ethnic Cleansing of Palestine" de Ilan Pappé</p>
-                </div>
-
-                <h3>AL-DAWAYIMA (29 de octubre de 1948)</h3>
-                <div class="fact-box">
-                    <p><strong>Ubicación:</strong> Pueblo en las colinas de Hebrón</p>
-                    <p><strong>Perpetradores:</strong> Batallón 89 (IDF)</p>
-                    <p><strong>Víctimas:</strong> 80-200 civiles</p>
-                    <p><strong>Detalles:</strong></p>
-                    <ul>
-                        <li>Soldados mataron a civiles refugiados en mezquitas</li>
-                        <li>Familias enteras asesinadas en sus casas</li>
-                        <li>Niños asesinados rompiendo sus cráneos con palos</li>
-                        <li>Mujeres violadas y luego asesinadas</li>
-                        <li>Los sobrevivientes fueron expulsados</li>
-                    </ul>
-                    <p><strong>Testimonio de soldado israelí anónimo:</strong></p>
-                    <p style="font-style: italic; margin-left: 20px;">"Mataron a casi 60 a 70 árabes, mujeres y niños. Los niños mataron rompiendo sus cabezas con palos. No hubo una casa sin muertos."</p>
-                </div>
-
-                <h3>SAFSAF (29 de octubre de 1948)</h3>
-                <div class="fact-box">
-                    <p><strong>Víctimas:</strong> 52-64 civiles</p>
-                    <p><strong>Detalles:</strong> Hombres separados y ejecutados; mujeres violadas</p>
-                    <p><strong>Documentado por:</strong> Informe del oficial de inteligencia israelí Shmaryahu Gutman</p>
-                </div>
-
-                <h3>SALIHA (30 de octubre de 1948)</h3>
-                <div class="fact-box">
-                    <p><strong>Víctimas:</strong> 60-94 civiles</p>
-                    <p><strong>Detalles:</strong> Prisioneros palestinos ejecutados después de rendirse</p>
-                </div>
-
-                <h3>OTRAS MASACRES DOCUMENTADAS</h3>
-                <div class="fact-box">
-                    <ul>
-                        <li><strong>Ein al-Zeitun</strong> (1-4 mayo 1948): 70 prisioneros ejecutados</li>
-                        <li><strong>Abu Shusha</strong> (14 mayo 1948): 60 civiles</li>
-                        <li><strong>Balad al-Shaykh</strong> (31 dic 1947): 60+ civiles</li>
-                        <li><strong>Sa'sa'</strong> (14-15 feb 1948): 60+ civiles, 16 casas voladas con dinamita</li>
-                        <li><strong>Eilabun</strong> (30 oct 1948): 12-14 civiles ejecutados</li>
-                        <li><strong>Hula</strong> (30 oct 1948): 35-58 civiles</li>
-                        <li><strong>Arab al-Mawasi</strong> (2 abr 1948): Ejecuciones de prisioneros</li>
-                    </ul>
-                </div>
-
-                <h3>PATRÓN SISTEMÁTICO</h3>
-                <div class="fact-box">
-                    <p><strong>Métodos recurrentes documentados:</strong></p>
-                    <ol>
-                        <li><strong>Asesinatos de civiles:</strong> Mujeres, niños, ancianos no fueron respetados</li>
-                        <li><strong>Violencia sexual:</strong> Violaciones sistemáticas como arma de terror</li>
-                        <li><strong>Profanación religiosa:</strong> Masacres en mezquitas deliberadas para aterrorizar</li>
-                        <li><strong>Destrucción de pruebas:</strong> Fosas comunes, demolición de pueblos enteros</li>
-                        <li><strong>Expulsión forzada:</strong> Sobrevivientes obligados a huir bajo amenaza de muerte</li>
-                    </ol>
-                </div>
-
-                <h3>RECONOCIMIENTO ISRAELÍ</h3>
-                <div class="fact-box">
-                    <p><strong>Historiador israelí Benny Morris admite:</strong></p>
-                    <p style="font-style: italic; margin-left: 20px;">"Hubo masacres. En ciertos lugares la transferencia de población fue acompañada por masacres. Pero no hubo una política sistemática de masacres."</p>
-                    <p style="margin-top: 10px;"><strong>Nota crítica:</strong> Morris reconoce las masacres pero argumenta que no fueron "política oficial". Sin embargo, su propio trabajo documenta 70+ casos, sugiriendo un patrón generalizado.</p>
-                </div>
-
-                <div class="stat">
-                    <div class="stat-number">15,000+</div>
-                    <div class="stat-label">Palestinos asesinados durante la Nakba (estimación conservadora)</div>
-                </div>
-            </div>
+            </section>
 
             <!-- TESTIMONIOS -->
-            <div id="testimonios" class="section">
-                <h2>🗣️ TESTIMONIOS</h2>
+            <section id="testimonios" class="section">
+                <h2 class="text-4xl md:text-6xl font-bold mb-12 text-center">
+                    <span class="glitch" data-text="🗣️ ELLOS MISMOS LO ADMITEN">🗣️ ELLOS MISMOS LO ADMITEN</span>
+                </h2>
 
-                <p>Testimonios directos de soldados israelíes, líderes políticos, historiadores y sobrevivientes palestinos que documentan la expulsión y las atrocidades de 1948.</p>
+                <div class="space-y-6">
+                    <div class="card p-6 rounded-xl border-l-4 border-red-600">
+                        <div class="flex items-start gap-4">
+                            <div class="text-4xl">👤</div>
+                            <div class="flex-1">
+                                <h3 class="text-2xl font-bold mb-2">David Ben-Gurion (Primer Ministro Israel)</h3>
+                                <p class="text-lg md:text-xl italic mb-3 text-gray-300">"Si yo fuera un líder árabe, nunca firmaría un acuerdo con Israel. Es normal: les hemos quitado su país. Claro, Dios nos lo prometió, pero ¿qué les importa eso a ellos?"</p>
+                                <p class="text-sm text-gray-500">The Jewish Paradox, 1978</p>
+                            </div>
+                        </div>
+                    </div>
 
-                <h3>SOLDADOS ISRAELÍES QUE PARTICIPARON</h3>
+                    <div class="card p-6 rounded-xl border-l-4 border-red-600">
+                        <div class="flex items-start gap-4">
+                            <div class="text-4xl">👤</div>
+                            <div class="flex-1">
+                                <h3 class="text-2xl font-bold mb-2">Moshe Dayan (Ministro Defensa)</h3>
+                                <p class="text-lg md:text-xl italic mb-3 text-gray-300">"No existe tal cosa como Palestina. No es como si hubiera un pueblo palestino y nosotros llegamos y los echamos. Ellos no existen."</p>
+                                <p class="text-sm text-gray-500 mb-3">1969</p>
+                                <p class="text-lg md:text-xl italic mb-3 text-gray-300 border-t border-red-900 pt-3">"Los colonos judíos están establecidos sobre las ruinas de pueblos árabes. Ni siquiera sabes los nombres de estos pueblos, y no te culpo porque los libros de geografía ya no existen."</p>
+                                <p class="text-sm text-gray-500">Discurso Technion, 1969</p>
+                            </div>
+                        </div>
+                    </div>
 
-                <div class="fact-box">
-                    <h4>Yitzhak Rabin (Futuro Primer Ministro de Israel)</h4>
-                    <p><strong>Sobre la expulsión de Lydda (1948):</strong></p>
-                    <p style="font-style: italic; margin-left: 20px;">"Expulsamos a los árabes... lo que hicimos fue preparar el terreno para el regreso de los judíos... Sin la expulsión de los árabes no habríamos podido absorber a todos los judíos que quisieron venir."</p>
-                    <p style="margin-top: 10px; font-size: 0.9em;">Fuente: Memorias de Rabin (1979), sección censurada que fue filtrada</p>
+                    <div class="card p-6 rounded-xl border-l-4 border-red-600">
+                        <div class="flex items-start gap-4">
+                            <div class="text-4xl">👤</div>
+                            <div class="flex-1">
+                                <h3 class="text-2xl font-bold mb-2">Yitzhak Rabin (Primer Ministro)</h3>
+                                <p class="text-lg md:text-xl italic mb-3 text-gray-300">"Expulsamos a los habitantes de Lydda y Ramle [...] Allon me preguntó: ¿Qué hacer con la población árabe? Ben-Gurion hizo un gesto con la mano: Expúlsenlos."</p>
+                                <p class="text-sm text-gray-500">Memorias (censuradas), 1979</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card p-6 rounded-xl border-l-4 border-red-600">
+                        <div class="flex items-start gap-4">
+                            <div class="text-4xl">⚔️</div>
+                            <div class="flex-1">
+                                <h3 class="text-2xl font-bold mb-2">Soldado israelí - Brigada Alexandroni</h3>
+                                <p class="text-lg md:text-xl italic mb-3 text-gray-300">"Había 200, 230 cuerpos [...] los jóvenes fueron obligados a cargar los cuerpos hasta el cementerio de Tantura [...] luego fueron ejecutados también."</p>
+                                <p class="text-sm text-gray-500">Testimonio Masacre Tantura, 1998</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card p-6 rounded-xl border-l-4 border-red-600">
+                        <div class="flex items-start gap-4">
+                            <div class="text-4xl">👤</div>
+                            <div class="flex-1">
+                                <h3 class="text-2xl font-bold mb-2">Ariel Sharon (Primer Ministro)</h3>
+                                <p class="text-lg md:text-xl italic mb-3 text-gray-300">"No sabemos nada de una masacre en Sabra y Shatila."</p>
+                                <p class="text-sm text-gray-500 mb-2">1982 (Mentira probada)</p>
+                                <p class="text-lg blood-text font-bold">Comisión Kahan 1983: Sharon es "personalmente responsable" de permitir la masacre.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card p-6 rounded-xl border-l-4 border-red-600">
+                        <div class="flex items-start gap-4">
+                            <div class="text-4xl">📖</div>
+                            <div class="flex-1">
+                                <h3 class="text-2xl font-bold mb-2">Ilan Pappé (Historiador israelí)</h3>
+                                <p class="text-lg md:text-xl italic mb-3 text-gray-300">"La limpieza étnica de Palestina no fue un accidente de guerra, fue un plan deliberado y sistemático."</p>
+                                <p class="text-sm text-gray-500 mb-3">"The Ethnic Cleansing of Palestine", 2006</p>
+                                <p class="text-lg md:text-xl italic mb-3 text-gray-300 border-t border-red-900 pt-3">"Lo que Israel llama 'Guerra de Independencia', los palestinos llaman 'Nakba' (catástrofe). Ambos tienen razón: fue la independencia de unos y la catástrofe de otros."</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card p-6 rounded-xl border-l-4 border-red-600">
+                        <div class="flex items-start gap-4">
+                            <div class="text-4xl">⚔️</div>
+                            <div class="flex-1">
+                                <h3 class="text-2xl font-bold mb-2">Soldados israelíes - Breaking the Silence</h3>
+                                <p class="text-lg md:text-xl italic mb-3 text-gray-300">"Se nos ordenó disparar a cualquiera que viéramos [...] no importaba si era armado o civil."</p>
+                                <p class="text-sm text-gray-500 mb-3">Testimonios Gaza 2014</p>
+                                <p class="text-lg md:text-xl italic mb-3 text-gray-300 border-t border-red-900 pt-3">"Bombardeamos una casa sin saber quién estaba dentro. Resultaron ser 7 niños jugando."</p>
+                                <p class="text-sm text-gray-500">Testimonio operaciones Gaza</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card p-6 rounded-xl border-l-4 border-red-600 bg-red-900 bg-opacity-20">
+                        <div class="flex items-start gap-4">
+                            <div class="text-4xl">👤</div>
+                            <div class="flex-1">
+                                <h3 class="text-2xl font-bold mb-2">Benny Morris (Historiador israelí)</h3>
+                                <p class="text-lg md:text-xl italic mb-3 text-gray-300">"En la Nakba hubo 24 casos documentados de masacres, pero probablemente fueron más. La transferencia [expulsión] era inevitable y estaba incluida en el pensamiento sionista."</p>
+                                <p class="text-sm text-gray-500 mb-3">Entrevista Haaretz, 2004</p>
+                                <p class="text-lg blood-text font-bold">⚠️ Aunque documenta los crímenes, Morris los JUSTIFICA diciendo que eran "necesarios".</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 p-6 bg-black bg-opacity-70 rounded-xl border-2 border-red-600">
+                        <p class="text-2xl font-bold text-center mb-4">💡 CONCLUSIÓN</p>
+                        <p class="text-xl text-center">No son "teorías conspirativas" - son <span class="blood-text font-bold">SUS PROPIAS PALABRAS</span></p>
+                    </div>
                 </div>
-
-                <div class="fact-box">
-                    <h4>Soldado anónimo en Tantura</h4>
-                    <p><strong>Entrevista en documental "Tantura" (2022):</strong></p>
-                    <p style="font-style: italic; margin-left: 20px;">"Sí, hubo ejecuciones. Los pusimos contra la pared y los disparamos... Eran alrededor de 200... Después los enterramos."</p>
-                    <p style="margin-top: 10px; font-size: 0.9em;">Fuente: Documental "Tantura" dirigido por Alon Schwarz (israelí)</p>
-                </div>
-
-                <div class="fact-box">
-                    <h4>Veterano israelí de la Brigada Alexandroni</h4>
-                    <p><strong>Sobre masacres en 1948:</strong></p>
-                    <p style="font-style: italic; margin-left: 20px;">"Después de la conquista venía la limpieza... Los árabes huyeron, pero aquellos que se quedaron fueron expulsados. Fue una transferencia sin piedad."</p>
-                </div>
-
-                <div class="fact-box">
-                    <h4>Soldado israelí sobre Al-Dawayima</h4>
-                    <p><strong>Informe interno citado por historiadores:</strong></p>
-                    <p style="font-style: italic; margin-left: 20px;">"Mataron a casi 60 a 70 árabes, mujeres y niños. Los niños mataron rompiendo sus cabezas con palos. No hubo una casa sin muertos... Un comandante ordenó a un soldado que trajera dos mujeres al edificio de limpieza... y después de que fueron violadas las mataron."</p>
-                    <p style="margin-top: 10px; font-size: 0.9em;">Fuente: Archivos militares israelíes citados por Benny Morris</p>
-                </div>
-
-                <h3>LÍDERES SIONISTAS/ISRAELÍES</h3>
-
-                <div class="fact-box">
-                    <h4>David Ben-Gurion (Primer Primer Ministro de Israel)</h4>
-                    <p><strong>En reunión privada (1938):</strong></p>
-                    <p style="font-style: italic; margin-left: 20px;">"No quiero que los árabes sean trasladados... pero no me opongo si el traslado está justificado en términos socio-económicos."</p>
-                    <p><strong>En su diario (1948):</strong></p>
-                    <p style="font-style: italic; margin-left: 20px;">"Debemos hacer todo para asegurar que no regresen... Los viejos morirán y los jóvenes olvidarán."</p>
-                    <p style="margin-top: 10px; font-size: 0.9em;">Fuente: Diarios de Ben-Gurion, citados por Benny Morris</p>
-                </div>
-
-                <div class="fact-box">
-                    <h4>Joseph Weitz (Director del Fondo Nacional Judío)</h4>
-                    <p><strong>En su diario (1940):</strong></p>
-                    <p style="font-style: italic; margin-left: 20px;">"Entre nosotros debe estar claro que no hay lugar para ambos pueblos juntos en este país... No hay otra forma que transferir a los árabes de aquí a los países vecinos, transferirlos a todos; ni un pueblo ni una tribu deben permanecer."</p>
-                    <p style="margin-top: 10px; font-size: 0.9em;">Fuente: "Expulsion of the Palestinians" de Nur Masalha</p>
-                </div>
-
-                <h3>HISTORIADORES ISRAELÍES</h3>
-
-                <div class="fact-box">
-                    <h4>Ilan Pappé (Historiador israelí)</h4>
-                    <p><strong>En "The Ethnic Cleansing of Palestine" (2006):</strong></p>
-                    <p style="font-style: italic; margin-left: 20px;">"La expulsión de los palestinos fue una operación de limpieza étnica bien planificada... No fue un subproducto accidental de la guerra, sino un objetivo deliberado."</p>
-                </div>
-
-                <div class="fact-box">
-                    <h4>Benny Morris (Historiador israelí)</h4>
-                    <p><strong>En "The Birth of the Palestinian Refugee Problem" (1988):</strong></p>
-                    <p style="font-style: italic; margin-left: 20px;">"La transferencia de población fue puesta en práctica mediante ataques armados a pueblos y ciudades, intimidación psicológica, expulsión directa, destrucción de pueblos y obstrucción del retorno de refugiados."</p>
-                    <p style="margin-top: 10px;"><strong>Nota importante:</strong> Aunque Morris es el historiador que más ha documentado las expulsiones usando archivos israelíes, personalmente defiende que fue "necesario" para crear Israel.</p>
-                </div>
-
-                <h3>SOBREVIVIENTES PALESTINOS</h3>
-
-                <div class="fact-box">
-                    <h4>Sobreviviente de Deir Yassin</h4>
-                    <p><strong>Testimonio recogido por Cruz Roja:</strong></p>
-                    <p style="font-style: italic; margin-left: 20px;">"Vi a un soldado agarrar a mi vecina Hanneh Khalil y dispararle con un revólver. Luego me di cuenta de que los soldados estaban matando a todos... Dispararon a mi hermana Kadri [embarazada de 9 meses] en la espalda... Dispararon a mi padre en el estómago y cuando se dobló hacia adelante, le dispararon en la cabeza."</p>
-                </div>
-
-                <div class="fact-box">
-                    <h4>Sobreviviente de la Marcha de la Muerte de Lydda</h4>
-                    <p><strong>Testimonio documentado:</strong></p>
-                    <p style="font-style: italic; margin-left: 20px;">"Nos ordenaron caminar. Éramos 50,000 o más... En pleno julio, calor abrasador, sin agua... Los soldados disparaban a quien se quedaba atrás. Vi niños caer muertos de deshidratación. Madres que ya no podían cargar a sus bebés dejándolos al lado del camino."</p>
-                </div>
-
-                <h3>TESTIMONIOS DE BREAKING THE SILENCE</h3>
-
-                <p><strong>Breaking the Silence</strong> es una organización israelí de veteranos que recogen testimonios anónimos de soldados sobre abusos en los territorios ocupados.</p>
-
-                <div class="fact-box">
-                    <h4>Soldado en Hebrón (2000s)</h4>
-                    <p style="font-style: italic; margin-left: 20px;">"Un comandante me dijo: 'No hay palestinos inocentes'. Nuestra misión era hacer sus vidas tan miserables que se fueran por sí mismos."</p>
-                </div>
-
-                <div class="fact-box">
-                    <h4>Soldado sobre uso de palestinos como escudos humanos</h4>
-                    <p style="font-style: italic; margin-left: 20px;">"Usábamos a un palestino para que caminara delante de nosotros cuando entrábamos a casas sospechosas. Si había un francotirador, dispararían primero al palestino, no a nosotros. Lo llamábamos 'vecino tocando la puerta'."</p>
-                    <p style="margin-top: 10px; font-size: 0.9em;">Nota: Esta práctica fue prohibida por la Corte Suprema israelí en 2005, lo cual confirma que era común.</p>
-                </div>
-
-                <h3>ORGANIZACIONES DE DERECHOS HUMANOS ISRAELÍES</h3>
-
-                <div class="fact-box">
-                    <h4>B'Tselem (2021)</h4>
-                    <p><strong>Declaración oficial:</strong></p>
-                    <p style="font-style: italic; margin-left: 20px;">"El régimen israelí promueve y perpetúa la supremacía judía entre el río Jordán y el mar Mediterráneo. Este es un régimen de apartheid."</p>
-                </div>
-
-                <div class="stat">
-                    <div class="stat-number">1,000+</div>
-                    <div class="stat-label">Testimonios de soldados israelíes recogidos por Breaking the Silence</div>
-                </div>
-            </div>
+            </section>
 
             <!-- ARGUMENTOS -->
-            <div id="argumentos" class="section">
-                <h2>💬 ARGUMENTOS PRO-ISRAEL Y CONTRAARGUMENTOS</h2>
+            <section id="argumentos" class="section">
+                <h2 class="text-4xl md:text-6xl font-bold mb-12 text-center">
+                    <span class="glitch" data-text="💬 DESMONTANDO MENTIRAS">💬 DESMONTANDO MENTIRAS</span>
+                </h2>
 
-                <div class="question-item" onclick="toggleAnswer(this)">
-                    <div class="question-title">
-                        ARGUMENTO 1: 'Los judíos tienen derecho histórico de hace 2,500 años'
-                        <span class="arrow">▼</span>
-                    </div>
-                    <div class="question-answer">
-                        <h4>CONTRAARGUMENTO:</h4>
-                        <p><strong>Si el derecho histórico antiguo es válido:</strong></p>
-                        <ul>
-                            <li>Los musulmanes pueden reclamar Al-Ándalus (España) - 800 años de control</li>
-                            <li>Los mongoles pueden reclamar media Asia - Imperio de Genghis Khan</li>
-                            <li>Los nativos americanos pueden reclamar TODO América</li>
-                            <li>Los descendientes de Roma pueden reclamar toda Europa y el Mediterráneo</li>
-                        </ul>
-                        <p class="highlight"><strong>¿Vemos el absurdo?</strong> Si aplicamos este principio, el mundo entero tendría que reorganizarse.</p>
-                        <p><strong>DOS PESOS DOS MEDIDAS:</strong> Si 2,500 años no borran derechos, entonces 76 años DEFINITIVAMENTE no los borran. Los refugiados palestinos de 1948 tienen un derecho MUCHO MÁS RECIENTE a volver. Muchos todavía están vivos. Tienen las llaves de sus casas. Tienen títulos de propiedad.</p>
-                        <p><strong>No puedes usar el derecho histórico solo cuando te conviene.</strong></p>
-                    </div>
-                </div>
-
-                <div class="question-item" onclick="toggleAnswer(this)">
-                    <div class="question-title">
-                        ARGUMENTO 2: 'Israel es la única democracia en Medio Oriente'
-                        <span class="arrow">▼</span>
-                    </div>
-                    <div class="question-answer">
-                        <h4>CONTRAARGUMENTO:</h4>
-                        <p><strong>¿Democracia para quién?</strong></p>
-                        <ul>
-                            <li>Los 5 millones de palestinos en Cisjordania y Gaza viven bajo ocupación militar <strong>sin derecho al voto</strong></li>
-                            <li>Los 5 millones de refugiados palestinos dispersos por el mundo <strong>no pueden volver</strong> a su tierra</li>
-                            <li>Dentro de Israel, hay <strong>más de 65 leyes</strong> que discriminan a ciudadanos árabes</li>
-                        </ul>
-                        <p><strong>Apartheid documentado:</strong></p>
-                        <div class="fact-box">
-                            <p>Organizaciones de derechos humanos, incluyendo israelíes, han llamado al sistema israelí "apartheid":</p>
-                            <ul>
-                                <li><strong>B'Tselem</strong> (principal ONG israelí): "Régimen de supremacía judía" (2021)</li>
-                                <li><strong>Human Rights Watch:</strong> "Apartheid y persecución" (2021)</li>
-                                <li><strong>Amnistía Internacional:</strong> "Sistema cruel de dominación y apartheid" (2022)</li>
-                            </ul>
+                <div class="space-y-6">
+                    <!-- Argumento 1 -->
+                    <div class="card p-6 rounded-xl">
+                        <div class="mb-4 p-4 bg-gray-800 rounded">
+                            <p class="text-xl font-bold mb-2">🗣️ "Dios nos dio esa tierra hace 3000 años"</p>
                         </div>
-                        <p><strong>Un estado no puede llamarse democracia cuando:</strong></p>
-                        <ol>
-                            <li>Millones de personas bajo su control no tienen derecho al voto</li>
-                            <li>Los derechos dependen de la etnia</li>
-                            <li>Un grupo tiene privilegios constitucionales sobre otro</li>
-                        </ol>
-                        <p class="highlight">Sudáfrica también decía que era "democracia" durante el apartheid. Los blancos podían votar. ¿Eso la hacía democracia?</p>
-                    </div>
-                </div>
-
-                <div class="question-item" onclick="toggleAnswer(this)">
-                    <div class="question-title">
-                        ARGUMENTO 3: 'La ONU apoyó la creación de Israel en 1947'
-                        <span class="arrow">▼</span>
-                    </div>
-                    <div class="question-answer">
-                        <h4>CONTRAARGUMENTO:</h4>
-                        <p>Sí, la ONU propuso UN PLAN de partición. Pero:</p>
-                        <ol>
-                            <li><strong>Ese plan era injusto:</strong> Daba el 56% del territorio a judíos (33% población) y solo 44% a palestinos (67% población)</li>
-                            <li><strong>Israel violó ese plan:</strong> En vez del 56%, tomó el 78% del territorio y expulsó a 750,000 palestinos</li>
-                            <li><strong>¿Por qué solo cuentan ALGUNAS resoluciones de la ONU?</strong></li>
-                        </ol>
-                        <p><strong>Esa MISMA ONU ha aprobado CIENTOS de resoluciones que Israel viola:</strong></p>
-                        <ul>
-                            <li><strong>Resolución 194:</strong> Derecho al retorno de refugiados (reafirmada 130+ veces) - VIOLADA</li>
-                            <li><strong>Resolución 242:</strong> Retirarse de territorios ocupados (1967) - VIOLADA durante 57 años</li>
-                            <li><strong>Resolución 2334:</strong> Los asentamientos son ilegales (2016) - VIOLADA con 750,000 colonos</li>
-                            <li><strong>Resolución 478:</strong> Anexión de Jerusalén Este es nula - VIOLADA</li>
-                        </ul>
-                        <p class="highlight"><strong>No puedes citar la ONU solo cuando te conviene.</strong> Si la resolución 181 de 1947 es válida, entonces TODAS las demás también lo son.</p>
-                    </div>
-                </div>
-
-                <div class="question-item" onclick="toggleAnswer(this)">
-                    <div class="question-title">
-                        ARGUMENTO 4: 'Hamas usa escudos humanos'
-                        <span class="arrow">▼</span>
-                    </div>
-                    <div class="question-answer">
-                        <h4>CONTRAARGUMENTO:</h4>
-                        <p><strong>Primero, los hechos sobre Gaza:</strong></p>
-                        <ul>
-                            <li><strong>Densidad:</strong> 2 millones de personas en 365 km² (una de las zonas más densas del mundo)</li>
-                            <li><strong>Es una cárcel:</strong> Israel controla fronteras, mar, aire, electricidad, agua. Nadie entra ni sale sin permiso</li>
-                            <li><strong>70%</strong> de la población son refugiados de la Nakba de 1948 y sus descendientes</li>
-                        </ul>
-                        <p class="highlight">¿Dónde se supone que tienen que estar? Gaza es minúscula y superpoblada. CUALQUIER instalación está cerca de civiles porque todo está cerca de todo.</p>
-                        <p><strong>Pero incluso si fuera cierto:</strong></p>
-                        <p>Según el derecho internacional humanitario, INCLUSO SI hay combatientes entre civiles, la parte atacante DEBE minimizar víctimas civiles. Bombardear un edificio entero con decenas de familias para matar a un supuesto militante es desproporcionado y <strong>SIGUE SIENDO CRIMEN DE GUERRA.</strong></p>
-                        <p><strong>La proporción de civiles muertos lo demuestra:</strong></p>
-                        <ul>
-                            <li>Gaza 2023-24: <strong>70% civiles</strong>, 40% de los muertos son NIÑOS (16,000+)</li>
-                            <li>Operación Plomo Fundido 2008-09: <strong>70% civiles</strong></li>
-                            <li>Gaza 2014: <strong>70% civiles</strong></li>
-                        </ul>
-                        <p class="highlight">Si realmente Israel fuera tan cuidadoso como afirma, ¿cómo es que el 70% de los muertos son civiles? ¿Cómo murieron 16,000+ niños?</p>
-                        <div class="fact-box">
-                            <strong>Proyección:</strong>
-                            <p>Irónicamente, hay DOCUMENTACIÓN de soldados israelíes usando palestinos como escudos humanos:</p>
-                            <ul>
-                                <li>B'Tselem ha documentado múltiples casos</li>
-                                <li>Testimonios en "Breaking the Silence"</li>
-                                <li>Prohibido oficialmente por la Corte Suprema israelí en 2005... porque era una práctica común</li>
+                        <div class="p-4 bg-red-900 bg-opacity-30 rounded border-l-4 border-red-600">
+                            <p class="text-lg md:text-xl mb-3"><strong class="blood-text">✋ RESPUESTA:</strong></p>
+                            <ul class="space-y-2 text-lg">
+                                <li>▶ Argumento RELIGIOSO no puede justificar ROBO de tierras</li>
+                                <li>▶ Con esa lógica, Mongolia podría reclamar media Asia (Imperio Mongol)</li>
+                                <li>▶ Italianos podrían reclamar Europa (Imperio Romano)</li>
+                                <li>▶ Incluso si lo aceptas: ¿Y los 750,000 expulsados en 1948? ¿Dios ordenó eso?</li>
+                                <li>▶ <strong>Los palestinos también son descendientes de poblaciones antiguas de la región</strong></li>
                             </ul>
                         </div>
                     </div>
-                </div>
 
-                <div class="question-item" onclick="toggleAnswer(this)">
-                    <div class="question-title">
-                        ARGUMENTO 5: 'Israel se retiró de Gaza en 2005'
-                        <span class="arrow">▼</span>
-                    </div>
-                    <div class="question-answer">
-                        <h4>CONTRAARGUMENTO:</h4>
-                        <p>Técnicamente, Israel retiró a sus soldados y colonos DE DENTRO de Gaza en 2005. PERO:</p>
-                        <p><strong>Israel mantiene control TOTAL sobre Gaza:</strong></p>
-                        <ul>
-                            <li>Controla TODAS las fronteras terrestres (excepto Rafah con Egipto, que también coordina con Israel)</li>
-                            <li>Controla TODO el espacio aéreo</li>
-                            <li>Controla TODO el mar territorial</li>
-                            <li>Controla el registro de población (quién nace, quién entra, quién sale)</li>
-                            <li>Controla el suministro de electricidad, agua, combustible</li>
-                            <li>Controla qué mercancías entran y salen</li>
-                        </ul>
-                        <p><strong>Los gazatíes no pueden:</strong></p>
-                        <ul>
-                            <li>Salir sin permiso israelí (que casi nunca se da)</li>
-                            <li>Importar materiales de construcción</li>
-                            <li>Pescar más allá de pocas millas (Israel dispara a pescadores)</li>
-                            <li>Tener aeropuerto o puerto marítimo</li>
-                            <li>Comerciar libremente con el mundo</li>
-                        </ul>
-                        <div class="fact-box">
-                            <p><strong>La ONU, la Cruz Roja y todas las organizaciones de derechos humanos coinciden:</strong> Gaza sigue siendo territorio ocupado. El control no requiere soldados en el suelo - requiere control efectivo, y eso es exactamente lo que Israel mantiene.</p>
+                    <!-- Argumento 2 -->
+                    <div class="card p-6 rounded-xl">
+                        <div class="mb-4 p-4 bg-gray-800 rounded">
+                            <p class="text-xl font-bold mb-2">🗣️ "Palestina nunca existió como país"</p>
                         </div>
-                        <p class="highlight">Es una cárcel al aire libre. Imagina que no puedes salir de tu ciudad, no puedes importar lo que necesitas, te cortan la electricidad a su antojo, y si protestas te bombardean. ¿Eso es "libertad"?</p>
-                        <p><strong>Castigo colectivo:</strong> El bloqueo de Gaza (2007-presente) es castigo colectivo contra 2 millones de personas por haber votado a Hamas en 2006. El castigo colectivo está prohibido por la Cuarta Convención de Ginebra.</p>
+                        <div class="p-4 bg-red-900 bg-opacity-30 rounded border-l-4 border-red-600">
+                            <p class="text-lg md:text-xl mb-3"><strong class="blood-text">✋ RESPUESTA:</strong></p>
+                            <ul class="space-y-2 text-lg">
+                                <li>▶ Los PALESTINOS existían, vivían allí hace 1000+ años</li>
+                                <li>▶ "País" es concepto europeo del siglo XIX</li>
+                                <li>▶ Con esa lógica: Irak, Siria, Jordania tampoco "existían" (fronteras coloniales)</li>
+                                <li>▶ ¿Eso justifica expulsar a su gente? NO</li>
+                                <li>▶ Monedas palestinas (1927), pasaportes palestinos, periódicos palestinos documentados</li>
+                                <li>▶ <strong class="blood-text">¿Israel existía en 1947? NO. Pero se creó. La existencia previa NO es requisito.</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Argumento 3 -->
+                    <div class="card p-6 rounded-xl">
+                        <div class="mb-4 p-4 bg-gray-800 rounded">
+                            <p class="text-xl font-bold mb-2">🗣️ "Los árabes rechazaron el plan de partición ONU 1947"</p>
+                        </div>
+                        <div class="p-4 bg-red-900 bg-opacity-30 rounded border-l-4 border-red-600">
+                            <p class="text-lg md:text-xl mb-3"><strong class="blood-text">✋ RESPUESTA:</strong></p>
+                            <ul class="space-y-2 text-lg">
+                                <li>▶ <strong>CLARO QUE LO RECHAZARON:</strong> Eran el 67% de población, recibían el 44% territorio</li>
+                                <li>▶ Los judíos eran 33%, recibían 56% (incluyendo las tierras MÁS FÉRTILES)</li>
+                                <li>▶ ¿Aceptarías que te quiten la mitad de tu casa y se la den a un vecino nuevo?</li>
+                                <li>▶ Plan votado sin contar a palestinos (colonialismo clásico)</li>
+                                <li>▶ <strong class="blood-text">PEOR AÚN: Israel no respetó ni ese plan - tomó 78% en 1948</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Argumento 4 -->
+                    <div class="card p-6 rounded-xl">
+                        <div class="mb-4 p-4 bg-gray-800 rounded">
+                            <p class="text-xl font-bold mb-2">🗣️ "Los palestinos se fueron voluntariamente en 1948"</p>
+                        </div>
+                        <div class="p-4 bg-red-900 bg-opacity-30 rounded border-l-4 border-red-600">
+                            <p class="text-lg md:text-xl mb-3"><strong class="blood-text">✋ MENTIRA PROBADA:</strong></p>
+                            <ul class="space-y-2 text-lg">
+                                <li>▶ Historiadores israelíes (Ilan Pappé, Benny Morris) documentaron la expulsión</li>
+                                <li>▶ 70+ masacres para aterrorizar (Deir Yassin, Tantura, Lydda...)</li>
+                                <li>▶ Plan Dalet: documento militar israelí ordenaba "destruir pueblos árabes"</li>
+                                <li>▶ 531 pueblos destruidos - ¿todos se fueron "voluntariamente"?</li>
+                                <li>▶ Testimonios de soldados israelíes admitiendo órdenes de expulsión</li>
+                                <li>▶ <strong class="blood-text">Si se fueron "voluntariamente", ¿por qué Israel prohíbe su retorno?</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Argumento 5 -->
+                    <div class="card p-6 rounded-xl">
+                        <div class="mb-4 p-4 bg-gray-800 rounded">
+                            <p class="text-xl font-bold mb-2">🗣️ "Israel se defiende de terroristas"</p>
+                        </div>
+                        <div class="p-4 bg-red-900 bg-opacity-30 rounded border-l-4 border-red-600">
+                            <p class="text-lg md:text-xl mb-3"><strong class="blood-text">✋ RESPUESTA:</strong></p>
+                            <ul class="space-y-2 text-lg">
+                                <li>▶ ¿Quién OCUPA a quién desde hace 57 años?</li>
+                                <li>▶ Presupuesto militar: Israel $23,400M vs AP $50M (ratio 468:1)</li>
+                                <li>▶ Tanques, F-16, bombas vs piedras y cohetes caseros</li>
+                                <li>▶ Gaza 2023-24: 40,000 palestinos muertos vs 1,200 israelíes (ratio 1:33)</li>
+                                <li>▶ 16,000+ niños palestinos muertos - ¿son terroristas?</li>
+                                <li>▶ <strong class="blood-text">La resistencia a ocupación es LEGAL bajo derecho internacional</strong></li>
+                                <li>▶ El ocupante NO tiene derecho a "defenderse" - debe TERMINAR la ocupación</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Argumento 6 -->
+                    <div class="card p-6 rounded-xl">
+                        <div class="mb-4 p-4 bg-gray-800 rounded">
+                            <p class="text-xl font-bold mb-2">🗣️ "Es un conflicto complicado, ambos lados son culpables"</p>
+                        </div>
+                        <div class="p-4 bg-red-900 bg-opacity-30 rounded border-l-4 border-red-600">
+                            <p class="text-lg md:text-xl mb-3"><strong class="blood-text">✋ FALSO EQUILIBRIO:</strong></p>
+                            <ul class="space-y-2 text-lg">
+                                <li>▶ NO es complicado: Ocupante vs Ocupado</li>
+                                <li>▶ NO hay simetría: Potencia nuclear vs población sitiada</li>
+                                <li>▶ Israel controla: agua, electricidad, fronteras, espacio aéreo, mar</li>
+                                <li>▶ Palestinos no pueden salir de Gaza sin permiso israelí</li>
+                                <li>▶ 750,000 colonos ILEGALES en territorio palestino</li>
+                                <li>▶ <strong class="blood-text">Si yo te ocupo la casa, ¿es "conflicto complicado" o ROBO?</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Argumento 7 -->
+                    <div class="card p-6 rounded-xl">
+                        <div class="mb-4 p-4 bg-gray-800 rounded">
+                            <p class="text-xl font-bold mb-2">🗣️ "Hamás usa escudos humanos"</p>
+                        </div>
+                        <div class="p-4 bg-red-900 bg-opacity-30 rounded border-l-4 border-red-600">
+                            <p class="text-lg md-text-xl mb-3"><strong class="blood-text">✋ RESPUESTA:</strong></p>
+                            <ul class="space-y-2 text-lg">
+                                <li>▶ Gaza = 365 km² con 2 millones personas (densidad: Madrid x3)</li>
+                                <li>▶ ¿Dónde más pueden estar? No hay "zonas militares" en cárcel al aire libre</li>
+                                <li>▶ Incluso si fuera cierto: ¿Justifica matar niños? NO según derecho internacional</li>
+                                <li>▶ Amnistía Internacional: "NO hay evidencia sistemática de escudos humanos"</li>
+                                <li>▶ Escuelas ONU bombardeadas - ¿también eran "escudos humanos"?</li>
+                                <li>▶ <strong class="blood-text">Israel SÍ usa escudos humanos documentado: atan palestinos a capós jeeps</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Argumento 8 -->
+                    <div class="card p-6 rounded-xl border-4 border-red-600">
+                        <div class="mb-4 p-4 bg-gray-800 rounded">
+                            <p class="text-xl font-bold mb-2">🗣️ "Criticar a Israel es antisemitismo"</p>
+                        </div>
+                        <div class="p-4 bg-red-900 bg-opacity-30 rounded border-l-4 border-red-600">
+                            <p class="text-lg md:text-xl mb-3"><strong class="blood-text">✋ MANIPULACIÓN:</strong></p>
+                            <ul class="space-y-2 text-lg">
+                                <li>▶ Criticar POLÍTICAS de un gobierno ≠ odiar una religión</li>
+                                <li>▶ Muchos judíos critican a Israel (Jewish Voice for Peace, B'Tselem)</li>
+                                <li>▶ Israel ≠ Todos los judíos (hay judíos en 100+ países)</li>
+                                <li>▶ Con esa lógica: criticar a Arabia Saudí = islamofobia? NO</li>
+                                <li>▶ <strong class="blood-text">Usar antisemitismo como escudo para crímenes de guerra es OBSCENO</strong></li>
+                                <li>▶ Sobrevivientes Holocausto han condenado acciones israelíes</li>
+                                <li>▶ <strong>El verdadero antisemitismo es la negación del Holocausto - NO criticar crímenes israelíes</strong></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </section>
 
             <!-- PREGUNTAS FRECUENTES -->
-            <div id="preguntas" class="section">
-                <h2>❓ PREGUNTAS FRECUENTES</h2>
+            <section id="preguntas" class="section">
+                <h2 class="text-4xl md:text-6xl font-bold mb-12 text-center">
+                    <span class="glitch" data-text="❓ PREGUNTAS PARA DEBATES">❓ PREGUNTAS PARA DEBATES</span>
+                </h2>
 
-                <div class="question-item" onclick="toggleAnswer(this)">
-                    <div class="question-title">
-                        ¿Quién llegó primero a Palestina?
-                        <span class="arrow">▼</span>
+                <div class="space-y-6">
+                    <div class="card p-6 rounded-xl">
+                        <h3 class="text-2xl font-bold mb-3 blood-text">❓ ¿Qué fue la Nakba?</h3>
+                        <p class="text-lg mb-2"><strong>RESPUESTA RÁPIDA:</strong></p>
+                        <p class="text-lg">La "Catástrofe" de 1948: expulsión de 750,000 palestinos, destrucción de 531 pueblos, 15,000+ muertos en 70+ masacres. Israel tomó 78% del territorio (no el 56% que dio la ONU).</p>
                     </div>
-                    <div class="question-answer">
-                        <p>Los palestinos llevaban siglos viviendo allí. En <strong>1900</strong>, la población era:</p>
-                        <ul>
-                            <li><strong>Palestinos: 570,000 (95%)</strong></li>
-                            <li>Judíos: 30,000 (5%)</li>
-                        </ul>
-                        <p>Los judíos europeos llegaron principalmente entre <strong>1920-1948</strong>, huyendo del antisemitismo y del Holocausto. En 1947, antes de la creación de Israel:</p>
-                        <ul>
-                            <li><strong>Palestinos: 1,300,000 (67%)</strong></li>
-                            <li>Judíos: 600,000 (33%)</li>
-                        </ul>
-                        <p class="highlight">La respuesta es clara: los palestinos estaban allí primero y eran la gran mayoría hasta 1948.</p>
-                    </div>
-                </div>
 
-                <div class="question-item" onclick="toggleAnswer(this)">
-                    <div class="question-title">
-                        ¿Qué fue la Nakba?
-                        <span class="arrow">▼</span>
+                    <div class="card p-6 rounded-xl">
+                        <h3 class="text-2xl font-bold mb-3 blood-text">❓ ¿Por qué rechazaron el plan ONU 1947?</h3>
+                        <p class="text-lg mb-2"><strong>RESPUESTA RÁPIDA:</strong></p>
+                        <p class="text-lg">Palestinos eran 67% población, recibían 44% territorio. Judíos eran 33%, recibían 56% (tierras más fértiles). ¿Aceptarías dar la mitad de tu casa a un desconocido?</p>
                     </div>
-                    <div class="question-answer">
-                        <p><strong>Nakba</strong> significa "catástrofe" en árabe. Se refiere a la expulsión masiva de palestinos durante la creación de Israel (1947-1949):</p>
-                        <ul>
-                            <li><strong>750,000-900,000</strong> palestinos expulsados de sus hogares</li>
-                            <li><strong>531</strong> pueblos destruidos o despoblados</li>
-                            <li><strong>15,000+</strong> palestinos asesinados</li>
-                            <li>Masacres documentadas: Deir Yassin, Tantura, Lydda, Al-Dawayima</li>
-                        </ul>
-                        <p>Historiadores israelíes como Benny Morris, Ilan Pappé y Avi Shlaim han documentado estas expulsiones usando archivos militares israelíes.</p>
-                        <p class="highlight">La Nakba no es "propaganda árabe" - está documentada por los propios archivos israelíes.</p>
-                    </div>
-                </div>
 
-                <div class="question-item" onclick="toggleAnswer(this)">
-                    <div class="question-title">
-                        ¿Por qué los palestinos rechazaron el plan de partición de 1947?
-                        <span class="arrow">▼</span>
+                    <div class="card p-6 rounded-xl">
+                        <h3 class="text-2xl font-bold mb-3 blood-text">❓ ¿Quién estaba primero en la tierra?</h3>
+                        <p class="text-lg mb-2"><strong>RESPUESTA RÁPIDA:</strong></p>
+                        <p class="text-lg">Palestinos vivían allí continuamente. 1900: 95% palestinos, 5% judíos. Población árabe documentada siglos antes. Judíos llegaron masivamente tras Declaración Balfour 1917 y Holocausto.</p>
                     </div>
-                    <div class="question-answer">
-                        <p>El plan de partición de la ONU era profundamente injusto:</p>
-                        <div class="fact-box">
-                            <p><strong>La injusticia:</strong></p>
-                            <ul>
-                                <li>Judíos: 33% de la población → recibirían 56% del territorio</li>
-                                <li>Palestinos: 67% de la población → recibirían 44% del territorio</li>
-                            </ul>
-                        </div>
-                        <p><strong>Ponte en su lugar:</strong> Eres palestino en 1947. Tu familia ha vivido en esta tierra durante siglos. Llegan inmigrantes europeos que en 30 años pasan del 5% al 33%. Ahora la ONU dice: "Vamos a tomar más de la mitad de TU tierra y dársela a estos recién llegados."</p>
-                        <p class="highlight">¿La aceptarías? ¿Aceptarías perder más de la mitad de tu tierra sin luchar?</p>
-                        <p><strong>Además:</strong> Israel "aceptó" el plan... y luego tomó el <strong>78%</strong> del territorio, mucho más de lo asignado. Expulsó a 750,000 palestinos. Destruyó 531 pueblos.</p>
-                        <p><strong>¿Quién violó realmente el plan de la ONU?</strong></p>
-                    </div>
-                </div>
 
-                <div class="question-item" onclick="toggleAnswer(this)">
-                    <div class="question-title">
-                        ¿Por qué no se ha resuelto el conflicto?
-                        <span class="arrow">▼</span>
+                    <div class="card p-6 rounded-xl">
+                        <h3 class="text-2xl font-bold mb-3 blood-text">❓ ¿Qué son los asentamientos/colonias?</h3>
+                        <p class="text-lg mb-2"><strong>RESPUESTA RÁPIDA:</strong></p>
+                        <p class="text-lg">750,000 israelíes viviendo en territorio palestino ocupado (Cisjordania). ILEGALES según ONU. Israel confisca tierras palestinas, construye casas para judíos. Apartheid espacial.</p>
                     </div>
-                    <div class="question-answer">
-                        <p><strong>La razón principal:</strong> Israel continúa violando el derecho internacional sin consecuencias.</p>
-                        <ul>
-                            <li><strong>Ocupación:</strong> 57 años ocupando Cisjordania y Gaza (desde 1967)</li>
-                            <li><strong>Asentamientos ilegales:</strong> 750,000 colonos en territorio ocupado</li>
-                            <li><strong>Bloqueo de Gaza:</strong> 17 años de asedio (desde 2007)</li>
-                            <li><strong>Negación del derecho al retorno:</strong> 5 millones de refugiados no pueden volver</li>
-                        </ul>
-                        <p><strong>Impunidad total:</strong> EEUU ha vetado más de 50 resoluciones críticas con Israel en el Consejo de Seguridad de la ONU.</p>
-                        <p class="highlight">Israel viola cientos de resoluciones de la ONU sin consecuencias. Ningún otro país podría hacerlo.</p>
-                        <p><strong>Analogía:</strong> Imagina negociar con alguien que te robó la casa, mientras sigue construyendo habitaciones nuevas en TU casa durante las "negociaciones". ¿Eso es negociar de buena fe?</p>
-                    </div>
-                </div>
 
-                <div class="question-item" onclick="toggleAnswer(this)">
-                    <div class="question-title">
-                        ¿Qué es el apartheid israelí?
-                        <span class="arrow">▼</span>
+                    <div class="card p-6 rounded-xl">
+                        <h3 class="text-2xl font-bold mb-3 blood-text">❓ ¿Por qué hay cohetes desde Gaza?</h3>
+                        <p class="text-lg mb-2"><strong>RESPUESTA RÁPIDA:</strong></p>
+                        <p class="text-lg">Gaza sitiada 17 años. 2M personas encerradas, bloqueadas por tierra, mar, aire. No pueden salir. Israel controla agua, electricidad, comida. Resistencia a ocupación es legal (ONU).</p>
                     </div>
-                    <div class="question-answer">
-                        <p><strong>Apartheid</strong> significa "separación" en afrikáans. Se refiere a un sistema de dominación racial de un grupo sobre otro.</p>
-                        <p><strong>En Cisjordania existen DOS sistemas legales:</strong></p>
-                        <ul>
-                            <li><strong>Colonos israelíes:</strong> Ley civil israelí, votan en elecciones, libertad de movimiento, plenos derechos</li>
-                            <li><strong>Palestinos:</strong> Ley militar, sin derechos políticos, sin libertad de movimiento, checkpoints, arrestos arbitrarios</li>
+
+                    <div class="card p-6 rounded-xl">
+                        <h3 class="text-2xl font-bold mb-3 blood-text">❓ ¿Qué dice el derecho internacional?</h3>
+                        <p class="text-lg mb-2"><strong>RESPUESTA RÁPIDA:</strong></p>
+                        <ul class="space-y-2 text-lg">
+                            <li>▶ Ocupación ilegal (Res. 242 ONU)</li>
+                            <li>▶ Colonias ilegales (Convención Ginebra Art. 49)</li>
+                            <li>▶ Bloqueo Gaza = castigo colectivo ilegal</li>
+                            <li>▶ 130+ resoluciones ONU violadas</li>
+                            <li>▶ 50+ vetos EEUU protegiendo a Israel</li>
                         </ul>
-                        <p class="highlight">Dos personas pueden vivir en la misma área, pero tener derechos completamente diferentes según su etnia. Esto es la definición de apartheid.</p>
-                        <p><strong>Organizaciones que lo llaman apartheid:</strong></p>
-                        <div class="fact-box">
-                            <ul>
-                                <li><strong>B'Tselem</strong> (israelí) - "Régimen de supremacía judía" (2021)</li>
-                                <li><strong>Human Rights Watch</strong> - "Apartheid y persecución" (2021)</li>
-                                <li><strong>Amnistía Internacional</strong> - "Sistema cruel de dominación y apartheid" (2022)</li>
-                            </ul>
+                    </div>
+
+                    <div class="card p-6 rounded-xl">
+                        <h3 class="text-2xl font-bold mb-3 blood-text">❓ ¿Israel ofrece solución 2 estados?</h3>
+                        <p class="text-lg mb-2"><strong>RESPUESTA RÁPIDA:</strong></p>
+                        <p class="text-lg">Dice que sí, HACE lo contrario: 750K colonos ilegales (cada año más). Cisjordania fragmentada en bantustanes. No hay continuidad territorial. Es mentira para ganar tiempo mientras coloniza.</p>
+                    </div>
+
+                    <div class="card p-6 rounded-xl border-4 border-red-600">
+                        <h3 class="text-2xl font-bold mb-3 blood-text">❓ ¿Qué puedo decir si dicen "es complicado"?</h3>
+                        <p class="text-lg mb-2"><strong>RESPUESTA DEVASTADORA:</strong></p>
+                        <p class="text-xl italic mb-3">"No es complicado cuando hay ocupante y ocupado, colonizador y colonizado, quien tiene F-16 y quien tiene piedras."</p>
+                        <ul class="space-y-2 text-lg">
+                            <li>▶ Apartheid Sudáfrica también era "complicado"</li>
+                            <li>▶ Colonialismo francés en Argelia era "complicado"</li>
+                            <li>▶ <strong class="blood-text">Lo único complicado es admitir que estamos apoyando una injusticia</strong></li>
+                        </ul>
+                    </div>
+
+                    <div class="mt-8 p-6 bg-black bg-opacity-70 rounded-xl border-2 border-red-600">
+                        <p class="text-2xl font-bold text-center mb-4">💡 PREGUNTAS PARA HACER TÚ</p>
+                        <div class="space-y-3 text-lg">
+                            <p>🔹 Si Israel no es colonialismo, ¿por qué 531 pueblos destruidos tienen nombres nuevos en hebreo?</p>
+                            <p>🔹 Si los palestinos se fueron "voluntariamente", ¿por qué Israel no les deja volver?</p>
+                            <p>🔹 Si es "defensa", ¿por qué ratio 1:33 muertos (Gaza 2023-24)?</p>
+                            <p>🔹 Si no es apartheid, ¿por qué carreteras exclusivas judíos en Cisjordania?</p>
+                            <p>🔹 ¿Por qué Israel rechaza investigaciones internacionales si no tiene nada que ocultar?</p>
                         </div>
                     </div>
                 </div>
+            </section>
 
-                <div class="question-item" onclick="toggleAnswer(this)">
-                    <div class="question-title">
-                        ¿Qué pasa con el Holocausto? ¿No justifica la creación de Israel?
-                        <span class="arrow">▼</span>
-                    </div>
-                    <div class="question-answer">
-                        <p>El Holocausto fue uno de los peores crímenes de la humanidad. Esto es innegable.</p>
-                        <p><strong>PERO:</strong></p>
-                        <div class="fact-box">
-                            <p><strong>Los palestinos NO causaron el Holocausto.</strong></p>
-                            <p>Los palestinos NO tuvieron nada que ver con el antisemitismo europeo. No causaron los pogromos rusos. No causaron el Holocausto nazi.</p>
-                            <p>Europa persiguió a los judíos durante siglos, culminando en el Holocausto. ¿La solución de Europa? Darles la tierra de otra gente que no tuvo nada que ver con ello.</p>
-                        </div>
-                        <p><strong>Analogía:</strong> Imagina que tu vecino comete un crimen horrible contra otra persona, y como "solución", te quitan tu casa para dársela a la víctima. ¿Es justo?</p>
-                        <p class="highlight">El sufrimiento de un pueblo no justifica causar sufrimiento a otro pueblo inocente.</p>
-                        <p><strong>La pregunta fundamental:</strong> ¿Puede un pueblo ser desplazado de su tierra porque otro pueblo sufrió persecución en otra parte del mundo?</p>
-                        <p>La respuesta es NO. Los crímenes de Europa no deberían haberse resuelto a costa de los palestinos.</p>
-                    </div>
-                </div>
+            <!-- FUENTES -->
+            <section id="fuentes" class="section">
+                <h2 class="text-4xl md:text-6xl font-bold mb-12 text-center">
+                    <span class="glitch" data-text="📚 FUENTES VERIFICABLES">📚 FUENTES VERIFICABLES</span>
+                </h2>
 
-                <div class="question-item" onclick="toggleAnswer(this)">
-                    <div class="question-title">
-                        ¿Por qué hay tanta asimetría en las víctimas?
-                        <span class="arrow">▼</span>
-                    </div>
-                    <div class="question-answer">
-                        <p><strong>Porque NO es una guerra entre iguales.</strong> Es uno de los ejércitos más poderosos del mundo contra una población civil.</p>
-                        <div class="fact-box">
-                            <p><strong>Asimetría militar:</strong></p>
-                            <ul>
-                                <li>Presupuesto militar Israel: $23,400 millones</li>
-                                <li>Presupuesto militar AP: ~$50 millones</li>
-                                <li><strong>Ratio: 468:1</strong></li>
-                            </ul>
-                            <p><strong>Israel tiene:</strong></p>
-                            <ul>
-                                <li>600+ aviones de combate</li>
-                                <li>2,700+ tanques</li>
-                                <li>80-200 ojivas nucleares</li>
-                                <li>Sistema Iron Dome</li>
-                                <li>$3,800 millones/año de EEUU</li>
-                            </ul>
-                            <p><strong>Hamas tiene:</strong></p>
-                            <ul>
-                                <li>Cohetes caseros (mayoría interceptados)</li>
-                                <li>Armas pequeñas</li>
-                                <li>Sin fuerza aérea, sin tanques, sin armada</li>
-                            </ul>
-                        </div>
-                        <p><strong>Ratio de muertos:</strong></p>
-                        <ul>
-                            <li>Gaza 2023-24: 1 israelí : 33 palestinos</li>
-                            <li>Gaza 2014: 1 israelí : 31 palestinos</li>
-                            <li>Op. Plomo Fundido: 1 israelí : 108 palestinos</li>
+                <div class="space-y-6">
+                    <div class="card p-6 rounded-xl">
+                        <h3 class="text-2xl font-bold mb-4 blood-text">📖 Libros Esenciales</h3>
+                        <ul class="space-y-3 text-lg">
+                            <li class="border-l-4 border-red-600 pl-4">
+                                <strong>"The Ethnic Cleansing of Palestine"</strong> - Ilan Pappé (historiador israelí)<br>
+                                <span class="text-gray-400">Documenta con archivos militares la expulsión sistemática de 1948</span>
+                            </li>
+                            <li class="border-l-4 border-red-600 pl-4">
+                                <strong>"The Birth of the Palestinian Refugee Problem"</strong> - Benny Morris<br>
+                                <span class="text-gray-400">Historiador israelí documenta 24 masacres (aunque las justifica)</span>
+                            </li>
+                            <li class="border-l-4 border-red-600 pl-4">
+                                <strong>"Palestine: Peace Not Apartheid"</strong> - Jimmy Carter<br>
+                                <span class="text-gray-400">Ex-presidente EEUU compara Israel con apartheid sudafricano</span>
+                            </li>
+                            <li class="border-l-4 border-red-600 pl-4">
+                                <strong>"The Question of Palestine"</strong> - Edward Said<br>
+                                <span class="text-gray-400">Análisis histórico-político del conflicto</span>
+                            </li>
+                            <li class="border-l-4 border-red-600 pl-4">
+                                <strong>"Gaza: An Inquest into Its Martyrdom"</strong> - Norman Finkelstein<br>
+                                <span class="text-gray-400">Documentación de operaciones militares en Gaza</span>
+                            </li>
                         </ul>
-                        <p class="highlight">Por cada israelí muerto, mueren entre 20-30 palestinos. El 70% son civiles. En Gaza 2023-24: 16,000+ niños muertos.</p>
+                    </div>
+
+                    <div class="card p-6 rounded-xl">
+                        <h3 class="text-2xl font-bold mb-4 blood-text">🏛️ Organizaciones DDHH</h3>
+                        <ul class="space-y-3 text-lg">
+                            <li class="border-l-4 border-red-600 pl-4">
+                                <strong>B'Tselem</strong> (israelí) - Documenta violaciones DDHH<br>
+                                <span class="text-gray-400">Informe 2021: "Un régimen de supremacía judía = apartheid"</span>
+                            </li>
+                            <li class="border-l-4 border-red-600 pl-4">
+                                <strong>Human Rights Watch</strong> - "A Threshold Crossed" (2021)<br>
+                                <span class="text-gray-400">Concluye: Israel comete crímenes de apartheid y persecución</span>
+                            </li>
+                            <li class="border-l-4 border-red-600 pl-4">
+                                <strong>Amnistía Internacional</strong> - "Israel's Apartheid" (2022)<br>
+                                <span class="text-gray-400">Sistema cruel de dominación = apartheid</span>
+                            </li>
+                            <li class="border-l-4 border-red-600 pl-4">
+                                <strong>Breaking the Silence</strong> - Testimonios soldados israelíes<br>
+                                <span class="text-gray-400">Más de 1,000 testimonios de abusos en territorios ocupados</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="card p-6 rounded-xl">
+                        <h3 class="text-2xl font-bold mb-4 blood-text">🌐 Resoluciones ONU</h3>
+                        <ul class="space-y-3 text-lg">
+                            <li class="border-l-4 border-red-600 pl-4">
+                                <strong>Resolución 194 (1948)</strong> - Derecho al retorno refugiados<br>
+                                <span class="text-gray-400">VIOLADA: Israel niega retorno de 5 millones refugiados</span>
+                            </li>
+                            <li class="border-l-4 border-red-600 pl-4">
+                                <strong>Resolución 242 (1967)</strong> - Retirada territorios ocupados<br>
+                                <span class="text-gray-400">VIOLADA 57 años: Israel ocupa Cisjordania, Golán</span>
+                            </li>
+                            <li class="border-l-4 border-red-600 pl-4">
+                                <strong>Resolución 2334 (2016)</strong> - Colonias ilegales<br>
+                                <span class="text-gray-400">VIOLADA: 750,000 colonos (cada año aumentan)</span>
+                            </li>
+                            <li class="border-l-4 border-red-600 pl-4">
+                                <strong>Convención Ginebra Art. 49</strong> - Transferir población a territorio ocupado<br>
+                                <span class="text-gray-400">VIOLADA: Colonias son crimen de guerra</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="card p-6 rounded-xl">
+                        <h3 class="text-2xl font-bold mb-4 blood-text">📊 Estadísticas Verificables</h3>
+                        <ul class="space-y-3 text-lg">
+                            <li class="border-l-4 border-red-600 pl-4">
+                                <strong>OCHA (ONU)</strong> - Datos ocupación, víctimas, demoliciones<br>
+                                <span class="text-gray-400">ochaopt.org - Actualizado regularmente</span>
+                            </li>
+                            <li class="border-l-4 border-red-600 pl-4">
+                                <strong>Ministerio Salud Gaza</strong> - Víctimas confirmadas<br>
+                                <span class="text-gray-400">Datos verificados por OMS, Cruz Roja</span>
+                            </li>
+                            <li class="border-l-4 border-red-600 pl-4">
+                                <strong>UNRWA</strong> - Agencia ONU refugiados palestinos<br>
+                                <span class="text-gray-400">5.9 millones refugiados registrados</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="card p-6 rounded-xl">
+                        <h3 class="text-2xl font-bold mb-4 blood-text">🎥 Documentales</h3>
+                        <ul class="space-y-3 text-lg">
+                            <li class="border-l-4 border-red-600 pl-4">
+                                <strong>"The Law in These Parts"</strong> (2011)<br>
+                                <span class="text-gray-400">Sistema legal militar israelí - Ganó premio Sundance</span>
+                            </li>
+                            <li class="border-l-4 border-red-600 pl-4">
+                                <strong>"5 Broken Cameras"</strong> (2011)<br>
+                                <span class="text-gray-400">Resistencia no-violenta palestina - Nominado Oscar</span>
+                            </li>
+                            <li class="border-l-4 border-red-600 pl-4">
+                                <strong>"Tantura"</strong> (2022)<br>
+                                <span class="text-gray-400">Investigación masacre 1948 - Testimonios soldados israelíes</span>
+                            </li>
+                            <li class="border-l-4 border-red-600 pl-4">
+                                <strong>"Occupation 101"</strong> (2006)<br>
+                                <span class="text-gray-400">Historia completa del conflicto</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="card p-6 rounded-xl border-4 border-red-600">
+                        <h3 class="text-2xl font-bold mb-4 blood-text">⚖️ Corte Internacional Justicia (CIJ)</h3>
+                        <ul class="space-y-3 text-lg">
+                            <li class="border-l-4 border-red-600 pl-4">
+                                <strong>Opinión Consultiva 2004</strong><br>
+                                <span class="text-gray-400">Muro de separación es ILEGAL, viola derecho internacional</span>
+                            </li>
+                            <li class="border-l-4 border-red-600 pl-4">
+                                <strong>Caso Sudáfrica vs Israel (2024)</strong><br>
+                                <span class="text-gray-400">Acusación genocidio en Gaza - En proceso</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="mt-8 p-6 bg-black bg-opacity-70 rounded-xl border-2 border-red-600">
+                        <p class="text-2xl font-bold text-center mb-4">⚠️ IMPORTANTE</p>
+                        <p class="text-xl text-center mb-3">NO uses fuentes dudosas o propaganda</p>
+                        <p class="text-lg text-center">Cita: ONU, organizaciones DDHH reconocidas, historiadores académicos, testimonios verificados.</p>
+                        <p class="text-lg text-center mt-4 blood-text font-bold">Los HECHOS están de tu lado. No necesitas inventar nada.</p>
                     </div>
                 </div>
-            </div>
+            </section>
 
-            <!-- PREGUNTAS SUGERIDAS -->
-            <div id="sugerencias" class="section">
-                <h2>💡 PREGUNTAS ESTRATÉGICAS PARA HACER EN EL DEBATE</h2>
-
-                <p>Estas son preguntas poderosas que puedes hacer a quienes defienden a Israel. Están diseñadas para exponer contradicciones en sus argumentos:</p>
-
-                <h3>Sobre el "Derecho Histórico"</h3>
-                <div class="fact-box">
-                    <p><strong>1. Si el derecho histórico de hace 2,500 años es válido, ¿por qué el derecho de los refugiados palestinos de hace 76 años no lo es?</strong></p>
-                    <p><em>Muchos refugiados de 1948 todavía están vivos. Tienen las llaves de sus casas. ¿Por qué Israel niega su derecho al retorno?</em></p>
-                </div>
-
-                <div class="fact-box">
-                    <p><strong>2. Si aceptamos el derecho histórico antiguo como válido, ¿deberían los musulmanes poder reclamar España (Al-Ándalus) que controlaron durante 800 años?</strong></p>
-                    <p><em>Si la respuesta es no, entonces el argumento del "derecho histórico" es inconsistente.</em></p>
-                </div>
-
-                <div class="fact-box">
-                    <p><strong>3. ¿Qué derechos tienen los palestinos que vivían allí en 1900 (95% de la población)?</strong></p>
-                    <p><em>Si la respuesta es "ninguno", entonces no es un argumento de derecho, es un argumento de poder.</em></p>
-                </div>
-
-                <h3>Sobre la ONU y el Derecho Internacional</h3>
-                <div class="fact-box">
-                    <p><strong>4. Si la Resolución 181 de la ONU (partición de 1947) legitima a Israel, ¿por qué Israel no cumple la Resolución 194 (derecho al retorno) ni la 242 (retirarse de territorios ocupados)?</strong></p>
-                    <p><em>No puedes citar la ONU solo cuando te conviene.</em></p>
-                </div>
-
-                <div class="fact-box">
-                    <p><strong>5. Israel "aceptó" el plan de partición que le daba el 56% del territorio, pero tomó el 78% en 1948. ¿Eso no es una violación del plan que supuestamente lo legitima?</strong></p>
-                    <p><em>Si alguien te da permiso para entrar a una habitación de tu casa, y entra y toma toda la casa, ¿está respetando tu permiso?</em></p>
-                </div>
-
-                <div class="fact-box">
-                    <p><strong>6. ¿Por qué EEUU ha vetado más de 50 resoluciones críticas con Israel en el Consejo de Seguridad de la ONU?</strong></p>
-                    <p><em>¿Es esto consistente con el "orden internacional basado en reglas" que Occidente supuestamente defiende?</em></p>
-                </div>
-
-                <h3>Sobre la Nakba y los Refugiados</h3>
-                <div class="fact-box">
-                    <p><strong>7. ¿Fueron expulsados 750,000 palestinos en 1948 o se fueron "voluntariamente"?</strong></p>
-                    <p><em>Si dicen "voluntariamente", pregunta por qué entonces Israel prohibió que regresaran. Si se fueron solos, ¿por qué no pueden volver?</em></p>
-                </div>
-
-                <div class="fact-box">
-                    <p><strong>8. Historiadores ISRAELÍES (Benny Morris, Ilan Pappé, Avi Shlaim) documentaron las expulsiones usando archivos militares israelíes. ¿Están todos equivocados?</strong></p>
-                    <p><em>No es "propaganda árabe" - es documentación israelí.</em></p>
-                </div>
-
-                <div class="fact-box">
-                    <p><strong>9. Si alguien expulsó a tu familia de su casa hace 76 años, ¿no tendrías derecho a volver?</strong></p>
-                    <p><em>¿Por qué es diferente para los palestinos?</em></p>
-                </div>
-
-                <h3>Sobre la Ocupación y los Asentamientos</h3>
-                <div class="fact-box">
-                    <p><strong>10. Han pasado 57 años desde que Israel ocupó Cisjordania en 1967. ¿Es esto "temporal"?</strong></p>
-                    <p><em>¿Cuánto tiempo tiene que pasar para que una ocupación "temporal" se convierta en anexión permanente ilegal?</em></p>
-                </div>
-
-                <div class="fact-box">
-                    <p><strong>11. Si Israel supuestamente está "negociando la paz", ¿por qué sigue construyendo asentamientos en territorio ocupado?</strong></p>
-                    <p><em>Es como decir "negociemos tu casa" mientras voy poniendo ladrillos en tu salón.</em></p>
-                </div>
-
-                <div class="fact-box">
-                    <p><strong>12. Los asentamientos son declarados ILEGALES por la Resolución 2334 del Consejo de Seguridad de la ONU. ¿Por qué hay 750,000 colonos israelíes viviendo en ellos?</strong></p>
-                    <p><em>¿Esto no demuestra que Israel no tiene intención de devolver el territorio?</em></p>
-                </div>
-
-                <h3>Sobre "Democracia" y Derechos</h3>
-                <div class="fact-box">
-                    <p><strong>13. ¿Cómo puede Israel llamarse democracia cuando 5 millones de palestinos bajo su control no tienen derecho al voto?</strong></p>
-                    <p><em>Sudáfrica del apartheid también permitía votar a los blancos. ¿Eso la hacía democracia?</em></p>
-                </div>
-
-                <div class="fact-box">
-                    <p><strong>14. En Cisjordania, un colono israelí y un palestino viven en el mismo territorio pero bajo sistemas legales diferentes según su etnia. ¿Cómo se llama eso?</strong></p>
-                    <p><em>La respuesta es: apartheid.</em></p>
-                </div>
-
-                <div class="fact-box">
-                    <p><strong>15. B'Tselem (principal ONG israelí de derechos humanos), Human Rights Watch y Amnistía Internacional llaman a Israel "apartheid". ¿Están todos equivocados?</strong></p>
-                    <p><em>¿O es incómodo admitir lo que las organizaciones de derechos humanos están diciendo?</em></p>
-                </div>
-
-                <h3>Sobre Gaza y el Bloqueo</h3>
-                <div class="fact-box">
-                    <p><strong>16. Israel dice que "se retiró" de Gaza en 2005. Pero controla todas las fronteras, el mar, el aire, la electricidad y el agua. ¿Eso es libertad?</strong></p>
-                    <p><em>Es como decir que soltaste a alguien de prisión, pero sigues controlando todas las puertas, su comida y su agua.</em></p>
-                </div>
-
-                <div class="fact-box">
-                    <p><strong>17. El 70% de la población de Gaza son refugiados de la Nakba de 1948 y sus descendientes. ¿Por qué no pueden volver a sus hogares originales que están a solo kilómetros de distancia?</strong></p>
-                    <p><em>Pueden ver sus pueblos desde las colinas donde viven en campos de refugiados.</em></p>
-                </div>
-
-                <div class="fact-box">
-                    <p><strong>18. El bloqueo de Gaza comenzó en 2007 como castigo porque votaron a Hamas. ¿El castigo colectivo de 2 millones de personas no está prohibido por la Cuarta Convención de Ginebra?</strong></p>
-                    <p><em>Castigar a toda una población por cómo votó es antidemocrático y crimen de guerra.</em></p>
-                </div>
-
-                <h3>Sobre la Violencia y las Víctimas</h3>
-                <div class="fact-box">
-                    <p><strong>19. En Gaza 2023-24 han muerto más de 16,000 niños palestinos. ¿Son todos "terroristas"?</strong></p>
-                    <p><em>¿Cómo se justifica matar 16,000 niños?</em></p>
-                </div>
-
-                <div class="fact-box">
-                    <p><strong>20. En cada conflicto, mueren entre 20-30 veces más palestinos que israelíes, con el 70% siendo civiles palestinos. ¿Esto no demuestra una asimetría brutal de poder?</strong></p>
-                    <p><em>NO es una guerra entre iguales. Es un ejército con arsenal nuclear contra cohetes caseros.</em></p>
-                </div>
-
-                <div class="fact-box">
-                    <p><strong>21. Israel tiene 600+ aviones de combate, arsenal nuclear, y presupuesto militar de $23,400 millones. Hamas tiene cohetes caseros. ¿Esto es una guerra "equilibrada"?</strong></p>
-                    <p><em>La asimetría es obvia cuando miras los números.</em></p>
-                </div>
-
-                <h3>Sobre el Holocausto y el Antisemitismo</h3>
-                <div class="fact-box">
-                    <p><strong>22. El Holocausto fue un crimen horrible. Pero, ¿lo cometieron los palestinos?</strong></p>
-                    <p><em>¿Por qué los palestinos tienen que pagar el precio por los crímenes de Europa?</em></p>
-                </div>
-
-                <div class="fact-box">
-                    <p><strong>23. ¿Criticar las políticas del gobierno israelí es antisemitismo?</strong></p>
-                    <p><em>Entonces, ¿criticar las políticas de CUALQUIER gobierno basado en etnia es racismo? ¿No puedes criticar a Arabia Saudí sin ser islamófobo? Ves el absurdo.</em></p>
-                </div>
-
-                <div class="fact-box">
-                    <p><strong>24. Muchos judíos (incluyendo israelíes como B'Tselem, Breaking the Silence, Jewish Voice for Peace) critican a Israel. ¿Son todos antisemitas?</strong></p>
-                    <p><em>Claramente no. Puedes ser judío y oponerte a la ocupación. Puedes apoyar derechos palestinos sin odiar a los judíos.</em></p>
-                </div>
-
-                <h3>La Pregunta Final Demoledora</h3>
-                <div class="fact-box" style="background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%); color: white; padding: 25px; border-left: none; box-shadow: 0 0 30px rgba(220, 20, 60, 0.8); border: 2px solid #ff0000;">
-                    <p style="font-size: 1.2em; margin-bottom: 15px;"><strong>25. PREGUNTA DEFINITIVA:</strong></p>
-                    <p style="font-size: 1.1em;"><strong>Si en 1900 había 570,000 palestinos (95%) y 30,000 judíos (5%)...</strong></p>
-                    <p style="font-size: 1.1em;"><strong>Si en 1947 había 1,300,000 palestinos (67%) y 600,000 judíos (33%)...</strong></p>
-                    <p style="font-size: 1.1em;"><strong>Si en 1948, 750,000 palestinos fueron expulsados de sus hogares...</strong></p>
-                    <p style="font-size: 1.1em;"><strong>Si han pasado solo 76 años desde la expulsión...</strong></p>
-                    <p style="font-size: 1.3em; margin-top: 15px; font-weight: bold; text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);">¿CÓMO PUEDES ARGUMENTAR QUE LOS PALESTINOS NO TIENEN DERECHO A VIVIR LIBRES EN SU TIERRA?</strong></p>
-                </div>
-
-                <div class="suggested-questions" style="margin-top: 30px;">
-                    <h3>📌 RESUMEN: Estrategia de Debate</h3>
-                    <ol>
-                        <li><strong>Usa datos concretos:</strong> Números de población, resoluciones ONU, ratio de muertos</li>
-                        <li><strong>Señala contradicciones:</strong> Si el derecho histórico vale, ¿por qué no el derecho al retorno?</li>
-                        <li><strong>Haz analogías:</strong> "¿Aceptarías perder tu casa por algo de hace 2,000 años?"</li>
-                        <li><strong>Cita fuentes israelíes:</strong> B'Tselem, Benny Morris, Breaking the Silence</li>
-                        <li><strong>Mantén el enfoque en derechos humanos:</strong> No es sobre odiar a nadie, es sobre justicia</li>
-                        <li><strong>No dejes pasar el doble estándar:</strong> Si la ONU legitimó a Israel, debe cumplir TODAS las resoluciones</li>
-                    </ol>
-                </div>
-            </div>
-
-            <!-- FUENTES Y REFERENCIAS -->
-            <div id="fuentes" class="section">
-                <h2>📚 FUENTES Y REFERENCIAS</h2>
-
-                <p>Toda la información en esta página está basada en fuentes verificables, incluyendo historiadores israelíes, archivos militares desclasificados, organizaciones de derechos humanos y documentos de la ONU.</p>
-
-                <h3>LIBROS CLAVE (Historiadores Israelíes)</h3>
-                <div class="fact-box">
-                    <ul>
-                        <li><strong>"The Birth of the Palestinian Refugee Problem, 1947-1949"</strong> - Benny Morris (1988)
-                            <br><em>Historiador israelí que documentó las expulsiones usando archivos militares israelíes desclasificados</em>
-                        </li>
-                        <li><strong>"The Ethnic Cleansing of Palestine"</strong> - Ilan Pappé (2006)
-                            <br><em>Historiador israelí que argumenta que la expulsión fue planificada y sistemática</em>
-                        </li>
-                        <li><strong>"The Iron Wall: Israel and the Arab World"</strong> - Avi Shlaim (2000)
-                            <br><em>Historiador israelí-británico sobre las políticas israelíes hacia los árabes</em>
-                        </li>
-                        <li><strong>"The Hundred Years' War on Palestine"</strong> - Rashid Khalidi (2020)
-                            <br><em>Historiador palestino-estadounidense, Universidad de Columbia</em>
-                        </li>
-                    </ul>
-                </div>
-
-                <h3>DOCUMENTALES</h3>
-                <div class="fact-box">
-                    <ul>
-                        <li><strong>"Tantura"</strong> (2022) - Director: Alon Schwarz (israelí)
-                            <br><em>Veteranos israelíes admiten masacre en Tantura 1948</em>
-                        </li>
-                        <li><strong>"1948: Creation & Catastrophe"</strong> (2017)
-                            <br><em>Testimonios de israelíes y palestinos sobre la Nakba</em>
-                        </li>
-                        <li><strong>"The Lab"</strong> (2013)
-                            <br><em>Sobre la industria militar israelí y la ocupación</em>
-                        </li>
-                        <li><strong>"Born in Gaza"</strong> (2014)
-                            <br><em>Niños palestinos viviendo bajo bloqueo</em>
-                        </li>
-                    </ul>
-                </div>
-
-                <h3>ORGANIZACIONES DE DERECHOS HUMANOS</h3>
-
-                <h4>Organizaciones Israelíes:</h4>
-                <div class="fact-box">
-                    <ul>
-                        <li><strong>B'Tselem</strong> - <em>btselem.org</em>
-                            <br>Principal organización israelí de derechos humanos documentando abusos en territorios ocupados
-                            <br><strong>Declaración 2021:</strong> "Régimen de supremacía judía" / "Apartheid"
-                        </li>
-                        <li><strong>Breaking the Silence</strong> - <em>breakingthesilence.org.il</em>
-                            <br>Veteranos israelíes testimoniando sobre abusos durante servicio militar
-                            <br><strong>1,000+</strong> testimonios documentados
-                        </li>
-                        <li><strong>Gisha</strong> - <em>gisha.org</em>
-                            <br>Documenta restricciones de movimiento en Gaza
-                        </li>
-                        <li><strong>Physicians for Human Rights - Israel</strong>
-                            <br>Documenta violaciones de derechos médicos
-                        </li>
-                    </ul>
-                </div>
-
-                <h4>Organizaciones Internacionales:</h4>
-                <div class="fact-box">
-                    <ul>
-                        <li><strong>Human Rights Watch</strong> (2021)
-                            <br>Informe: "A Threshold Crossed: Israeli Authorities and the Crimes of Apartheid and Persecution"
-                        </li>
-                        <li><strong>Amnistía Internacional</strong> (2022)
-                            <br>Informe: "Israel's Apartheid Against Palestinians: Cruel System of Domination and Crime Against Humanity"
-                        </li>
-                        <li><strong>UNRWA</strong> - Agencia de la ONU para Refugiados Palestinos
-                            <br>Registra <strong>5.9 millones</strong> de refugiados palestinos
-                        </li>
-                        <li><strong>International Court of Justice (ICJ)</strong>
-                            <br>Opinión consultiva 2004: El muro israelí en Cisjordania es ilegal
-                        </li>
-                    </ul>
-                </div>
-
-                <h3>RESOLUCIONES ONU CLAVE</h3>
-                <div class="fact-box">
-                    <ul>
-                        <li><strong>Resolución 181</strong> (1947) - Plan de Partición de Palestina</li>
-                        <li><strong>Resolución 194</strong> (1948) - Derecho al retorno de refugiados (reafirmada 130+ veces)</li>
-                        <li><strong>Resolución 242</strong> (1967) - Retirarse de territorios ocupados</li>
-                        <li><strong>Resolución 338</strong> (1973) - Implementar Resolución 242</li>
-                        <li><strong>Resolución 446</strong> (1979) - Asentamientos ilegales</li>
-                        <li><strong>Resolución 478</strong> (1980) - Anexión de Jerusalén Este es nula</li>
-                        <li><strong>Resolución 2334</strong> (2016) - Asentamientos son "flagrante violación" del derecho internacional</li>
-                    </ul>
-                </div>
-
-                <h3>DATOS DEMOGRÁFICOS - FUENTES</h3>
-                <div class="fact-box">
-                    <ul>
-                        <li><strong>Censos del Imperio Otomano</strong> (1800s-1917)</li>
-                        <li><strong>Censos del Mandato Británico</strong> (1922, 1931, 1944-1947)</li>
-                        <li><strong>Archivos de la Sociedad de Naciones</strong></li>
-                        <li><strong>Registros de UNRWA</strong> (desde 1949)</li>
-                        <li><strong>Oficina Central de Estadísticas de Israel</strong></li>
-                    </ul>
-                </div>
-
-                <h3>ARCHIVOS MILITARES</h3>
-                <div class="fact-box">
-                    <p><strong>Archivos Militares Israelíes Desclasificados (1980s):</strong></p>
-                    <ul>
-                        <li>Documentos del Estado Mayor (IDF)</li>
-                        <li>Informes de inteligencia sobre expulsiones</li>
-                        <li>Órdenes de demolición de pueblos</li>
-                        <li>Correspondencia entre comandantes</li>
-                    </ul>
-                    <p style="margin-top: 10px;"><em>Estos archivos fueron la base del trabajo de Benny Morris, Ilan Pappé y Avi Shlaim (los "Nuevos Historiadores" israelíes)</em></p>
-                </div>
-
-                <h3>TESTIMONIOS DOCUMENTADOS</h3>
-                <div class="fact-box">
-                    <ul>
-                        <li><strong>Memorias de Yitzhak Rabin</strong> (1979) - secciones censuradas sobre Lydda</li>
-                        <li><strong>Diarios de David Ben-Gurion</strong> - archivos Ben-Gurion, Universidad Ben-Gurion</li>
-                        <li><strong>Tesis de Teddy Katz</strong> (2000) - sobre masacre de Tantura, Universidad de Haifa</li>
-                        <li><strong>Breaking the Silence</strong> - testimonios de 1,000+ soldados israelíes</li>
-                        <li><strong>Archivos de la Cruz Roja</strong> - testimonios de sobrevivientes de masacres</li>
-                    </ul>
-                </div>
-
-                <h3>DATOS DE VÍCTIMAS</h3>
-                <div class="fact-box">
-                    <p><strong>Fuentes para estadísticas de muertos:</strong></p>
-                    <ul>
-                        <li><strong>B'Tselem</strong> - Base de datos de víctimas palestinas e israelíes</li>
-                        <li><strong>Ministerio de Salud de Gaza</strong> - Verificado por ONU y organizaciones independientes</li>
-                        <li><strong>OCHA</strong> (Oficina ONU para Coordinación de Asuntos Humanitarios)</li>
-                        <li><strong>PCHR</strong> (Palestinian Centre for Human Rights)</li>
-                        <li><strong>Defense for Children International - Palestine</strong></li>
-                    </ul>
-                </div>
-
-                <h3>DERECHO INTERNACIONAL</h3>
-                <div class="fact-box">
-                    <ul>
-                        <li><strong>Cuarta Convención de Ginebra</strong> (1949)
-                            <br>Artículo 49: Prohibe traslados forzados y deportaciones
-                            <br>Artículo 33: Prohibe castigos colectivos
-                            <br>Artículo 147: Deportación es crimen de guerra
-                        </li>
-                        <li><strong>Estatuto de Roma</strong> (1998) - Corte Penal Internacional
-                            <br>Define apartheid como crimen contra la humanidad
-                        </li>
-                        <li><strong>Convención Internacional contra el Apartheid</strong> (1973)</li>
-                    </ul>
-                </div>
-
-                <h3>SITIOS WEB ÚTILES</h3>
-                <div class="fact-box">
-                    <ul>
-                        <li><strong>B'Tselem:</strong> btselem.org (inglés/hebreo)</li>
-                        <li><strong>Breaking the Silence:</strong> breakingthesilence.org.il</li>
-                        <li><strong>Electronic Intifada:</strong> electronicintifada.net</li>
-                        <li><strong>Middle East Eye:</strong> middleeasteye.net</li>
-                        <li><strong>+972 Magazine:</strong> 972mag.com (periodistas israelíes y palestinos)</li>
-                        <li><strong>Institute for Middle East Understanding:</strong> imeu.org</li>
-                        <li><strong>Jewish Voice for Peace:</strong> jewishvoiceforpeace.org</li>
-                    </ul>
-                </div>
-
-                <h3>VERIFICACIÓN DE HECHOS</h3>
-                <div class="fact-box">
-                    <p><strong>Todos los datos en esta página pueden ser verificados mediante:</strong></p>
-                    <ol>
-                        <li>Archivos históricos británicos (The National Archives, UK)</li>
-                        <li>Documentos desclasificados del Estado de Israel</li>
-                        <li>Bases de datos de la ONU (UNRWA, OCHA)</li>
-                        <li>Informes de organizaciones de derechos humanos (israelíes e internacionales)</li>
-                        <li>Trabajos académicos publicados en revistas peer-reviewed</li>
-                    </ol>
-                </div>
-
-                <div class="stat">
-                    <div class="stat-number">100%</div>
-                    <div class="stat-label">Información verificable con fuentes documentadas</div>
-                </div>
-
-                <h3>NOTA IMPORTANTE SOBRE LAS FUENTES</h3>
-                <div class="fact-box" style="border-color: #ff0000;">
-                    <p><strong style="color: #ff6b6b;">¿Por qué citamos tantos historiadores y organizaciones ISRAELÍES?</strong></p>
-                    <p style="margin-top: 10px;">Porque es imposible acusar a israelíes de "propaganda anti-israelí". Cuando <strong>Benny Morris</strong> (sionista) documenta 70+ masacres usando archivos militares israelíes, cuando <strong>B'Tselem</strong> (israelí) llama a Israel "apartheid", cuando <strong>Breaking the Silence</strong> recoge 1,000+ testimonios de soldados israelíes admitiendo abusos...</p>
-                    <p style="margin-top: 10px; color: #ffcccc;"><strong>Los propios israelíes están documentando lo que sucedió y lo que continúa sucediendo.</strong></p>
-                    <p style="margin-top: 10px;">No son "terroristas" escribiendo propaganda. Son historiadores académicos, organizaciones de derechos humanos respetadas y veteranos del ejército israelí.</p>
-                </div>
-            </div>
         </div>
 
-        <footer style="text-align: center; padding: 30px; color: white; margin-top: 30px;">
-            <p style="font-size: 1.2em; margin-bottom: 10px;">🇵🇸 Palestina Libre 🇵🇸</p>
-            <p style="opacity: 0.9;">Los hechos hablan por sí mismos. La justicia es clara.</p>
-            <p style="margin-top: 15px; opacity: 0.8; font-size: 0.9em;">Basado en datos verificables, documentos históricos y derecho internacional</p>
+        <!-- FOOTER -->
+        <footer class="text-center py-12 px-4">
+            <p class="text-3xl md:text-4xl mb-4 neon">🇵🇸 PALESTINA LIBRE 🇵🇸</p>
+            <p class="text-xl text-gray-400">Los hechos hablan por sí mismos</p>
         </footer>
     </div>
 
     <script>
-        // Función para cambiar de pestaña
-        function showTab(tabName) {
-            // Ocultar todas las secciones
-            const sections = document.querySelectorAll('.section');
-            sections.forEach(section => {
-                section.classList.remove('active');
-            });
-
-            // Remover clase active de todos los botones
-            const buttons = document.querySelectorAll('.tab-button');
-            buttons.forEach(button => {
-                button.classList.remove('active');
-            });
-
-            // Mostrar la sección seleccionada
-            const targetSection = document.getElementById(tabName);
-            if (targetSection) {
-                targetSection.classList.add('active');
-            }
-
-            // Activar el botón correspondiente
-            buttons.forEach(button => {
-                if (button.textContent.toLowerCase().includes(tabName) ||
-                    button.getAttribute('onclick').includes(tabName)) {
-                    button.classList.add('active');
+        // PARTÍCULAS DE FONDO
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: '#ff0000' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.5, random: false },
+                size: { value: 3, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#ff0000',
+                    opacity: 0.4,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: 'none',
+                    random: false,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false
                 }
-            });
-
-            // Scroll suave al inicio del contenido
-            document.querySelector('.content-area').scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-
-        // Función para expandir/contraer preguntas
-        function toggleAnswer(element) {
-            const answer = element.querySelector('.question-answer');
-            const arrow = element.querySelector('.arrow');
-
-            if (answer.classList.contains('show')) {
-                answer.classList.remove('show');
-                arrow.classList.remove('rotate');
-            } else {
-                answer.classList.add('show');
-                arrow.classList.add('rotate');
-            }
-        }
-
-        // Función de búsqueda MEJORADA
-        const searchBox = document.getElementById('searchBox');
-        let searchTimeout;
-
-        searchBox.addEventListener('input', function(e) {
-            const searchTerm = e.target.value.toLowerCase().trim();
-
-            // Limpiar timeout anterior
-            clearTimeout(searchTimeout);
-
-            if (searchTerm.length < 2) {
-                // Limpiar resaltados si la búsqueda es muy corta
-                removeHighlights();
-                return;
-            }
-
-            // Esperar 300ms después de que el usuario deje de escribir
-            searchTimeout = setTimeout(() => {
-                performSearch(searchTerm);
-            }, 300);
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: { enable: true, mode: 'repulse' },
+                    onclick: { enable: true, mode: 'push' },
+                    resize: true
+                }
+            },
+            retina_detect: true
         });
 
+        // NAVEGACIÓN
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+            window.scrollTo({ top: document.getElementById(sectionId).offsetTop - 100, behavior: 'smooth' });
+        }
+
+        function scrollToSection(sectionId) {
+            showSection(sectionId);
+        }
+
+        // BÚSQUEDA
         function performSearch(term) {
-            // Primero limpiar resaltados anteriores
-            removeHighlights();
-
-            // Buscar en todas las secciones
-            const sections = document.querySelectorAll('.section');
-            let foundInSection = null;
-            let foundCount = 0;
-
-            sections.forEach(section => {
-                const sectionText = section.innerText.toLowerCase();
-                if (sectionText.includes(term)) {
-                    foundInSection = section;
-
-                    // Contar ocurrencias
-                    const matches = sectionText.split(term).length - 1;
-                    foundCount += matches;
-
-                    // Resaltar el término en esta sección
-                    highlightTextInElement(section, term);
-                }
-            });
-
-            // Si se encontró algo, mostrar la primera sección con resultados
-            if (foundInSection) {
-                const sectionId = foundInSection.id;
-                showTab(sectionId);
-
-                // Scroll al primer resultado
-                setTimeout(() => {
-                    const firstHighlight = document.querySelector('.search-highlight');
-                    if (firstHighlight) {
-                        firstHighlight.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }
-                }, 100);
-
-                console.log(`✓ Encontrado "${term}" ${foundCount} veces`);
+            const results = document.getElementById('searchResults');
+            if (term.length > 2) {
+                results.innerHTML = `<p class="text-center text-red-500">Buscando "${term}"...</p>`;
             } else {
-                console.log(`✗ No se encontró "${term}"`);
+                results.innerHTML = '';
             }
         }
 
-        function highlightTextInElement(element, term) {
-            // Buscar en todos los nodos de texto
-            const walker = document.createTreeWalker(
-                element,
-                NodeFilter.SHOW_TEXT,
-                null,
-                false
-            );
-
-            const nodesToReplace = [];
-            let node;
-
-            while (node = walker.nextNode()) {
-                const text = node.nodeValue;
-                const lowerText = text.toLowerCase();
-
-                if (lowerText.includes(term)) {
-                    nodesToReplace.push(node);
-                }
-            }
-
-            nodesToReplace.forEach(node => {
-                const text = node.nodeValue;
-                const lowerText = text.toLowerCase();
-                const parts = [];
-                let lastIndex = 0;
-
-                let index = lowerText.indexOf(term);
-                while (index !== -1) {
-                    // Texto antes del match
-                    if (index > lastIndex) {
-                        parts.push(document.createTextNode(text.substring(lastIndex, index)));
-                    }
-
-                    // Texto resaltado
-                    const span = document.createElement('span');
-                    span.className = 'search-highlight';
-                    span.textContent = text.substring(index, index + term.length);
-                    parts.push(span);
-
-                    lastIndex = index + term.length;
-                    index = lowerText.indexOf(term, lastIndex);
-                }
-
-                // Texto después del último match
-                if (lastIndex < text.length) {
-                    parts.push(document.createTextNode(text.substring(lastIndex)));
-                }
-
-                // Reemplazar el nodo original con los nuevos nodos
-                const parent = node.parentNode;
-                parts.forEach(part => {
-                    parent.insertBefore(part, node);
-                });
-                parent.removeChild(node);
-            });
-        }
-
-        function removeHighlights() {
-            const highlights = document.querySelectorAll('.search-highlight');
-            highlights.forEach(highlight => {
-                const parent = highlight.parentNode;
-                parent.replaceChild(document.createTextNode(highlight.textContent), highlight);
-                parent.normalize(); // Combinar nodos de texto adyacentes
-            });
-        }
-
-        // Estilo para resaltado de búsqueda
-        const style = document.createElement('style');
-        style.textContent = `
-            .search-highlight {
-                background: #DC143C;
-                color: #fff;
-                padding: 2px 4px;
-                border-radius: 3px;
-                font-weight: bold;
-                box-shadow: 0 0 10px rgba(220, 20, 60, 0.8);
-                animation: pulse 1.5s infinite;
-            }
-
-            @keyframes pulse {
-                0%, 100% { box-shadow: 0 0 10px rgba(220, 20, 60, 0.8); }
-                50% { box-shadow: 0 0 20px rgba(220, 20, 60, 1); }
-            }
-        `;
-        document.head.appendChild(style);
-
-        // Sugerencias de búsqueda al hacer clic en el campo
-        searchBox.addEventListener('focus', function() {
-            if (this.value === '') {
-                this.placeholder = '💡 Prueba: Nakba, 1948, refugiados, ONU, apartheid, Gaza...';
-            }
-        });
-
-        searchBox.addEventListener('blur', function() {
-            if (this.value === '') {
-                this.placeholder = '🔍 Busca cualquier tema: Nakba, refugiados, ONU, 1948...';
-            }
-        });
-
-        // Efecto de scroll suave para toda la página
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
-        });
-
-        // Animación al cargar
-        window.addEventListener('load', function() {
-            document.body.style.opacity = '0';
-            setTimeout(function() {
-                document.body.style.transition = 'opacity 0.5s';
-                document.body.style.opacity = '1';
-            }, 100);
-        });
+        // ANIMACIONES GSAP AL CARGAR
+        gsap.from('.glitch', { duration: 1, opacity: 0, y: -50, ease: 'bounce' });
+        gsap.from('.btn', { duration: 0.5, opacity: 0, scale: 0.5, stagger: 0.1, ease: 'back' });
+        gsap.from('.floating', { duration: 1, opacity: 0, y: 50, stagger: 0.2 });
     </script>
 </body>
 </html>
