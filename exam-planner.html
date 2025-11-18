@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📚 Planificador de Exámenes con IA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-bg: #0f0f0f;
+            --secondary-bg: #1a1a1a;
+            --card-bg: #252525;
+            --accent-gold: #d4af37;
+            --accent-light: #c9a961;
+            --accent-dark: #b8860b;
+            --text-primary: #f5f5f5;
+            --text-secondary: #d0d0d0;
+            --text-muted: #909090;
+            --border-color: rgba(212, 175, 55, 0.2);
+            --success: #4caf50;
+            --error: #f44336;
+            --glow: 0 0 20px rgba(212, 175, 55, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--primary-bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--secondary-bg) 0%, var(--primary-bg) 100%);
+            padding: 30px 20px;
+            text-align: center;
+            border-bottom: 2px solid var(--border-color);
+            box-shadow: var(--glow);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: var(--text-secondary);
+            font-size: 1.1em;
+        }
+
+        .header .subtitle {
+            color: var(--accent-gold);
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 968px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: var(--secondary-bg);
+            border-radius: 15px;
+            padding: 30px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--glow);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h2 {
+            color: var(--accent-gold);
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 250px;
+            padding: 15px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-family: 'Poppins', sans-serif;
+            font-size: 1em;
+            resize: vertical;
+            margin-bottom: 15px;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+            box-shadow: var(--glow);
+        }
+
+        .file-upload {
+            background: var(--card-bg);
+            border: 2px dashed var(--border-color);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+        }
+
+        .file-upload:hover {
+            border-color: var(--accent-gold);
+            background: rgba(212, 175, 55, 0.05);
+        }
+
+        .file-upload input {
+            display: none;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-light) 100%);
+            color: var(--primary-bg);
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: var(--card-bg);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-danger {
+            background: var(--error);
+            color: white;
+        }
+
+        .exam-item {
+            background: var(--card-bg);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 4px solid var(--accent-gold);
+        }
+
+        .exam-item input {
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            padding: 8px;
+            border-radius: 5px;
+            color: var(--text-primary);
+            margin: 5px 0;
+            width: 100%;
+        }
+
+        .exam-item button {
+            background: var(--error);
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        .flashcards-container {
+            display: grid;
+            gap: 15px;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .flashcard {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .flashcard:hover {
+            border-color: var(--accent-gold);
+            transform: translateX(5px);
+        }
+
+        .flashcard.flipped .answer {
+            display: block;
+        }
+
+        .flashcard .question {
+            color: var(--accent-gold);
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .flashcard .answer {
+            color: var(--text-secondary);
+            display: none;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .flashcard-number {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--accent-gold);
+            color: var(--primary-bg);
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+
+        .flashcard-type {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: var(--accent-dark);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-size: 0.7em;
+            font-weight: 500;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: var(--accent-gold);
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .spinner {
+            border: 3px solid var(--border-color);
+            border-top: 3px solid var(--accent-gold);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--secondary-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-gold);
+            border-radius: 4px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .stat-number {
+            font-size: 2em;
+            color: var(--accent-gold);
+            font-weight: 700;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.9em;
+        }
+
+        .alert {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--accent-gold);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            color: var(--text-secondary);
+        }
+
+        .alert strong {
+            color: var(--accent-gold);
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .ai-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📚 Planificador de Exámenes con IA</h1>
+        <p>Genera tarjetas de estudio automáticamente con IA integrada</p>
+        <p class="subtitle">✨ IA Propia - Sin necesidad de API externa - 100% Gratis ✨</p>
+    </div>
+
+    <div class="container">
+        <div>
+            <div class="card">
+                <h2>📝 Sube tu Contenido</h2>
+
+                <div class="file-upload" id="fileUpload">
+                    <input type="file" id="fileInput" accept=".txt">
+                    <p style="color: var(--text-secondary);">📎 Arrastra archivos aquí o haz clic</p>
+                    <p style="color: var(--text-muted); font-size: 0.9em;">Formato: TXT</p>
+                </div>
+
+                <textarea id="contentInput" placeholder="Pega aquí tus apuntes, notas de clase, resúmenes...
+
+Ejemplo:
+La fotosíntesis es el proceso por el cual las plantas convierten la luz solar en energía química. Este proceso ocurre en los cloroplastos.
+
+Las mitocondrias son las centrales energéticas de la célula. Producen ATP mediante la respiración celular.
+
+El ADN contiene la información genética de todos los seres vivos. Está formado por nucleótidos que se organizan en una doble hélice.
+
+La teoría de la evolución fue propuesta por Charles Darwin. Explica cómo las especies cambian con el tiempo."></textarea>
+
+                <button class="btn" onclick="generateFlashcards()">
+                    ✨ Generar Tarjetas con IA
+                </button>
+
+                <div class="loading" id="loading">
+                    <div class="spinner"></div>
+                    <p>La IA está analizando y generando tarjetas...</p>
+                </div>
+
+                <div class="alert">
+                    <strong>🤖 IA Integrada:</strong> Nuestra IA analiza tu texto, identifica conceptos clave y genera preguntas automáticamente. No necesitas API keys ni pagar nada.
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>📅 Mis Exámenes</h2>
+                <div id="examsList"></div>
+                <button class="btn btn-secondary" onclick="addExam()">+ Añadir Examen</button>
+            </div>
+        </div>
+
+        <div>
+            <div class="card full-width">
+                <h2>📊 Estadísticas</h2>
+                <div class="stats">
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalCards">0</div>
+                        <div class="stat-label">Tarjetas</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalExams">0</div>
+                        <div class="stat-label">Exámenes</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="daysToExam">-</div>
+                        <div class="stat-label">Días próximo examen</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>🎴 Tarjetas de Estudio <span class="ai-badge">IA</span></h2>
+                <p style="color: var(--text-muted); margin-bottom: 15px; font-size: 0.95em;">
+                    Haz clic en una tarjeta para ver la respuesta
+                </p>
+                <button class="btn btn-danger" onclick="clearFlashcards()" style="margin-bottom: 15px;">
+                    🗑️ Limpiar todas las tarjetas
+                </button>
+                <div class="flashcards-container" id="flashcardsContainer">
+                    <div style="text-align: center; padding: 40px; color: var(--text-muted);">
+                        <p>Aún no hay tarjetas generadas.</p>
+                        <p style="margin-top: 10px;">Sube contenido y haz clic en "Generar Tarjetas con IA"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // MOTOR DE IA INTEGRADO
+        // ============================================
+
+        class StudyAI {
+            constructor() {
+                // Palabras comunes a ignorar en español
+                this.stopWords = new Set([
+                    'el', 'la', 'los', 'las', 'un', 'una', 'unos', 'unas',
+                    'de', 'del', 'al', 'a', 'ante', 'bajo', 'con', 'contra',
+                    'desde', 'en', 'entre', 'hacia', 'hasta', 'para', 'por',
+                    'según', 'sin', 'sobre', 'tras', 'y', 'o', 'u', 'e',
+                    'que', 'como', 'cuando', 'donde', 'cual', 'cuales',
+                    'este', 'esta', 'estos', 'estas', 'ese', 'esa', 'esos', 'esas',
+                    'aquel', 'aquella', 'aquellos', 'aquellas', 'su', 'sus',
+                    'mi', 'mis', 'tu', 'tus', 'nuestro', 'nuestra', 'vuestro',
+                    'se', 'si', 'no', 'ni', 'también', 'más', 'muy', 'son',
+                    'está', 'están', 'fue', 'han', 'ser', 'estar'
+                ]);
+
+                // Verbos clave para identificar definiciones
+                this.definitionVerbs = [
+                    'es', 'son', 'fue', 'fueron', 'será', 'serán',
+                    'significa', 'significan', 'define', 'definen',
+                    'consiste', 'consisten', 'representa', 'representan',
+                    'constituye', 'constituyen', 'forma', 'forman',
+                    'contiene', 'contienen', 'incluye', 'incluyen'
+                ];
+
+                // Palabras interrogativas
+                this.questionWords = [
+                    '¿Qué', '¿Cuál', '¿Cuáles', '¿Cómo', '¿Dónde',
+                    '¿Cuándo', '¿Por qué', '¿Quién', '¿Quiénes'
+                ];
+            }
+
+            // Analizar texto y generar tarjetas
+            generateFlashcards(text) {
+                const sentences = this.splitIntoSentences(text);
+                const flashcards = [];
+
+                sentences.forEach(sentence => {
+                    if (sentence.trim().length < 20) return; // Ignorar oraciones muy cortas
+
+                    // Generar diferentes tipos de preguntas
+                    const cards = this.generateQuestionsFromSentence(sentence);
+                    flashcards.push(...cards);
+                });
+
+                return flashcards;
+            }
+
+            // Dividir texto en oraciones
+            splitIntoSentences(text) {
+                // Limpiar y normalizar
+                text = text.replace(/\n+/g, '. ');
+                text = text.replace(/\s+/g, ' ');
+
+                // Dividir por puntos, pero no por abreviaturas comunes
+                const sentences = text.split(/(?<![A-Z])\.(?=\s|$)/)
+                    .map(s => s.trim())
+                    .filter(s => s.length > 0);
+
+                return sentences;
+            }
+
+            // Generar preguntas a partir de una oración
+            generateQuestionsFromSentence(sentence) {
+                const cards = [];
+
+                // Tipo 1: Preguntas de definición
+                const defCard = this.createDefinitionQuestion(sentence);
+                if (defCard) cards.push(defCard);
+
+                // Tipo 2: Preguntas de completar
+                const fillCard = this.createFillInBlankQuestion(sentence);
+                if (fillCard) cards.push(fillCard);
+
+                // Tipo 3: Pregunta directa
+                const directCard = this.createDirectQuestion(sentence);
+                if (directCard) cards.push(directCard);
+
+                return cards;
+            }
+
+            // Crear pregunta de definición (¿Qué es...?)
+            createDefinitionQuestion(sentence) {
+                // Buscar patrones como "X es Y"
+                const patterns = [
+                    /^(.+?)\s+(es|son|fue|fueron|significa|representa|consiste en)\s+(.+?)\.?$/i,
+                    /^(.+?)\s+se\s+(define|conoce|denomina)\s+como\s+(.+?)\.?$/i
+                ];
+
+                for (const pattern of patterns) {
+                    const match = sentence.match(pattern);
+                    if (match) {
+                        const subject = match[1].trim();
+                        const verb = match[2].trim();
+                        const definition = match[3].trim();
+
+                        // Verificar que el sujeto no sea demasiado largo
+                        if (subject.split(' ').length <= 5 && definition.length > 10) {
+                            return {
+                                type: 'definición',
+                                question: `¿Qué ${verb} ${subject.toLowerCase()}?`,
+                                answer: definition.charAt(0).toUpperCase() + definition.slice(1)
+                            };
+                        }
+                    }
+                }
+
+                return null;
+            }
+
+            // Crear pregunta de completar espacios
+            createFillInBlankQuestion(sentence) {
+                // Extraer palabras clave importantes
+                const words = sentence.split(/\s+/);
+                const keywords = this.extractKeywords(sentence);
+
+                if (keywords.length === 0) return null;
+
+                // Seleccionar una palabra clave aleatoria
+                const keyword = keywords[Math.floor(Math.random() * keywords.length)];
+
+                // Crear la pregunta con un espacio en blanco
+                const question = sentence.replace(new RegExp(`\\b${keyword}\\b`, 'i'), '______');
+
+                if (question !== sentence) {
+                    return {
+                        type: 'completar',
+                        question: `Completa: ${question}`,
+                        answer: keyword
+                    };
+                }
+
+                return null;
+            }
+
+            // Crear pregunta directa
+            createDirectQuestion(sentence) {
+                // Identificar el sujeto principal
+                const words = sentence.split(/\s+/);
+
+                // Buscar verbos y crear pregunta
+                const verbMatch = sentence.match(/\b(es|son|tiene|tienen|produce|producen|realiza|realizan|contiene|contienen)\b/i);
+
+                if (verbMatch) {
+                    const parts = sentence.split(verbMatch[0]);
+                    if (parts.length >= 2) {
+                        const subject = parts[0].trim();
+                        const predicate = parts[1].trim();
+
+                        if (subject.split(' ').length <= 6) {
+                            return {
+                                type: 'directa',
+                                question: `¿Qué se sabe sobre ${subject.toLowerCase()}?`,
+                                answer: `${verbMatch[0]} ${predicate}`
+                            };
+                        }
+                    }
+                }
+
+                return null;
+            }
+
+            // Extraer palabras clave del texto
+            extractKeywords(text) {
+                const words = text.toLowerCase()
+                    .replace(/[^\wáéíóúñü\s]/gi, '')
+                    .split(/\s+/)
+                    .filter(word =>
+                        word.length > 4 &&
+                        !this.stopWords.has(word) &&
+                        !this.definitionVerbs.includes(word)
+                    );
+
+                // Contar frecuencias
+                const frequency = {};
+                words.forEach(word => {
+                    frequency[word] = (frequency[word] || 0) + 1;
+                });
+
+                // Ordenar por frecuencia y tomar las más importantes
+                const sorted = Object.entries(frequency)
+                    .sort((a, b) => b[1] - a[1])
+                    .slice(0, 5)
+                    .map(entry => entry[0]);
+
+                return sorted;
+            }
+
+            // Análisis de texto para extraer conceptos principales
+            analyzeText(text) {
+                const sentences = this.splitIntoSentences(text);
+                const concepts = [];
+
+                sentences.forEach(sentence => {
+                    const keywords = this.extractKeywords(sentence);
+                    concepts.push(...keywords);
+                });
+
+                // Eliminar duplicados
+                return [...new Set(concepts)];
+            }
+        }
+
+        // ============================================
+        // APLICACIÓN PRINCIPAL
+        // ============================================
+
+        let flashcards = [];
+        let exams = [];
+        const ai = new StudyAI();
+
+        window.onload = function() {
+            loadData();
+            updateStats();
+        };
+
+        function loadData() {
+            const savedFlashcards = localStorage.getItem('flashcards');
+            if (savedFlashcards) {
+                flashcards = JSON.parse(savedFlashcards);
+                displayFlashcards();
+            }
+
+            const savedExams = localStorage.getItem('exams');
+            if (savedExams) {
+                exams = JSON.parse(savedExams);
+                displayExams();
+            }
+        }
+
+        function saveData() {
+            localStorage.setItem('flashcards', JSON.stringify(flashcards));
+            localStorage.setItem('exams', JSON.stringify(exams));
+        }
+
+        // File Upload
+        const fileUpload = document.getElementById('fileUpload');
+        const fileInput = document.getElementById('fileInput');
+
+        fileUpload.onclick = () => fileInput.click();
+
+        fileUpload.ondragover = (e) => {
+            e.preventDefault();
+            fileUpload.style.borderColor = 'var(--accent-gold)';
+        };
+
+        fileUpload.ondragleave = () => {
+            fileUpload.style.borderColor = 'var(--border-color)';
+        };
+
+        fileUpload.ondrop = (e) => {
+            e.preventDefault();
+            fileUpload.style.borderColor = 'var(--border-color)';
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFile(files[0]);
+            }
+        };
+
+        fileInput.onchange = (e) => {
+            if (e.target.files.length > 0) {
+                handleFile(e.target.files[0]);
+            }
+        };
+
+        function handleFile(file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                document.getElementById('contentInput').value = e.target.result;
+            };
+            reader.readAsText(file);
+        }
+
+        // Generar tarjetas con IA
+        function generateFlashcards() {
+            const content = document.getElementById('contentInput').value;
+
+            if (!content.trim()) {
+                alert('Por favor, ingresa contenido primero');
+                return;
+            }
+
+            // Mostrar loading
+            document.getElementById('loading').classList.add('active');
+
+            // Simular procesamiento de IA
+            setTimeout(() => {
+                const newCards = ai.generateFlashcards(content);
+
+                if (newCards.length === 0) {
+                    alert('No se pudieron generar tarjetas. Intenta con un texto más detallado.');
+                } else {
+                    flashcards = [...flashcards, ...newCards];
+                    saveData();
+                    displayFlashcards();
+                    updateStats();
+                    alert(`✓ ${newCards.length} tarjetas generadas exitosamente`);
+                }
+
+                document.getElementById('loading').classList.remove('active');
+            }, 1500); // Simular procesamiento
+        }
+
+        function displayFlashcards() {
+            const container = document.getElementById('flashcardsContainer');
+
+            if (flashcards.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 40px; color: var(--text-muted);">
+                        <p>Aún no hay tarjetas generadas.</p>
+                        <p style="margin-top: 10px;">Sube contenido y haz clic en "Generar Tarjetas con IA"</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = flashcards.map((card, index) => `
+                <div class="flashcard" onclick="toggleFlashcard(this)">
+                    <div class="flashcard-type">${card.type}</div>
+                    <div class="flashcard-number">${index + 1}</div>
+                    <div class="question">❓ ${card.question}</div>
+                    <div class="answer">💡 ${card.answer}</div>
+                </div>
+            `).join('');
+        }
+
+        function toggleFlashcard(element) {
+            element.classList.toggle('flipped');
+        }
+
+        function clearFlashcards() {
+            if (confirm('¿Estás seguro de que quieres borrar todas las tarjetas?')) {
+                flashcards = [];
+                saveData();
+                displayFlashcards();
+                updateStats();
+            }
+        }
+
+        // Exam Management
+        function addExam() {
+            const exam = {
+                id: Date.now(),
+                subject: '',
+                date: '',
+                time: ''
+            };
+            exams.push(exam);
+            saveData();
+            displayExams();
+            updateStats();
+        }
+
+        function removeExam(id) {
+            exams = exams.filter(e => e.id !== id);
+            saveData();
+            displayExams();
+            updateStats();
+        }
+
+        function updateExam(id, field, value) {
+            const exam = exams.find(e => e.id === id);
+            if (exam) {
+                exam[field] = value;
+                saveData();
+                updateStats();
+            }
+        }
+
+        function displayExams() {
+            const container = document.getElementById('examsList');
+
+            if (exams.length === 0) {
+                container.innerHTML = '<p style="color: var(--text-muted); text-align: center; padding: 20px;">No hay exámenes programados</p>';
+                return;
+            }
+
+            container.innerHTML = exams.map(exam => `
+                <div class="exam-item">
+                    <input type="text" placeholder="Asignatura" value="${exam.subject || ''}"
+                           onchange="updateExam(${exam.id}, 'subject', this.value)">
+                    <input type="date" value="${exam.date || ''}"
+                           onchange="updateExam(${exam.id}, 'date', this.value)">
+                    <input type="time" value="${exam.time || ''}"
+                           onchange="updateExam(${exam.id}, 'time', this.value)">
+                    <button onclick="removeExam(${exam.id})">Eliminar</button>
+                </div>
+            `).join('');
+        }
+
+        function updateStats() {
+            document.getElementById('totalCards').textContent = flashcards.length;
+            document.getElementById('totalExams').textContent = exams.length;
+
+            const upcomingExams = exams
+                .filter(e => e.date)
+                .map(e => new Date(e.date))
+                .filter(d => d >= new Date())
+                .sort((a, b) => a - b);
+
+            if (upcomingExams.length > 0) {
+                const days = Math.ceil((upcomingExams[0] - new Date()) / (1000 * 60 * 60 * 24));
+                document.getElementById('daysToExam').textContent = days;
+            } else {
+                document.getElementById('daysToExam').textContent = '-';
+            }
+        }
+    </script>
+</body>
+</html>
